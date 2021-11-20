@@ -1,7 +1,4 @@
 {
-  "extends": [
-    "next/babel"
-  ],
   "rules": {
     "prefer-const": "error"
   }
