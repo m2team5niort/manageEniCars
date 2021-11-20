@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "pages/cars.js": {
+      "maxDuration": 10
+    }
+  }
+}
