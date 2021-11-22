@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
@@ -9,6 +10,12 @@ const navigation = [
 ]
 
 export default function Navbar() {
+
+  const { session, loading } = useSession()
+
+  console.log(session)
+  console.log(loading)
+
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -49,9 +56,24 @@ export default function Navbar() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Se connecter
-                  </a>
+                  {!loading ? (
+                    <>
+                      {!session ? (
+                        <button
+                          href=""
+                          className="px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                          onClick={() => signIn()}
+                        >
+                          Se connecter
+                        </button>
+                      ) : (
+                        <div className="flex items-center space-x-1 sm:space-x-2">
+                          <img className="rounded-full border border-gray-100 shadow-sm h-8 w-8 object-cover" src="https://scontent-cdg2-1.xx.fbcdn.net/v/t1.6435-9/208001990_10226503526354472_5587917350936812491_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=1pLtcWJe-xYAX-Htb_F&_nc_ht=scontent-cdg2-1.xx&oh=f2cb6f35c7e73cf06767c6c2ad6c3c77&oe=61BFE0B5" alt="Antony Cochet" />
+                          <span className="font-medium text-gray-500 hover:text-gray-900">Bienvenue Antony</span>
+                        </div>
+                      )}
+                    </>
+                  ) : null}
                 </div>
               </nav>
             </div>
@@ -96,12 +118,24 @@ export default function Navbar() {
                       </a>
                     ))}
                   </div>
-                  <a
-                    href="#"
-                    className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                  >
-                    Se connecter
-                  </a>
+                  {!loading ? (
+                    <div>
+                      {session ? (
+                        <button
+                          href=""
+                          className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                          onClick={() => signIn()}
+                        >
+                          Se connecter
+                        </button>
+                      ) : (
+                        <div className="flex items-center space-x-1 sm:space-x-2">
+                          <img src="https://next-auth.js.org/img/logo/logo-xs.png" alt="Antony Cochet" />
+                          <p>Bienvenue Antony</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
               </Popover.Panel>
             </Transition>
