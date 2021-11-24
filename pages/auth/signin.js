@@ -1,25 +1,45 @@
-import { getCsrfToken, getProviders, getSession, signIn } from "next-auth/react"
+import { getProviders, useSession, signIn, signOut } from "next-auth/react"
+import { LockClosedIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 
-export default function SignIn({ session, providers, csrfToken }) {
-
+// Authentification function
+export default function SignIn({ providers }) {
+    const { session, loading } = useSession()
+    if (session) {
+        return (
+            <>
+                Signed in as {session.user.email} <br />
+                <button onClick={() => signOut()}> Déconnexion </button>
+            </>
+        )
+    }
     return (
         <>
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
-                    <div>
+                    <div className="space-y-4">
                         <img
                             className="mx-auto h-12 w-auto"
                             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                             alt="Workflow"
                         />
-                        <h2 className="mt-8 text-center text-3xl font-extrabold text-gray-900"> Création de mon compte </h2>
-                        <p className="mt-6 text-center text-sm text-gray-600">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Bienvenue sur votre page d'inscription
-                            </a>
+                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900"> Connectez-vous à votre compte </h2>
+                        <p className="mt-2 text-center text-sm text-indigo-600">
+                            Bienvenue sur votre page de connexion
                         </p>
                     </div>
-                    <form className="mt-8 space-y-12" action="#" method="POST">
+                    {Object.values(providers).map((provider) => (
+                        <div key={provider.name}>
+                            <button
+                                onClick={() => signIn(provider.id)}
+                                type="submit"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 border-indigo-600 hover:border-indigo-400 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Sign in with {provider.name}
+                            </button>
+                        </div>
+                    ))}
+                    <form className="mt-8 space-y-6" action="#" method="POST">
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="rounded-md shadow-sm space-y-4">
                             <div>
@@ -51,23 +71,42 @@ export default function SignIn({ session, providers, csrfToken }) {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col items-center justify-between space-y-4">
-                            {Object.values(providers).map((provider) => (
-                                <div key={provider.name}>
-                                    <button
-                                        onClick={() => signIn(provider.id)}
-                                        type="submit"
-                                        className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    >
-                                        Sign in with {provider.name}
-                                    </button>
-                                </div>
-                            ))}
-                            <div>
-                                <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">
-                                    Vous avez déjà un compte ?
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    id="remember-me"
+                                    name="remember-me"
+                                    type="checkbox"
+                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                />
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+                            <div className="text-sm">
+                                <a href="#" className="font-medium text-sm text-indigo-600 hover:text-indigo-500">
+                                    Vous avez oublié votre mot de passe ?
                                 </a>
                             </div>
+                        </div>
+                        <div className="text-center">
+                            <button
+                                onClick={() => signIn()}
+                                type="submit"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                                    <LockClosedIcon className="h-5 w-5 text-indigo-300 group-hover:text-indigo-400" aria-hidden="true" />
+                                </span>
+                                Connexion
+                            </button>
+                        </div>
+                        <div>
+                            <Link href="/auth/signup">
+                                <a className="font-medium text-sm text-indigo-600 hover:text-indigo-500 mt-40">
+                                    Vous n'avez pas encore de compte ?
+                                </a>
+                            </Link>
                         </div>
                     </form>
                 </div>
@@ -79,21 +118,10 @@ export default function SignIn({ session, providers, csrfToken }) {
 // This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context) {
     const providers = await getProviders()
-    const { req, res } = context;
-    const session = await getSession({ req });
-    const csrfToken = await getCsrfToken({ req })
-    if (session && res && session.accessToken) {
-        res.writeHead(302, {
-            Location: "/",
-        });
-        res.end()
-        return;
-    }
+
     return {
         props: {
-            session: session,
             providers: providers,
-            csrfToken: csrfToken
         },
     }
 }

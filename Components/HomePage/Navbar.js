@@ -1,7 +1,8 @@
 import { Fragment } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import { Popover, Transition } from '@headlessui/react'
+import { Popover, Transition, Menu } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 const navigation = [
   { name: 'Accueil', href: '#' },
@@ -11,10 +12,7 @@ const navigation = [
 
 export default function Navbar() {
 
-  const { session, loading } = useSession()
-
-  console.log(session)
-  console.log(loading)
+  const { data: session } = useSession()
 
   return (
     <div className="relative bg-white overflow-hidden">
@@ -56,24 +54,75 @@ export default function Navbar() {
                       {item.name}
                     </a>
                   ))}
-                  {!loading ? (
+                  {session ?
                     <>
-                      {!session ? (
-                        <button
-                          href=""
-                          className="px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                          onClick={() => signIn()}
-                        >
-                          Se connecter
-                        </button>
-                      ) : (
-                        <div className="flex items-center space-x-1 sm:space-x-2">
-                          <img className="rounded-full border border-gray-100 shadow-sm h-8 w-8 object-cover" src="https://scontent-cdg2-1.xx.fbcdn.net/v/t1.6435-9/208001990_10226503526354472_5587917350936812491_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=1pLtcWJe-xYAX-Htb_F&_nc_ht=scontent-cdg2-1.xx&oh=f2cb6f35c7e73cf06767c6c2ad6c3c77&oe=61BFE0B5" alt="Antony Cochet" />
-                          <span className="font-medium text-gray-500 hover:text-gray-900">Bienvenue Antony</span>
+                      <Menu as="div" className="relative inline-block text-left">
+                        <div>
+                          <Menu.Button>
+                            <img class="inline object-cover w-8 h-8 rounded-full" src={session.user.image} alt="Profile image" />
+                          </Menu.Button>
                         </div>
-                      )}
+
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
+                            <div className="py-1">
+                              <Menu.Item>
+                                <div className='bg-white text-gray-900 block px-4 py-2 text-sm'>
+                                  <p>Bienvenue</p>
+                                  <span className="font-medium mt-12">{session.user.name}</span>
+                                </div>
+                              </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                              <Menu.Item>
+                                <a
+                                  href="#"
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm'
+                                >
+                                  Mon profil
+                                </a>
+                              </Menu.Item>
+                              <Menu.Item>
+                                <a
+                                  href="#"
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm'
+                                >
+                                  Aide
+                                </a>
+                              </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                              <Menu.Item>
+                                <button
+                                  onClick={() => signOut()}
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm w-full text-left'
+                                >
+                                  Se déconnecter
+                                </button>
+                              </Menu.Item>
+                            </div>
+                          </Menu.Items>
+
+                        </Transition>
+                      </Menu>
                     </>
-                  ) : null}
+                    :
+                    <>
+                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        onClick={() => signIn()}
+                      >
+                        Se connecter
+                      </button>
+                    </>
+                  }
                 </div>
               </nav>
             </div>
@@ -118,24 +167,15 @@ export default function Navbar() {
                       </a>
                     ))}
                   </div>
-                  {!loading ? (
-                    <div>
-                      {session ? (
-                        <button
-                          href=""
-                          className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                          onClick={() => signIn()}
-                        >
-                          Se connecter
-                        </button>
-                      ) : (
-                        <div className="flex items-center space-x-1 sm:space-x-2">
-                          <img src="https://next-auth.js.org/img/logo/logo-xs.png" alt="Antony Cochet" />
-                          <p>Bienvenue Antony</p>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
+                  {session ?
+                    <>
+                      <img class="inline object-cover w-8 h-8 rounded-full" src={session.user.image} alt="Profile image" />
+                    </>
+                    :
+                    <>
+                      <button onClick={() => signIn()}>Se connecter</button>
+                    </>
+                  }
                 </div>
               </Popover.Panel>
             </Transition>
