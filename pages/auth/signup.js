@@ -11,6 +11,25 @@ export default function SignUp({ providers }) {
     const [password, setPassword] = useState('')
     const [submitted, setSubmitted] = useState(false)
     const [toastState, setToastState] = useState(false)
+    const [errorText, setErrorText] = useState('')
+
+    
+    const handleRequiredField = () => {
+        
+        // Verify if inputs not empty
+        if(!name)
+        {
+            return true;
+        }
+        else if(!email)
+        {
+            return true;
+        }
+        else if(!password)
+        {
+            return true;
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -52,13 +71,14 @@ export default function SignUp({ providers }) {
             }
             else if (res.status === 422) {
                 setToastState(true)
+                setErrorText("Utilisateur déjà créé !")
             }
         });
     }
 
     return (
         <>
-            {toastState && <Toast handleToastState={setToastState} />}
+            {toastState && <Toast errorText={errorText} handleToastState={setToastState} />}
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
