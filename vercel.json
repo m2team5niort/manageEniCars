@@ -2,6 +2,9 @@
   "functions": {
     "pages/cars.js": {
       "maxDuration": 10
+    },
+    "pages/auth/signin.js": {
+      "maxDuration": 10
     }
   }
 }

@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { Popover, Transition, Menu } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 const navigation = [
   { name: 'Accueil', href: '#' },
@@ -9,6 +11,9 @@ const navigation = [
 ]
 
 export default function Navbar() {
+
+  const { data: session } = useSession()
+
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -49,9 +54,75 @@ export default function Navbar() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Se connecter
-                  </a>
+                  {session ?
+                    <>
+                      <Menu as="div" className="relative inline-block text-left">
+                        <div>
+                          <Menu.Button>
+                            <img class="inline object-cover w-8 h-8 rounded-full" src={session.user.image} alt="Profile image" />
+                          </Menu.Button>
+                        </div>
+
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
+                            <div className="py-1">
+                              <Menu.Item>
+                                <div className='bg-white text-gray-900 block px-4 py-2 text-sm'>
+                                  <p>Bienvenue</p>
+                                  <span className="font-medium mt-12">{session.user.name}</span>
+                                </div>
+                              </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                              <Menu.Item>
+                                <a
+                                  href="#"
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm'
+                                >
+                                  Mon profil
+                                </a>
+                              </Menu.Item>
+                              <Menu.Item>
+                                <a
+                                  href="#"
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm'
+                                >
+                                  Aide
+                                </a>
+                              </Menu.Item>
+                            </div>
+                            <div className="py-1">
+                              <Menu.Item>
+                                <button
+                                  onClick={() => signOut()}
+                                  className='bg-white hover:bg-gray-100 text-gray-900 block px-4 py-2 text-sm w-full text-left'
+                                >
+                                  Se déconnecter
+                                </button>
+                              </Menu.Item>
+                            </div>
+                          </Menu.Items>
+
+                        </Transition>
+                      </Menu>
+                    </>
+                    :
+                    <>
+                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        onClick={() => signIn()}
+                      >
+                        Se connecter
+                      </button>
+                    </>
+                  }
                 </div>
               </nav>
             </div>
@@ -96,12 +167,15 @@ export default function Navbar() {
                       </a>
                     ))}
                   </div>
-                  <a
-                    href="#"
-                    className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                  >
-                    Se connecter
-                  </a>
+                  {session ?
+                    <>
+                      <img class="inline object-cover w-8 h-8 rounded-full" src={session.user.image} alt="Profile image" />
+                    </>
+                    :
+                    <>
+                      <button onClick={() => signIn()}>Se connecter</button>
+                    </>
+                  }
                 </div>
               </Popover.Panel>
             </Transition>
