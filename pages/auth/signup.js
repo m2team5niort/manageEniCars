@@ -23,14 +23,6 @@ export default function SignUp({ providers }) {
             email,
         }
 
-        //fetch('/api/mailer', {
-        //method: 'POST',
-        //headers: {
-        //'Accept': 'application/json, text/plain, */*',
-        //'Content-Type': 'application/json'
-        //},
-        //body: JSON.stringify(data)
-        //})
         fetch('/api/auth/signup', {
             method: 'POST',
             headers: {
@@ -54,6 +46,15 @@ export default function SignUp({ providers }) {
                 setToastState(true)
             }
         });
+
+        //fetch('/api/mailer', {
+        //method: 'POST',
+        //headers: {
+        //'Accept': 'application/json, text/plain, */*',
+        //'Content-Type': 'application/json'
+        //},
+        //body: JSON.stringify(data)
+        //})
     }
 
     return (
@@ -78,8 +79,8 @@ export default function SignUp({ providers }) {
                                 <button
                                     onClick={() => signIn(provider.id)}
                                     type="submit"
-                                    className="group relative w-56 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
+                                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 border-indigo-600 hover:border-indigo-400 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    >
                                     S'enregistrer avec {provider.name}
                                 </button>
                             </div>
@@ -145,7 +146,7 @@ export default function SignUp({ providers }) {
                         </form >
                         <div className="mt-4 text-center">
                             <Link href="/auth/signin">
-                                <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">
+                                <a className="font-medium text-sm text-indigo-600 hover:text-indigo-500 mt-40">
                                     Vous avez déjà un compte ?
                                 </a>
                             </Link>

@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { Popover, Transition, Menu } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 
 const navigation = [
   { name: 'Accueil', href: '#' },
@@ -14,10 +14,12 @@ export default function Navbar() {
 
   const { data: session } = useSession()
 
+  console.log(session)
+
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-3xl lg:w-full lg:pb-28 xl:pb-32">
           <svg
             className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
             fill="currentColor"
@@ -48,7 +50,7 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
+                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-6">
                   {navigation.map((item) => (
                     <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
                       {item.name}
@@ -116,11 +118,17 @@ export default function Navbar() {
                     </>
                     :
                     <>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      <span className="text-gray-400"> | </span>
+                      <button class="bg-transparent text-gray-700 font-semibold"
                         onClick={() => signIn()}
                       >
                         Se connecter
                       </button>
+                      <Link href='/auth/signup'>
+                        <a class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold hover:text-white py-2 px-4 rounded">
+                          S'enregistrer
+                        </a>
+                      </Link>
                     </>
                   }
                 </div>

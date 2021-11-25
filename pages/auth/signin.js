@@ -28,17 +28,20 @@ export default function SignIn({ providers }) {
                             Bienvenue sur votre page de connexion
                         </p>
                     </div>
-                    {Object.values(providers).map((provider) => (
-                        <div key={provider.name}>
-                            <button
-                                onClick={() => signIn(provider.id)}
-                                type="submit"
-                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 border-indigo-600 hover:border-indigo-400 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Sign in with {provider.name}
-                            </button>
-                        </div>
-                    ))}
+                    <div className="flex flex-col items-center justify-between space-y-6">
+                        {Object.values(providers).map((provider) => (
+                            <div key={provider.name}>
+                                <button
+                                    onClick={() => signIn(provider.id)}
+                                    type="submit"
+                                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 border-indigo-600 hover:border-indigo-400 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Se connecter avec {provider.name}
+                                </button>
+                            </div>
+                        ))}
+                        <span className="text-sm">Ou</span>
+                    </div>
                     <form className="mt-8 space-y-6" action="#" method="POST">
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="rounded-md shadow-sm space-y-4">
@@ -101,10 +104,15 @@ export default function SignIn({ providers }) {
                                 Connexion
                             </button>
                         </div>
-                        <div>
+                        <div className="flex justify-between">
                             <Link href="/auth/signup">
-                                <a className="font-medium text-sm text-indigo-600 hover:text-indigo-500 mt-40">
+                                <a className="font-medium text-sm text-indigo-600 hover:text-indigo-500">
                                     Vous n'avez pas encore de compte ?
+                                </a>
+                            </Link>
+                            <Link href="/">
+                                <a className="font-medium text-sm text-indigo-600 hover:text-indigo-500">
+                                    Retour
                                 </a>
                             </Link>
                         </div>
