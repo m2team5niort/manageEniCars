@@ -16,8 +16,9 @@ export default function Navbar({ user, header }) {
     UserService.signOut()
   }
 
-  return (
+  console.log(session)
 
+  return (
     header === true ?
       <div className="relative bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
@@ -115,8 +116,8 @@ export default function Navbar({ user, header }) {
                               </div>
                             </Menu.Items>
 
-                          </Transition>
-                        </Menu>
+                          </Transition >
+                        </Menu >
                       </>
                       :
                       <>
@@ -133,9 +134,9 @@ export default function Navbar({ user, header }) {
                         </Link>
                       </>
                     }
-                  </div>
-                </nav>
-              </div>
+                  </div >
+                </nav >
+              </div >
 
               <Transition
                 as={Fragment}
@@ -189,7 +190,7 @@ export default function Navbar({ user, header }) {
                   </div>
                 </Popover.Panel>
               </Transition>
-            </Popover>
+            </Popover >
 
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
@@ -221,8 +222,8 @@ export default function Navbar({ user, header }) {
                 </div>
               </div>
             </main>
-          </div>
-        </div>
+          </div >
+        </div >
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
@@ -230,7 +231,7 @@ export default function Navbar({ user, header }) {
             alt=""
           />
         </div>
-      </div>
+      </div >
       :
       <div className="relative overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto">
