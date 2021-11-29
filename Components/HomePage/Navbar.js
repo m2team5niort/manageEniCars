@@ -16,8 +16,6 @@ export default function Navbar({ user, header }) {
     UserService.signOut()
   }
 
-  console.log(session)
-
   return (
     header === true ?
       <div className="relative bg-white overflow-hidden">
