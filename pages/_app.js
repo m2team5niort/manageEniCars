@@ -1,13 +1,13 @@
-import 'tailwindcss/tailwind.css'
-import { SessionProvider } from "next-auth/react"
+import 'tailwindcss/tailwind.css';
+import { useUser } from '../firebase/useUser'
 
-export default function App({
-    Component,
-    pageProps: { session, ...pageProps },
-}) {
-    return (
-        <SessionProvider session={session}>
-            <Component {...pageProps} />
-        </SessionProvider>
-    )
+function MyApp({ Component, pageProps }) {
+
+  const { user, logout } = useUser()
+
+  console.log(user)
+
+  return <Component user={user} {...pageProps} />
 }
+
+export default MyApp

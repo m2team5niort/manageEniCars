@@ -1,11 +1,13 @@
-import Navbar from "../Components/HomePage/Navbar"
-import Features from "../Components/HomePage/Features"
+import Navbar from "../components/homepage/Navbar"
+import Header from "../components/homepage/Header"
+import Features from "../components/homepage/Features"
 
 export default function Home() {
 
   return (
+
     <>
-      <Navbar />
+      <Navbar header />
       <Features />
     </>
 
