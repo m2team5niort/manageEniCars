@@ -1,4 +1,4 @@
-import Navbar from "components/homepage/Navbar"
+import Navbar from "../../Manage_ENI_Cars-1/components/homepage/Navbar"
 
 export default function profile({ user }) {
 
