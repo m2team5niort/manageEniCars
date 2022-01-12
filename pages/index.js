@@ -8,7 +8,7 @@ export default function Home() {
 
     <>
       <Navbar header />
-      ok ok
+      ok ok test
       <Features />
     </>
 
