@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
-import { getProviders, getSession, signIn } from "next-auth/react"
 import Toast from '../../Components/Common/Toast'
 
 export default function SignUp({ providers }) {
