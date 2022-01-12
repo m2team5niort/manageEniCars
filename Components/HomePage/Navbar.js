@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Réservation', href: '/booking' }
 ]
 
-export default function navbar({ header }) {
+export default function Navbar({ header }) {
 
   function signOut() {
     UserService.signOut()

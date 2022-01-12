@@ -1,4 +1,4 @@
-import Navbar from "../components/homepage/navbar"
+import Navbar from "components/homepage/Navbar"
 
 export default function profile({ user }) {
 
