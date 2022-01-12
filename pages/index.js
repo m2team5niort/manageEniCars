@@ -1,9 +1,14 @@
+import Navbar from "../components/homepage/Navbar"
+import Header from "../components/homepage/Header"
+import Features from "../components/homepage/Features"
+
 export default function Home() {
 
   return (
 
     <>
-      <div className="bg-gray-400 w-full h-20">ok</div>
+      <Navbar header />
+      <Features />
     </>
 
   )
