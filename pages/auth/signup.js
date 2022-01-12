@@ -13,20 +13,17 @@ export default function SignUp({ providers }) {
     const [toastState, setToastState] = useState(false)
     const [errorText, setErrorText] = useState('')
 
-    
+
     const handleRequiredField = () => {
-        
+
         // Verify if inputs not empty
-        if(!name)
-        {
+        if (!name) {
             return true;
         }
-        else if(!email)
-        {
+        else if (!email) {
             return true;
         }
-        else if(!password)
-        {
+        else if (!password) {
             return true;
         }
     }
@@ -100,7 +97,7 @@ export default function SignUp({ providers }) {
                                     onClick={() => signIn(provider.id)}
                                     type="submit"
                                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-600 border-indigo-600 hover:border-indigo-400 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    >
+                                >
                                     S'enregistrer avec {provider.name}
                                 </button>
                             </div>
