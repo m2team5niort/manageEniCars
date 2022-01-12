@@ -1,6 +1,6 @@
-import Navbar from "../../Manage_ENI_Cars-1/components/homepage/Navbar"
-import Header from "../../Manage_ENI_Cars-1/components/homepage/Header"
-import Features from "../../Manage_ENI_Cars-1/components/homepage/Features"
+import Navbar from "../components/homepage/Navbar"
+import Header from "../components/homepage/Header"
+import Features from "../components/homepage/Features"
 
 export default function Home() {
 
