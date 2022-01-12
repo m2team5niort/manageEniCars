@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Réservation', href: '/booking' }
 ]
 
-export default function Navbar({ header }) {
+export default function navbar({ header }) {
 
   function signOut() {
     UserService.signOut()
@@ -40,7 +40,7 @@ export default function Navbar({ header }) {
                   <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
                       <a href="#">
-                        <span className="sr-only">Workflow t</span>
+                        <span className="sr-only">Workflow</span>
                         <img
                           className="h-8 w-auto sm:h-10"
                           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
