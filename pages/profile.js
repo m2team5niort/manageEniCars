@@ -1,5 +1,3 @@
-import Navbar from "../components/homepage/Navbar"
-
 export default function profile({ user }) {
 
     console.log(user)
@@ -7,7 +5,7 @@ export default function profile({ user }) {
     return (
 
         <div className="min-h-screen bg-gray-100 w-full">
-            <Navbar />
+
             <div className="flex flex-row justify-center bg-gray-100 pt-12">
                 < div className="flex flex-col" >
                     <div className="p-6 flex">
