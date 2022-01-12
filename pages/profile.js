@@ -2,6 +2,8 @@ import Navbar from "../components/homepage/Navbar"
 
 export default function profile({ user }) {
 
+    console.log(user)
+
     return (
 
         <div className="min-h-screen bg-gray-100 w-full">

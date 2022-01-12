@@ -3,6 +3,7 @@ import { Popover, Transition, Menu } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import UserService from "../../service/UserService"
+import { useUser } from '../../firebase/useUser'
 
 const navigation = [
   { name: 'Accueil', href: '/' },
@@ -10,11 +11,13 @@ const navigation = [
   { name: 'Réservation', href: '/booking' }
 ]
 
-export default function Navbar({ user, header }) {
+export default function Navbar({ header }) {
 
   function signOut() {
     UserService.signOut()
   }
+
+  const { user, logout } = useUser()
 
   return (
     header === true ?
