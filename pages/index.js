@@ -1,6 +1,6 @@
-import Navbar from "../components/homepage/Navbar"
-import Header from "../components/homepage/Header"
-import Features from "../components/homepage/Features"
+import Navbar from "../Components/homepage/Navbar"
+import Header from "../Components/homepage/Header"
+import Features from "../Components/homepage/Features"
 
 export default function Home() {
 
