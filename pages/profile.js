@@ -1,5 +1,3 @@
-import { Navbar } from "../Components/homepage/Navbar"
-
 export default function profile({ user }) {
 
     console.log(user)
