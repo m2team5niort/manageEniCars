@@ -5,8 +5,6 @@ function MyApp({ Component, pageProps }) {
 
   const { user, logout } = useUser()
 
-  console.log(user)
-
   return <Component user={user} {...pageProps} />
 }
 
