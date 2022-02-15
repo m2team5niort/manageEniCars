@@ -21,7 +21,7 @@ export default function signin() {
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             if (result.user.isAnonymous === false) {
-                router.push('/')
+                router.push('/dashboard')
             }
         })
     }
@@ -29,7 +29,7 @@ export default function signin() {
     function loginWithEmailPassword(email, password) {
         UserService.signInWithEmailAndPassword(email, password).then(function (result) {
             if (result.user.isAnonymous === false) {
-                router.push('/')
+                router.push('/dashboard')
             }
         })
     }

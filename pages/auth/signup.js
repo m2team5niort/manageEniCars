@@ -55,7 +55,7 @@ export default function SignUp({ providers }) {
                 setSubmitted(true)
                 setName('')
                 setEmail('')
-                Router.push('/')
+                Router.push('/dashboard')
             }
             else if (res.status === 422) {
                 setToastState(true)
