@@ -24,7 +24,9 @@ export default function signup() {
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             if (result.user.isAnonymous === false) {
-                router.push('/dashboard')
+                UserService.registerUserFirestore(result.user).then(function (result) {
+                    router.push('/dashboard')
+                })
             }
         })
     }

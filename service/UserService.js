@@ -1,6 +1,6 @@
 import { google_provider } from "../firebase/initFirebase"
 import firebase from "firebase/app"
-//Importer bcryptjs pour hash le password
+var bcrypt = require('bcryptjs');
 
 class UserService {
 
@@ -46,8 +46,9 @@ class UserService {
                 .doc(user.uid)
                 .set({
                     email: user.email,
-                    name: '',
-                    password: await hash(password, 12)
+                    name: user.displayName,
+                    password: await bcrypt.hash('testPassword', 12),
+                    role: 'user'
                 })
         } catch (error) {
             console.log(error)
