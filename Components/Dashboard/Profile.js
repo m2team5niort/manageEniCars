@@ -9,10 +9,12 @@ import firebase from "firebase/app"
 export default function Profile() {
 
     const user = useAppContext(AppWrapper)
-    const [toastState, setToastState] = useState(false)
-    const [errorText, setErrorText] = useState('')
+    const [stateText, setStateText] = useState('')
     const [userState, setUserState] = useState({})
     const [loading, setLoading] = useState(false)
+
+    const [toastState, setToastState] = useState(false)
+    const [toastStatus, setToastStatus] = useState()
 
     const registerUser = async event => {
         event.preventDefault()
@@ -46,9 +48,13 @@ export default function Profile() {
 
         if (result.status === 200) {
             UserService.setUserFirestoreProfile(userData)
+            setToastState(true)
+            setStateText('Modification du profil')
+            setToastStatus(1)
         } else {
             setToastState(true)
-            setErrorText('Problème dans le formulaire')
+            setStateText('Problème dans le formulaire')
+            setToastStatus(0)
         }
     }
 
@@ -71,7 +77,7 @@ export default function Profile() {
         <>
             {loading ?
                 <>
-                    {toastState && <Toast errorText={errorText} handleToastState={setToastState} />}
+                    {toastState && <Toast status={toastStatus} stateText={stateText} handleToastState={setToastState} />}
                     <div className="min-h-screen bg-gray-100 ml-64">
                         <div className="flex justify-center bg-gray-100 pt-12">
                             <div className="p-6 bg-gray-100 flex items-center justify-center">

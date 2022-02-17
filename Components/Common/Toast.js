@@ -3,8 +3,8 @@ export default function Toast(props) {
     return (
         <>
             <div className="alert-banner w-full fixed bottom-0 shadow-xl">
-                <label className="flex items-center justify-between w-full p-2 bg-red-500 shadow text-white text-sm" title="close" htmlFor="banneralert">
-                    ERREUR - {props.errorText}
+                <label className={`flex items-center justify-between w-full p-2 ${props.toastStatus === 0 ? "bg-red-500" : "bg-green-500"} shadow text-white text-sm`} title="close" htmlFor="banneralert">
+                    {props.toastStatus === 0 ? 'Erreur' : 'Success'} - {props.stateText}
 
                     <div onClick={() => props.handleToastState(false)}>
                         <svg className="fill-current text-white cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
