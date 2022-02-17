@@ -38,7 +38,11 @@ class UserService {
             .catch((error) => error);
     }
 
-    async registerUserFirestore(user) {
+    /**
+     * Inscription user firestore avec Google
+     * @param user Objet utilisateur
+     */
+    async registerUserFirestoreFromGoogle(user) {
         try {
             firebase
                 .firestore()
@@ -47,8 +51,30 @@ class UserService {
                 .set({
                     email: user.email,
                     name: user.displayName,
-                    password: await bcrypt.hash('testPassword', 12),
-                    role: 'user'
+                    role: 'user',
+                    provider: true
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    /**
+     * Inscription user firestore avec Email/Password
+     * @param user Objet utilisateur
+     * @param password mot de passe du compte
+     */
+    async registerUserFirestoreFromEmail(user, password) {
+        try {
+            firebase
+                .firestore()
+                .collection('User')
+                .doc(user.uid)
+                .set({
+                    email: user.email,
+                    password: await bcrypt.hash(password, 12),
+                    role: 'user',
+                    provider: false
                 })
         } catch (error) {
             console.log(error)

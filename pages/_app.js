@@ -1,11 +1,13 @@
 import 'tailwindcss/tailwind.css';
-import { useUser } from '../firebase/useUser'
+import { AppWrapper } from '../context/AppContext';
 
 function MyApp({ Component, pageProps }) {
 
-  const { user, logout } = useUser()
-
-  return <Component user={user} {...pageProps} />
+  return (
+    <AppWrapper>
+      <Component {...pageProps} />
+    </AppWrapper>
+  )
 }
 
 export default MyApp

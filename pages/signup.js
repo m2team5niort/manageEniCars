@@ -24,9 +24,13 @@ export default function signup() {
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             if (result.user.isAnonymous === false) {
-                UserService.registerUserFirestore(result.user).then(function (result) {
+                UserService.registerUserFirestoreFromGoogle(result.user).then(function () {
                     router.push('/dashboard')
                 })
+            }
+            else {
+                setToastState(true)
+                setErrorText('Problème de provider')
             }
         })
     }
@@ -34,12 +38,13 @@ export default function signup() {
     function registerWithEmailAndPassword() {
         UserService.registerWithEmailAndPassword(email, password).then(function (result) {
             if (result.code !== 'auth/email-already-in-use') {
-                UserService.registerUserFirestore(result.user).then(function (result) {
+                UserService.registerUserFirestoreFromEmail(result.user, password).then(function () {
                     router.push('/dashboard')
                 })
             }
             else {
-
+                setToastState(true)
+                setErrorText('Problème d\'email ou mot de passe')
             }
         })
     }

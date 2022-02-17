@@ -1,27 +1,14 @@
-import router from 'next/router'
-import UserService from "../service/UserService"
-import { useUser } from '../firebase/useUser'
+import DashboardBase from '../Components/Dashboard/DashboardBase'
+import DashboardContent from '../Components/Dashboard/DashboardContent'
 
-import Sidebar from '../Components/Dashboard/Sidebar'
-import Content from '../Components/Dashboard/Content'
-
-export default function Dashboard() {
-
-    function signOut() {
-        UserService.signOut()
-        router.push('/')
-    }
-
-    const { user, logout } = useUser()
+export default function dashboard() {
 
     return (
         <>
-            {user &&
-                <div className='flex'>
-                    <Sidebar />
-                    <Content user={user} />
-                </div>
-            }
+            <div className='flex flex-col'>
+                <DashboardBase />
+                <DashboardContent />
+            </div>
         </>
     )
 
