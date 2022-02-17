@@ -1,4 +1,10 @@
-export default function DashboardContent({ user }) {
+import { AppWrapper, useAppContext } from "../../context/AppContext";
+
+export default function DashboardContent() {
+
+    const user = useAppContext(AppWrapper)
+
+    console.log(user)
 
     return (
         <>

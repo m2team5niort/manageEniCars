@@ -1,4 +1,12 @@
+import UserService from "../../../service/UserService"
+
 const profile = async (req, res) => {
+
+    console.log(req)
+
+    UserService.setUserFirestoreProfile(req).then(function (resultData) {
+        console.log(resultData)
+    })
 
     return res.status(200).json({
         result: {

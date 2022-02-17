@@ -81,6 +81,29 @@ class UserService {
         }
     }
 
+    async setUserFirestoreProfile(user) {
+        try {
+            firebase
+                .firestore()
+                .collection('User')
+                .doc(user.id)
+                .update({
+                    role: 'user',
+                    provider: false,
+                    lastName: user.lastName,
+                    firstName: user.firstName,
+                    mail: user.mail,
+                    address: user.address,
+                    city: user.city,
+                    country: user.country,
+                    departement: user.departement,
+                    zip: user.zip,
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     /**
      * Déconnecte l'utilisateur du site
      */

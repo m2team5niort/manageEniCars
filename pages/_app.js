@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css';
+
 import { AppWrapper } from '../context/AppContext';
 
 function MyApp({ Component, pageProps }) {

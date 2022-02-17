@@ -4,6 +4,8 @@ export default function Profile() {
 
     const user = useAppContext(AppWrapper)
 
+    console.log(user)
+
     const registerUser = async event => {
         event.preventDefault()
 
@@ -11,6 +13,7 @@ export default function Profile() {
             '/api/dashboard/profile',
             {
                 body: JSON.stringify({
+                    userId: user.id,
                     lastName: event.target.lastName.value,
                     firstName: event.target.firstName.value,
                     mail: event.target.mail.value,
@@ -56,7 +59,7 @@ export default function Profile() {
                         <div className="container max-w-screen-lg mx-auto">
                             <div>
                                 <div className="bg-white rounded-md shadow-sm pb-6">
-                                    <div className="pl-12 p-4 border-b border-grey-300 font-medium mb-8 w-full">Mon profil {user.email}</div>
+                                    <div className="pl-12 p-4 border-b border-grey-300 font-medium mb-8 w-full">Mon profil</div>
                                     <div className="flex flex-row">
                                         <div className="w-1/4 flex justify-center mt-4">
                                             <img className="inline object-cover w-32 h-32 rounded-full" src='http://jingculturecommerce.com/wp-content/uploads/2021/11/rtfkt-murakami-clone-x-4-1024x682.jpg' alt="Profile image" />
