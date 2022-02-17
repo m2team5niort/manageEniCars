@@ -104,6 +104,22 @@ class UserService {
         }
     }
 
+    async getUserFirestoreProfile(user) {
+        let dataUser
+        try {
+            firebase
+                .firestore()
+                .collection('User')
+                .doc(user.id)
+                .onSnapshot(function (doc) {
+                    dataUser = doc.data()
+                })
+        } catch (error) {
+            console.log(error)
+        }
+        return dataUser
+    }
+
     /**
      * Déconnecte l'utilisateur du site
      */
