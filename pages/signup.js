@@ -1,3 +1,4 @@
+// Imports Used
 import initFirebase from '../firebase/initFirebase'
 import 'firebase/auth'
 import { useEffect, useState } from 'react'
@@ -6,21 +7,27 @@ import Link from "next/link"
 import router from 'next/router'
 import Toast from '../Components/Common/Toast'
 
+// Init
 initFirebase()
 
+// signup function
 export default function signup() {
+
+    // Consts used
     const [renderAuth, setRenderAuth] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassowrd] = useState('')
     const [toastState, setToastState] = useState(false)
     const [errorText, setErrorText] = useState('')
 
+    // useEffect
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setRenderAuth(true)
         }
     }, [])
 
+    // loginWithGoogle function
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             if (result.user.isAnonymous === false) {
@@ -35,6 +42,7 @@ export default function signup() {
         })
     }
 
+    // registerWithEmailAndPassword function
     function registerWithEmailAndPassword() {
         UserService.registerWithEmailAndPassword(email, password).then(function (result) {
             if (result.code !== 'auth/email-already-in-use') {

@@ -1,3 +1,4 @@
+// Toast function
 export default function Toast(props) {
 
     return (

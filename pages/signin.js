@@ -1,3 +1,4 @@
+// Imports Used
 import initFirebase from '../firebase/initFirebase'
 import 'firebase/auth'
 import { useEffect, useState } from 'react'
@@ -5,19 +6,25 @@ import UserService from "../service/UserService"
 import Link from "next/link"
 import router from 'next/router'
 
+// Init
 initFirebase()
 
+// signIn function
 export default function signin() {
+
+    // Consts used
     const [renderAuth, setRenderAuth] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassowrd] = useState('')
 
+    // useEffect
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setRenderAuth(true)
         }
     }, [])
 
+    // loginWithGoogle function
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             if (result.user.isAnonymous === false) {
@@ -26,6 +33,8 @@ export default function signin() {
         })
     }
 
+    // loginWithEmailPassword function
+    // -> Data : email, password
     function loginWithEmailPassword(email, password) {
         UserService.signInWithEmailAndPassword(email, password).then(function (result) {
             if (result.user.isAnonymous === false) {
