@@ -9,10 +9,14 @@ export default function Sidebar() {
                 <div className='h-12'>
                     <img src='https://zupimages.net/up/22/07/s8r6.png' />
                 </div>
-                <div className="flex flex-col min-h-custom-dashboard-height  pt-14">
-                    <div className='flex flex-row mb-14'>
-                        <HomeIcon className="h-5 w-5 text-white mr-2" />
-                        <a>Dashboard</a>
+                <div className="flex flex-col min-h-custom-dashboard-height pt-14">
+                    <div className='mb-14'>
+                        <Link href='/dashboard'>
+                            <a className='flex flex-row'>
+                                <HomeIcon className="h-5 w-5 text-white mr-2" />
+                                Dashboard
+                            </a>
+                        </Link>
                     </div>
                     <div className='space-y-8'>
                         <h3>ACTION</h3>

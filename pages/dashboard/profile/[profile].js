@@ -1,16 +1,18 @@
 import Profile from '../../../Components/Dashboard/Profile'
 import DashboardBase from '../../../Components/Dashboard/DashboardBase'
 import firebase from "firebase/app"
+import Sidebar from '../../../Components/Dashboard/Sidebar'
 
 export default function profile({ user }) {
 
     console.log(user)
 
     return (
-        <>
-            <DashboardBase />
+
+        <div className='flex flex-row'>
+            <Sidebar />
             <Profile user={user} />
-        </>
+        </div>
     )
 }
 

@@ -4,6 +4,7 @@ import UserService from "../../service/UserService"
 import Toast from '../../Components/Common/Toast'
 
 import firebase from "firebase/app"
+import Navbar from './Navbar';
 
 export default function Profile({ user }) {
 
@@ -67,15 +68,16 @@ export default function Profile({ user }) {
     }, [])
 
     return (
-        <>
+        <div className="flex flex-col w-10/12 bg-base-1">
+            <Navbar />
             {toastState && <Toast status={toastStatus} stateText={stateText} handleToastState={setToastState} />}
-            <div className="min-h-screen bg-gray-100 ml-64">
-                <div className="flex justify-center bg-gray-100 pt-12 ">
-                    <div className="p-6 bg-gray-100 flex items-center justify-center">
+            <div className="min-h-custom-dashboard-height h-full">
+                <div className="flex justify-center pt-12 ">
+                    <div className="p-6 flex items-center justify-center">
                         <div className="container max-w-screen-lg mx-auto">
                             <div>
-                                <div className="bg-white rounded-md shadow-sm pb-6">
-                                    <div className="pl-12 p-4 border-b border-grey-300 font-medium mb-8 w-full">
+                                <div className="bg-base-2 rounded-md shadow-sm pb-6">
+                                    <div className="pl-12 p-4 border-b border-grey-300 font-medium mb-8 w-full text-white">
                                         Mon profil
                                     </div>
 
@@ -85,45 +87,45 @@ export default function Profile({ user }) {
                                         </div>
                                         <form onSubmit={registerUser}>
                                             <div className="w-3/4 pr-12">
-                                                <div className="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-5">
+                                                <div className="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-5 text-white">
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="lastName">Nom</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.lastName} type="text" name="lastName" id="lastName" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.lastName} type="text" name="lastName" id="lastName" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="firstName">Prénom</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.firstName} type="text" name="firstName" id="firstName" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.firstName} type="text" name="firstName" id="firstName" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="mail">Address mail</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.mail} type="text" name="mail" id="mail" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="email@domain.com" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.mail} type="text" name="mail" id="mail" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="email@domain.com" />
                                                     </div>
 
                                                     <div className="md:col-span-3">
                                                         <label htmlFor="address">Adresse</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.address} type="text" name="address" id="address" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.address} type="text" name="address" id="address" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
                                                     </div>
 
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="city">Ville</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.city} type="text" name="city" id="city" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.city} type="text" name="city" id="city" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
                                                     </div>
 
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="country">Pays</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.country} name="country" id="country" placeholder="Pays" type="text" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.country} name="country" id="country" placeholder="Pays" type="text" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="departement">Département</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.departement} name="departement" id="departement" type="number" placeholder="Département" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.departement} name="departement" id="departement" type="number" placeholder="Département" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
                                                     <div className="md:col-span-1">
                                                         <label htmlFor="zip">Code postal</label>
-                                                        <input onChange={e => setUserState(e.target.value)} value={userState.zip} type="text" name="zip" id="zip" type="number" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
+                                                        <input onChange={e => setUserState(e.target.value)} value={userState.zip} type="text" name="zip" id="zip" type="number" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="" />
                                                     </div>
 
                                                     <div className="md:col-span-5 text-right">
@@ -142,6 +144,6 @@ export default function Profile({ user }) {
                     </div>
                 </div >
             </div>
-        </>
+        </div>
     )
 }
