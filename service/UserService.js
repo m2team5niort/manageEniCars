@@ -1,7 +1,9 @@
+// Imports Used
 import { google_provider } from "../firebase/initFirebase"
 import firebase from "firebase/app"
 var bcrypt = require('bcryptjs');
 
+// UserService class
 class UserService {
 
     /**

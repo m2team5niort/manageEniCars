@@ -1,17 +1,20 @@
+// Imports Used
 import { useState } from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import Toast from '../../Components/Common/Toast'
 
+// SignUp function
+// -> Data : providers
 export default function SignUp({ providers }) {
 
+    // Consts Used
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [submitted, setSubmitted] = useState(false)
     const [toastState, setToastState] = useState(false)
     const [errorText, setErrorText] = useState('')
-
 
     const handleRequiredField = () => {
 

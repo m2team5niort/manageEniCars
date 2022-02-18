@@ -1,22 +1,37 @@
+// Imports used
 import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 
+// Sidebar function
 export default function Sidebar() {
 
     return (
         <>
+            {/* SideBar Container */}
             <div className="bg-base-1 w-2/12 text-white h-screen px-10">
+
+                {/* Company Logo */}
                 <div className='h-12'>
                     <img src='https://zupimages.net/up/22/07/s8r6.png' />
                 </div>
+
+                {/* SideBar Content */}
                 <div className="flex flex-col min-h-custom-dashboard-height  pt-14">
+
+                    {/* Dashboard Content */}
                     <div className='flex flex-row mb-14'>
                         <HomeIcon className="h-5 w-5 text-white mr-2" />
                         <a>Dashboard</a>
                     </div>
+
+                    {/* Action Content */}
                     <div className='space-y-8'>
                         <h3>ACTION</h3>
+
+                        {/* List of Actions */}
                         <ul className="space-y-12 ml-1">
+
+                            {/* Manage Users Section */}
                             <li>
                                 <Link href='/dashboard/user'>
                                     <div className='flex flex-row text-white opacity-70 hover:opacity-100 cursor-pointer'>
@@ -25,6 +40,8 @@ export default function Sidebar() {
                                     </div>
                                 </Link>
                             </li>
+
+                            {/* Manage Cars Section */}
                             <li>
                                 <Link href='/dashboard/car'>
                                     <div className='flex flex-row text-white opacity-70 hover:opacity-100 cursor-pointer'>
@@ -33,6 +50,8 @@ export default function Sidebar() {
                                     </div>
                                 </Link>
                             </li>
+
+                            {/* Manage Reservations Section */}
                             <li>
                                 <Link href='/dashboard/reservation'>
                                     <div className='flex flex-row text-white opacity-70 hover:opacity-100 cursor-pointer'>

@@ -1,8 +1,10 @@
+// Imports Used
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { useUser } from '../../firebase/useUser'
 import Button from 'react-bootstrap/Button'
 
+// Consts used
 const ReadDataFromCloudFirestore = () => {
     const { user } = useUser()
     const readData = () => {
