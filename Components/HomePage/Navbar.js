@@ -8,7 +8,7 @@ import { useUser } from '../../firebase/useUser'
 const navigation = [
   { name: 'Accueil', href: '/' },
   { name: 'Fonctionnalités', href: '/features' },
-  { name: 'Réservation', href: '/booking' }
+  { name: 'Réservation', href: '/booking' },
 ]
 
 export default function Navbar({ header }) {
