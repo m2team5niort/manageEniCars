@@ -5,10 +5,7 @@ import Sidebar from '../../../Components/Dashboard/Sidebar'
 
 export default function profile({ user }) {
 
-    console.log(user)
-
     return (
-
         <div className='flex flex-row'>
             <Sidebar />
             <Profile user={user} />

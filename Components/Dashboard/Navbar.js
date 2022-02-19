@@ -30,7 +30,7 @@ export default function Navbar() {
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <img className="inline object-cover w-8 h-8 rounded-full mr-4" src={user.profilePic != null ? user.profilePic : 'https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png'} alt="Profile image" />
-                                    <h3 className="font-normal">{user.name != null ? user.name : user.email}</h3>
+                                    <h3 className="font-normal">{user.firstName && user.lastName != null ? user.firstName + ' ' + user.lastName : user.email}</h3>
                                 </div>
                                 <div className="border-r border-white opacity-30"></div>
                                 <ul className="flex flex-row items-center space-x-4">

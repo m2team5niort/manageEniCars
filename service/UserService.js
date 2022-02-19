@@ -50,9 +50,11 @@ class UserService {
                 .doc(user.uid)
                 .set({
                     email: user.email,
-                    name: user.displayName,
+                    lastName: user.displayName.split(' ')[1],
+                    firstName: user.displayName.split(' ')[0],
                     role: 'user',
-                    provider: true
+                    provider: true,
+                    profilPicture: ''
                 })
         } catch (error) {
             console.log(error)
@@ -74,7 +76,8 @@ class UserService {
                     email: user.email,
                     password: await bcrypt.hash(password, 12),
                     role: 'user',
-                    provider: false
+                    provider: false,
+                    profilPicture: ''
                 })
         } catch (error) {
             console.log(error)
@@ -92,12 +95,13 @@ class UserService {
                     provider: false,
                     lastName: user.lastName,
                     firstName: user.firstName,
-                    mail: user.mail,
+                    email: user.email,
                     address: user.address,
                     city: user.city,
                     country: user.country,
                     departement: user.departement,
                     zip: user.zip,
+                    profilPicture: user.profilPicture
                 })
         } catch (error) {
             console.log(error)
