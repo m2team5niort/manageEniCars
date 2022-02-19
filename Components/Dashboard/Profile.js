@@ -1,14 +1,16 @@
+// Imports used
 import { useState, useEffect } from 'react';
-
 import UserService from "../../service/UserService"
 import Toast from '../../Components/Common/Toast'
-
 import firebase from "firebase/app"
 import { getStorage, ref } from "firebase/storage";
 import Navbar from './Navbar';
 
+// Profile function
+// Parameter : user
 export default function Profile({ user }) {
 
+    // Consts used
     const [stateText, setStateText] = useState('')
     const [userState, setUserState] = useState({
         lastName: user.dataUser.lastName,
@@ -43,6 +45,7 @@ export default function Profile({ user }) {
     const [toastState, setToastState] = useState(false)
     const [toastStatus, setToastStatus] = useState()
 
+    // Register User to get Data
     const registerUser = async event => {
 
         event.preventDefault()
@@ -69,6 +72,7 @@ export default function Profile({ user }) {
 
         console.log(imageAsUrl)
 
+        // userData
         let userData = {
             id: user.userId,
             profilPicture: imageAsUrl.imgUrl ? imageAsUrl.imgUrl : userState.profilPicture,
@@ -125,10 +129,15 @@ export default function Profile({ user }) {
                                         Mon profil
                                     </div>
 
+                                    {/* User Data Section */}
                                     <div className="flex flex-row">
+
+                                        {/* Image User */}
                                         <div className="w-1/4 flex justify-center mt-4">
                                             <img className="inline object-cover w-32 h-32 rounded-full" src={userState.profilPicture ? userState.profilPicture : 'https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png'} alt="Profile image" />
                                         </div>
+
+                                        {/* Form User */}
                                         <form onSubmit={registerUser}>
                                             <div className="w-3/4 pr-12">
                                                 <div className="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-5 text-white">
@@ -137,51 +146,60 @@ export default function Profile({ user }) {
                                                         <input onChange={e => handleChange('lastName', e)} defaultValue={userState.lastName || ''} required='required' type="text" name="lastName" id="lastName" placeholder="Nom" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Last Name */}
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="firstName">Prénom</label>
                                                         <input onChange={e => handleChange('firstName', e)} defaultValue={userState.firstName || ''} required='required' type="text" name="firstName" id="firstName" placeholder="Prénom" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Email Address */}
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="email">Address mail</label>
                                                         <input onChange={e => handleChange('email', e)} defaultValue={userState.email || ''} required='required' type="text" name="mail" id="mail" placeholder="Email" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="email@domain.com" />
                                                     </div>
 
+                                                    {/* Address */}
                                                     <div className="md:col-span-3">
                                                         <label htmlFor="address">Adresse</label>
                                                         <input onChange={e => handleChange('address', e)} defaultValue={userState.address || ''} required='required' type="text" name="address" id="address" placeholder="Adresse" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* City */}
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="city">Ville</label>
                                                         <input onChange={e => handleChange('city', e)} defaultValue={userState.city || ''} required='required' type="text" name="city" id="city" placeholder="Ville" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Country */}
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="country">Pays</label>
                                                         <input onChange={e => handleChange('country', e)} defaultValue={userState.country || ''} required='required' name="country" id="country" type="text" placeholder="Pays" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Department */}
                                                     <div className="md:col-span-2">
                                                         <label htmlFor="departement">Département</label>
                                                         <input onChange={e => handleChange('departement', e)} defaultValue={userState.departement || ''} required='required' name="departement" id="departement" type="number" placeholder="Département" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Zip Code */}
                                                     <div className="md:col-span-1">
                                                         <label htmlFor="zip">Code postal</label>
                                                         <input onChange={e => handleChange('zip', e)} defaultValue={userState.zip || ''} required='required' type="text" name="zip" id="zip" type="number" placeholder="Code postal" className="bg-base-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                                     </div>
 
+                                                    {/* Upload Picture */}
                                                     <div className="md:col-span-5">
                                                         <label htmlFor="picture">Photo</label>
                                                         <input onChange={handleImageAsFile} type="file" id="formFile" className="form-control block w-full px-3 py-1 text-base font-normal text-white bg-base-1 border border-gray-300 rounded transition ease-in-out focus:border-blue-600 focus:outline-none" />
                                                     </div>
+
+                                                    {/* Save */}
                                                     <div className="md:col-span-5 text-right">
                                                         <div className="inline-flex items-end">
                                                             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Enregistrer</button>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </form>

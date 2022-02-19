@@ -1,3 +1,4 @@
+// Imports Used
 import { Fragment } from 'react'
 import { Popover, Transition, Menu } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -5,18 +6,23 @@ import Link from 'next/link'
 import UserService from "../../service/UserService"
 import { useUser } from '../../firebase/useUser'
 
+// Const used
 const navigation = [
   { name: 'Accueil', href: '/' },
   { name: 'Fonctionnalités', href: '/features' },
-  { name: 'Réservation', href: '/booking' }
+  { name: 'Réservation', href: '/booking' },
 ]
 
+// Navbar function 
+// Data -> header
 export default function Navbar({ header }) {
 
+  // signOut function
   function signOut() {
     UserService.signOut()
   }
 
+  // Consts used
   const { user, logout } = useUser()
 
   return (

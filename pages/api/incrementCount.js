@@ -1,6 +1,8 @@
+// Imports Used
 import firebase from 'firebase/app'
 import 'firebase/database'
 
+// Const used
 const incrementCount = async (req, res) => {
     const ref = firebase.database().ref('counts').child(req.query.id)
     const { snapshot } = await ref.transaction((count) => {
