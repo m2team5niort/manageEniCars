@@ -1,18 +1,27 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useUser } from '../firebase/useUser'
+import { useRouter } from 'next/router'
 
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
 
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(false)
     const { user, logout } = useUser()
+
+    useEffect(() => {
+        setLoading(true)
+    }, [user]);
 
     return (
         <>
-            <AppContext.Provider value={{ user, isLoading }}>
-                {children}
-            </AppContext.Provider>
+            {isLoading ?
+                <AppContext.Provider value={{ user, isLoading }}>
+                    {children}
+                </AppContext.Provider>
+                :
+                <></>
+            }
         </>
     );
 }

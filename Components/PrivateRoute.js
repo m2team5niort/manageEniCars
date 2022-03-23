@@ -18,7 +18,7 @@ export default function PrivateRoute({ protectedRoutes, children }) {
             router.push('/signin');
         }
 
-    }, [pathIsProtected]);
+    }, [pathIsProtected, user]);
 
     if (pathIsProtected && !user) {
         return <FullPageLoader />;
