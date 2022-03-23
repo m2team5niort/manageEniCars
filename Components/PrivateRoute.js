@@ -9,7 +9,7 @@ export default function PrivateRoute({ protectedRoutes, children }) {
     const url = router.asPath;
     const pathIsProtected = url.includes(protectedRoutes)
 
-    const { user, isLoading } = useAppContext()
+    const user = useAppContext()
 
     console.log(pathIsProtected, user)
 

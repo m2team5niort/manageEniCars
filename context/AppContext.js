@@ -16,7 +16,7 @@ export function AppWrapper({ children }) {
     return (
         <>
             {isLoading ?
-                <AppContext.Provider value={{ user, isLoading }}>
+                <AppContext.Provider value={user}>
                     {children}
                 </AppContext.Provider>
                 :
