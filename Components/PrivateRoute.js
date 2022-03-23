@@ -11,8 +11,6 @@ export default function PrivateRoute({ protectedRoutes, children }) {
 
     const user = useAppContext()
 
-    console.log(pathIsProtected, user)
-
     useEffect(() => {
         if (!user && pathIsProtected) {
             router.push('/signin');
