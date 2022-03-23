@@ -45,6 +45,8 @@ class UserService {
      * @param user Objet utilisateur
      */
     async registerUserFirestoreFromGoogle(user) {
+        let lastName = user.displayName.split(' ')[1];
+        let firstName = user.displayName.split(' ')[0]
         try {
             firebase
                 .firestore()
@@ -52,8 +54,8 @@ class UserService {
                 .doc(user.uid)
                 .set({
                     email: user.email,
-                    lastName: user.displayName.split(' ')[1],
-                    firstName: user.displayName.split(' ')[0],
+                    lastName: lastName,
+                    firstName: firstName,
                     role: 'user',
                     provider: true,
                     profilPicture: ''

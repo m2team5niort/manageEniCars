@@ -2,9 +2,12 @@
 import Head from "next/head";
 import 'tailwindcss/tailwind.css';
 import { AppWrapper } from '../context/AppContext';
+import PrivateRoute from '../Components/PrivateRoute';
 
 // MyApp funtion
 function MyApp({ Component, pageProps }) {
+
+  const protectedRoutes = '/dashboard';
 
   return (
     <>
@@ -14,7 +17,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <AppWrapper>
-        <Component {...pageProps} />
+        <PrivateRoute protectedRoutes={protectedRoutes}>
+          <Component {...pageProps} />
+        </PrivateRoute>
       </AppWrapper>
     </>
   )

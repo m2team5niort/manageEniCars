@@ -4,13 +4,13 @@ import 'firebase/firestore'
 import 'firebase/storage'
 
 const clientCredentials = {
-    apiKey: "AIzaSyBFEefCjZaVomY5LFPDLh--S22IWUkhIfQ",
-    authDomain: "manageenicars-332913.firebaseapp.com",
-    projectId: "manageenicars-332913",
-    storageBucket: "manageenicars-332913.appspot.com",
-    messagingSenderId: "676132858148",
-    appId: "1:676132858148:web:001fadfc5c73ff1033abb1",
-    measurementId: "G-EM5CMRCMK3"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 export const google_provider = new firebase.auth.GoogleAuthProvider();
