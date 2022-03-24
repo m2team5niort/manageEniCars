@@ -42,5 +42,5 @@ export default function Map() {
         return () => map.remove();
     }, []);
 
-    return <div className="map-container h-96 w-8/12" ref={mapContainerRef} />;
+    return <div className="h-96 mt-6" ref={mapContainerRef} />;
 }

@@ -1,0 +1,400 @@
+.container-dashboard{
+    display: grid;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    grid-template-columns: 14rem auto 30rem;
+    background-color: hsl(0, 0%, 93%);
+    padding: 0 1rem;
+}
+
+.aside .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aside .logo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aside .close{
+    display: none;
+}
+
+.sidebar-dashboard{
+    height: 85vh;
+}
+
+.sidebar-dashboard a {
+    display: flex;
+    transition: all .3s ease;
+    margin-left: 1rem;
+    align-items: center;
+    position: relative;
+    height: 4rem;
+    gap: 1rem;
+}
+
+.sidebar-dashboard a span{
+    transition: all .3s ease;
+}
+
+.sidebar-dashboard a:last-child{
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+
+.sidebar-dashboard a.active{
+    background-color: lavender;
+    margin-left: 0;
+}
+
+.sidebar-dashboard a.active::before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background-color: blueviolet;
+}
+
+.sidebar-dashboard a.active span{
+    color: blueviolet;
+    margin-left: calc(.5rem - 3px);
+}
+
+.sidebar-dashboard a:hover{
+    color: black
+}
+
+.sidebar-dashboard a:hover span{
+    margin-left: 1rem;
+}
+
+main {
+    margin-top: 1.5rem;
+}
+
+main .date{
+    display: inline-block;
+    background-color: lavender;
+    border-radius: .3rem;
+    margin-top: 1rem;
+    padding: .5rem 1.6rem;
+
+}
+
+main .date input[type="date"]{
+    background: transparent;
+}
+
+main .recent-order{
+    margin-top: 2rem;
+}
+
+main .recent-order h2{
+    margin-bottom: .8rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+}
+
+main .recent-order table{
+    background-color: white;
+    width: 100%;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    transition: all .3s ease;
+}
+
+main .recent-order table:hover{
+    box-shadow: none;
+}
+
+main .recent-order table thead tr th{
+    height: 3rem;
+    vertical-align: middle;
+}
+
+main table tbody td{
+    height: 3.5rem;
+    border-bottom: 1px solid lightgray;
+    color: black;
+    vertical-align: middle;
+}
+
+main .recent-order table tr:last-child td{
+    border: none;
+}
+
+main .recent-order a{
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: blue;
+}
+
+.right-section{
+    margin-top: 1.5rem;
+}
+
+.top-profile {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    width: 80%;
+    margin: 0 auto 2rem auto;
+}
+
+.top-profile button{
+    display: none;
+}
+
+.top-profile .theme-toggler{
+    display: flex;
+    background-color: aliceblue;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    color: lightslategray;
+}
+
+.top-profile .theme-toggler .active{
+    background-color: lightskyblue;
+    border-radius: .5rem;
+    color: white;
+}
+
+.top-profile .profile{
+    display: flex;
+    gap: 2rem;
+    text-align: right;
+}
+
+.right-section .insights{
+    display: flex;
+    flex-direction: column;
+}
+
+.right-section .insights > div{
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: .5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    transition: all 300ms ease;
+    width: 80%;
+    margin: 0 auto 2rem auto;
+}
+
+.right-section .insights > div:hover{
+    box-shadow: none;
+}
+
+.right-section .insights > div .middle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right-section .insights h3{
+    margin: 1rem 0 .6rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.right-section .insights .progress{
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+.right-section .insights .progress svg{
+    width: 7rem;
+    height: 7rem;
+}
+
+.right-section .insights .progress svg circle{
+    fill: none;
+    stroke: blue;
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 90;
+    stroke-dashoffset: 200;
+}
+
+.right-section .insights .reservations .progress svg circle{
+    stroke-dasharray: 80;
+    stroke-dashoffset: 200;
+}
+
+.right-section .insights .travels .progress svg circle{
+    stroke-dasharray: 120;
+    stroke-dashoffset: 200;
+}
+
+.right-section .insights .disponibilty .progress svg circle{
+    stroke-dasharray: 120;
+    stroke-dashoffset: 200;
+}
+
+.right-section .insights .progress .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .7rem;
+    font-weight: 700;
+}
+
+.right-section .insights small{
+    margin-top: 1.3rem;
+    display: block;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1200px){
+    .container-dashboard{
+        width: 94%;
+        grid-template-columns: 7rem auto 18rem;
+    }
+
+    .logo h2{
+        display: none;
+    }
+
+    .sidebar-dashboard a span{
+        display: none;
+    }
+
+    .sidebar-dashboard a{
+        width: 5.6rem;
+    }
+
+    .sidebar-dashboard a:last-child{
+        position: relative;
+        margin-top: 1.8rem;
+    }
+
+    main .recent-order tbody tr td {
+       font-size: .8rem;
+    }
+
+    .top-profile .profile .info p{
+        font-size: .6rem;
+    }
+
+    .top-profile .profile .info small{
+        font-size: .7rem;
+    }
+    
+}
+
+@media screen and (max-width: 768px){
+    .container-dashboard{
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .aside{
+        position: fixed;
+        left: 0;
+        background-color: white;
+        width: 18rem;
+        z-index: 3;
+        box-shadow: 1rem 3rem 4rem gainsboro;
+        height: 100vh;
+        padding-right: 1.5rem;
+    }
+
+    .aside .logo{
+        margin-left: 1rem;
+    }
+
+    .aside .header{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .aside .sidebar-dashboard a{
+        width: 100%;
+        height: 3.4rem;
+    }
+
+    .aside .sidebar-dashboard a span{
+        display: inline;
+    }
+
+    .aside .sidebar-dashboard a:last-child{
+        position: absolute;
+        bottom: 5rem;
+    }
+
+    .aside .close{
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    main {
+        margin-top: 8rem;
+        padding: 0 1rem;
+    }
+
+    main .recent-order{
+        position: relative;
+        margin: 3rem 0 0 0;
+        width: 100%;
+    }
+
+    .right-section{
+        width: 94%;
+        margin: 0 auto 4rem;
+    }
+
+    .top-profile {
+        position: fixed;
+        top: 0;
+        left: 0;
+        align-items: center;
+        padding: 0 .8rem;
+        height: 4.6rem;
+        background-color: white;
+        width: 100%;
+        margin: 0;
+        z-index: 2;
+        box-shadow: 0 1rem 1rem lightgray;
+    }
+
+    .top-profile .theme-toggler{
+        width: 4.4rem;
+        position: absolute;
+        left: 66%;
+    }
+
+    .top-profile .profile .info{
+        display: none;
+    }
+
+    .top-profile button{
+        display: inline-block;
+        background: transparent;
+        cursor: pointer;
+        color: black;
+        position: absolute;
+        left: 1rem;
+    }
+    
+}

@@ -1,15 +1,15 @@
 // Imports Used
 import Sidebar from '../Components/Dashboard/Sidebar'
-import DashboardContent from '../Components/Dashboard/DashboardContent'
+import DashboardDispatcher from '../Components/Dashboard/DashboardDispatcher'
 
 // Dashboard function
 export default function dashboard() {
 
     return (
         <>
-            <div className='flex flex-row'>
+            <div className='container-dashboard mx-auto'>
                 <Sidebar />
-                <DashboardContent />
+                <DashboardDispatcher />
             </div>
         </>
     )
