@@ -8,7 +8,7 @@ export default function Sidebar() {
     return (
         <>
             <div className="aside h-screen">
-                <div className='text-base-1 mt-6 header'>
+                <div className='text-base-1 mt-6 header-dashboard'>
                     <div className='logo'>
                         <img className='w-3/12' src="https://cnes.fr/sites/default/files/drupal/201707/image/is_logo_2017_logo_carre_blanc_sur_bleu_transparent.png" />
                         <h2 className='text-2xl font-bold'>ManageCar</h2>
@@ -20,13 +20,13 @@ export default function Sidebar() {
                 <div className="sidebar-dashboard flex flex-col relative top-12 font-medium">
                     <div className='mb-6'>
                         <Link href='/dashboard'>
-                            <a>
+                            <a className='active'>
                                 <HomeIcon className="h-5 w-5" />
                                 <span>Dashboard</span>
                             </a>
                         </Link>
                         <Link href='/dashboard/user'>
-                            <a className='active'>
+                            <a>
                                 <UserIcon className="h-5 w-5" />
                                 <span>Gestion utilisateurs</span>
                             </a>
