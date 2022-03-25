@@ -109,24 +109,26 @@ class UserService {
                 })
         } catch (error) {
             console.log(error)
-            console.log(user)
         }
     }
 
     async getUserFirestoreProfile(user) {
         let dataUser
-        try {
-            firebase
-                .firestore()
-                .collection('User')
-                .doc(user.id)
-                .onSnapshot(function (doc) {
-                    dataUser = doc.data()
-                })
-        } catch (error) {
-            console.log(error)
-        }
-        return dataUser
+        return new Promise((resolve, reject) => {
+            try {
+                firebase.firestore()
+                    .collection("User")
+                    .doc(user.id)
+                    .get()
+                    .then(doc => {
+                        dataUser = doc.data();
+                        resolve(dataUser)
+                    });
+            } catch (error) {
+                console.log(error)
+                reject(error)
+            }
+        })
     }
 
     /**

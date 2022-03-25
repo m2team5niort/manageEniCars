@@ -18,6 +18,7 @@ export default function PrivateRoute({ protectedRoutes, children }) {
 
     }, [pathIsProtected, user]);
 
+
     if (pathIsProtected && !user) {
         return <FullPageLoader />;
     }

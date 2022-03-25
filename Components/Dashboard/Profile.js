@@ -3,8 +3,6 @@ import { useState } from 'react';
 import UserService from "../../service/UserService"
 import Toast from '../../Components/Common/Toast'
 import firebase from "firebase/app"
-import { getStorage, ref } from "firebase/storage";
-import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon } from '@heroicons/react/solid'
 import Navbar from './Navbar';
 
 // Profile function
@@ -216,7 +214,7 @@ export default function Profile({ user }) {
                 </div>
             </main>
             <div className="right-section">
-                <Navbar />
+                <Navbar user={user} />
             </div>
         </>
     )

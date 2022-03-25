@@ -14,6 +14,7 @@ initFirebase()
 
 const useUser = () => {
     const [user, setUser] = useState()
+    const [moreData, setMoreData] = useState('test more data')
     const router = useRouter()
 
     const logout = async () => {
@@ -55,7 +56,7 @@ const useUser = () => {
         }
     }, [])
 
-    return { user, logout }
+    return { user, logout, moreData }
 }
 
 export { useUser }

@@ -10,14 +10,15 @@ import { MenuIcon } from '@heroicons/react/outline'
 // Navbar function
 export default function Navbar() {
 
+    const user = useAppContext();
+
     // signOut function
     function signOut() {
         UserService.signOut()
         router.push('/')
     }
 
-    // User const
-    const user = useAppContext(AppWrapper)
+    console.log(user)
 
     return (
         <>
@@ -31,11 +32,11 @@ export default function Navbar() {
                 </div>
                 <div className="profile">
                     <div className="info">
-                        <p>Bonjour, <b>Antony</b></p>
+                        <p>Bonjour, <b>{user.firstName ? user.firstName : user.email}</b></p>
                         <small className="text-muted">Admin</small>
                     </div>
                     <div className="profile-photo">
-                        <img className="w-8 h-8 rounded-full" src="https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png" />
+                        <img className="w-8 h-8 rounded-full" src={user.profilPicture ? user.profilPicture : 'https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png'} alt="Profile image" />
                     </div>
                 </div>
             </div>

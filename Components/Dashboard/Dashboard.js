@@ -1,12 +1,9 @@
 import Map from "./Map"
-import { AppWrapper, useAppContext } from "../../context/AppContext";
 import React from 'react';
 import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon } from '@heroicons/react/solid'
 import Navbar from "./Navbar";
 
 export default function Dashboard() {
-
-    const user = useAppContext(AppWrapper)
 
     return (
         <>
