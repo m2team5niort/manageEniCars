@@ -1,7 +1,8 @@
 // Imports Used
 import Head from "next/head";
 import 'tailwindcss/tailwind.css';
-import '../styles/dashboard.css'
+import '../styles/dashboard.css';
+import '../styles/homepage.css';
 import { AppWrapper } from '../context/AppContext';
 import PrivateRoute from '../Components/PrivateRoute';
 
