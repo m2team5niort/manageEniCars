@@ -1,13 +1,13 @@
 import firebase from "firebase/app"
 import Sidebar from '../../../Components/Dashboard/Sidebar'
-import DashboardDispatcher from '../../../Components/Dashboard/DashboardDispatcher';
+import Profile from "../../../Components/Dashboard/Profile";
 
 export default function profile({ user }) {
 
     return (
         <div className='container-dashboard mx-auto'>
             <Sidebar />
-            <DashboardDispatcher user={user} />
+            <Profile user={user} />
         </div>
     )
 }
@@ -19,14 +19,12 @@ export async function getServerSideProps(context) {
     let dataUser
     await firebase.firestore().collection("User").doc(userId).get().then(doc => {
         dataUser = doc.data();
+        dataUser['id'] = userId
     });
 
     return {
         props: {
-            user: {
-                dataUser: dataUser,
-                userId: userId
-            }
+            user: dataUser
         }
     }
 }

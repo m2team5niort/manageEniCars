@@ -129,7 +129,7 @@ class UserService {
                     .get()
                     .then(doc => {
                         dataUser = doc.data();
-                        resolve(dataUser)
+                        resolve(dataUser, dataUser.id = userId)
                     });
             } catch (error) {
                 console.log(error)

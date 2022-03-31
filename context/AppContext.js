@@ -6,7 +6,7 @@ const AppContext = createContext();
 
 export function AppWrapper({ children }) {
 
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(true)
     const [userFirebaseData, setUserFirebaseData] = useState({})
     const { user, logout } = useUser()
 
