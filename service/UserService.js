@@ -58,7 +58,7 @@ class UserService {
                     firstName: firstName,
                     role: 'user',
                     provider: true,
-                    profilPicture: ''
+                    profilPicture: user.photoURL
                 })
         } catch (error) {
             console.log(error)
@@ -112,13 +112,20 @@ class UserService {
         }
     }
 
+    /**
+     * Get user from firestore
+     * Can be used to check if user exist on registration
+     * @param user 
+     * @returns user data
+     */
     async getUserFirestoreProfile(user) {
         let dataUser
+        let userId = user.id ? user.id : user.uid
         return new Promise((resolve, reject) => {
             try {
                 firebase.firestore()
                     .collection("User")
-                    .doc(user.id)
+                    .doc(userId)
                     .get()
                     .then(doc => {
                         dataUser = doc.data();

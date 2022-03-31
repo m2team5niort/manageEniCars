@@ -30,15 +30,19 @@ export default function signup() {
     // loginWithGoogle function
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
-            if (result.user.isAnonymous === false) {
-                UserService.registerUserFirestoreFromGoogle(result.user).then(function () {
+            UserService.getUserFirestoreProfile(result.user).then(function (res) {
+                if (res) {
                     router.push('/dashboard')
-                })
-            }
-            else {
-                setToastState(true)
-                setErrorText('Problème de provider')
-            }
+                } else {
+                    UserService.registerUserFirestoreFromGoogle(result.user).then(function () {
+                        router.push('/dashboard')
+                    })
+                }
+            }).catch(() => {
+                console.log('problem with connexion')
+            })
+        }).catch(() => {
+            console.log('problem with provider')
         })
     }
 
