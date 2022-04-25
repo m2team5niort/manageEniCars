@@ -11,7 +11,7 @@ export default function dashboard() {
 
     return (
         <>
-            <div className='container-dashboard mx-auto'>
+            <div className={`container-dashboard mx-auto`}>
                 <Sidebar />
                 <DashboardDispatcher user={user} />
             </div>

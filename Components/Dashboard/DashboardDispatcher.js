@@ -16,8 +16,6 @@ export default function DashboardDispatcher({ user }) {
 
     }, [url]);
 
-    console.log(userIdi, user)
-
     const renderComponent = () => {
         switch (url) {
             case '/dashboard/':
