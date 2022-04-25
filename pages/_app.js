@@ -3,13 +3,9 @@ import Head from "next/head";
 import 'tailwindcss/tailwind.css';
 import '../styles/dashboard.css';
 import '../styles/homepage.css';
-import { AppWrapper } from '../context/AppContext';
-import PrivateRoute from '../Components/PrivateRoute';
 
 // MyApp funtion
 function MyApp({ Component, pageProps }) {
-
-  const protectedRoutes = '/dashboard';
 
   return (
     <>
@@ -18,11 +14,7 @@ function MyApp({ Component, pageProps }) {
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
       </Head>
 
-      <AppWrapper>
-        <PrivateRoute protectedRoutes={protectedRoutes}>
-          <Component {...pageProps} />
-        </PrivateRoute>
-      </AppWrapper>
+      <Component {...pageProps} />
     </>
   )
 }

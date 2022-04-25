@@ -1,7 +1,0 @@
-export default function FullPageLoader() {
-    return (
-        <div className='flex flex-col items-center justify-center min-h-screen text-gray-800'>
-            <p>Chargement...</p>
-        </div>
-    );
-}
