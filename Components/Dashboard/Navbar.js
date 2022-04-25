@@ -1,5 +1,6 @@
 // Imports Used
-import router from 'next/router'
+
+import Link from 'next/link'
 import UserService from "../../service/UserService"
 import { useAppContext } from "../../context/AppContext";
 import { SunIcon, MoonIcon } from '@heroicons/react/solid'
@@ -7,9 +8,7 @@ import { MenuIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
 // Navbar function
-export default function Navbar() {
-
-    const user = useAppContext();
+export default function Navbar({ user }) {
 
     return (
         <>
@@ -24,7 +23,6 @@ export default function Navbar() {
                 <div className="profile">
                     <div className="info">
                         <p>Bonjour, <b>{user.firstName ? user.firstName : user.email}</b></p>
-                        <small className="text-muted">Admin</small>
                     </div>
                     <div className="profile-photo">
                         <Link href='/dashboard/profile/CG0tGkd6IMXvQ2FQJvHkmuwQte03'>

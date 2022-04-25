@@ -12,15 +12,16 @@ export default function Profile({ user }) {
     // Consts used
     const [stateText, setStateText] = useState('')
     const [userState, setUserState] = useState({
-        lastName: user.dataUser.lastName,
-        firstName: user.dataUser.firstName,
-        email: user.dataUser.email,
-        address: user.dataUser.address,
-        city: user.dataUser.city,
-        country: user.dataUser.country,
-        departement: user.dataUser.departement,
-        zip: user.dataUser.zip,
-        profilPicture: user.dataUser.profilPicture
+        lastName: user.lastName,
+        firstName: user.firstName,
+        email: user.email,
+        address: user.address,
+        city: user.city,
+        country: user.country,
+        departement: user.departement,
+        zip: user.zip,
+        profilPicture: user.profilPicture,
+        id: user.id
     })
 
     const allInputs = { imgUrl: '' }
@@ -51,7 +52,7 @@ export default function Profile({ user }) {
 
         if (imageAsFile !== '') {
             return new Promise((resolve, reject) => {
-                const uploadTask = firebase.storage().ref(`user/images/${user.userId}/${imageAsFile.name}`).put(imageAsFile)
+                const uploadTask = firebase.storage().ref(`user/images/${user.id}/${imageAsFile.name}`).put(imageAsFile)
                 //initiates the firebase side uploading 
                 uploadTask.on('state_changed',
                     (snapShot) => {
@@ -64,7 +65,7 @@ export default function Profile({ user }) {
                     }, () => {
                         // gets the functions from storage refences the image storage in firebase by the children
                         // gets the download url then sets the image from firebase as the value for the imgUrl key:
-                        firebase.storage().ref(`user/images/${user.userId}`).child(imageAsFile.name).getDownloadURL()
+                        firebase.storage().ref(`user/images/${user.id}`).child(imageAsFile.name).getDownloadURL()
                             .then(fireBaseUrl => {
                                 setImageAsUrl(fireBaseUrl)
                                 setUserState(prevObject => ({ ...prevObject, profilPicture: fireBaseUrl }))
@@ -81,7 +82,7 @@ export default function Profile({ user }) {
 
         async function setUserData(image = userState.profilPicture) {
             let userData = {
-                id: user.userId,
+                id: user.id,
                 profilPicture: image,
                 lastName: userState.lastName,
                 firstName: userState.firstName,
@@ -109,7 +110,7 @@ export default function Profile({ user }) {
             const result = await res.json()
 
             if (result.status === 200) {
-                UserService.setUserFirestoreProfile(userData)
+                UserService.setUserFirestoreProfile(user)
                 setToastState(true)
                 setStateText('Modification du profil effectué')
                 setToastStatus(1)
