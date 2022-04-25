@@ -31,9 +31,11 @@ export default function signup() {
     function loginWithGoogle() {
         UserService.signInWithGoogle().then(function (result) {
             UserService.getUserFirestoreProfile(result.user).then(function (res) {
+                //If user already exist
                 if (res) {
                     router.push('/dashboard')
                 } else {
+                    console.log(result.user)
                     UserService.registerUserFirestoreFromGoogle(result.user).then(function () {
                         router.push('/dashboard')
                     })

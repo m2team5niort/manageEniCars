@@ -9,7 +9,6 @@ export default function DashboardDispatcher({ user }) {
 
     const router = useRouter();
     const url = router.asPath;
-    let userIdi;
 
     useEffect(() => {
         renderComponent()
@@ -20,7 +19,7 @@ export default function DashboardDispatcher({ user }) {
         switch (url) {
             case '/dashboard/':
                 return (<Dashboard user={user} />)
-            case '/dashboard/profile/CG0tGkd6IMXvQ2FQJvHkmuwQte03/':
+            case '/dashboard/profile/':
                 return (<Profile user={user} />)
 
         }

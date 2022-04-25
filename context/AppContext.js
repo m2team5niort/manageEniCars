@@ -18,7 +18,7 @@ export function AppWrapper({ children }) {
     }, [user]);
 
     async function getUserFirebase(user) {
-        await UserService.getUserFirestoreProfile(user).then(res => setUserFirebaseData(res, { userId: 'test' }))
+        await UserService.getUserFirestoreProfile(user).then(res => setUserFirebaseData(res))
     }
 
     return (

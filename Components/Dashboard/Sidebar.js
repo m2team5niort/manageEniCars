@@ -3,15 +3,13 @@ import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon } from '@heroicons/react/outline'
 import router from 'next/router';
 import UserService from '../../service/UserService';
+import { useUser } from '../../firebase/useUser';
 
 
 // Sidebar function
 export default function Sidebar() {
 
-    function signOut() {
-        UserService.signOut()
-        router.push('/')
-    }
+    const { logout } = useUser();
 
     return (
         <>
@@ -51,7 +49,7 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-                        <button onClick={() => signOut()}>
+                        <button onClick={logout}>
                             <LogoutIcon className="h-5 w-5" />
                             <span>Se déconnecter</span>
                         </button>

@@ -1,7 +1,6 @@
 // Imports Used
 import { google_provider } from "../firebase/initFirebase"
 import firebase from "firebase/app"
-import router from "next/router";
 var bcrypt = require('bcryptjs');
 
 // UserService class
@@ -130,20 +129,13 @@ class UserService {
                     .get()
                     .then(doc => {
                         dataUser = doc.data();
-                        resolve(dataUser, dataUser.id = userId)
+                        resolve(dataUser)
                     });
             } catch (error) {
                 console.log(error)
                 reject(error)
             }
         })
-    }
-
-    /**
-     * Déconnecte l'utilisateur du site
-     */
-    async signOut() {
-        return firebase.auth().signOut()
     }
 
 }

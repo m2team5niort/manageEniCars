@@ -12,14 +12,21 @@ export default function PrivateRoute({ protectedRoutes, children }) {
     const user = useAppContext()
 
     useEffect(() => {
-        if (!user && pathIsProtected) {
-            router.push('/signin');
+        console.log(user.id)
+        if (pathIsProtected) {
+            if (!user) {
+                return;
+            }
+            else {
+                router.push('/signin');
+            }
         }
 
     }, [pathIsProtected, user]);
 
 
     if (pathIsProtected && !user) {
+        console.log(user, pathIsProtected)
         return <FullPageLoader />;
     }
 
