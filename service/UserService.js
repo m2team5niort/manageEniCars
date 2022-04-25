@@ -1,6 +1,7 @@
 // Imports Used
 import { google_provider } from "../firebase/initFirebase"
 import firebase from "firebase/app"
+import router from "next/router";
 var bcrypt = require('bcryptjs');
 
 // UserService class
