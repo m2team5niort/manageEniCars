@@ -1,9 +1,17 @@
 // Imports used
 import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon } from '@heroicons/react/outline'
+import router from 'next/router';
+import UserService from '../../service/UserService';
+
 
 // Sidebar function
 export default function Sidebar() {
+
+    function signOut() {
+        UserService.signOut()
+        router.push('/')
+    }
 
     return (
         <>
@@ -43,12 +51,10 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-                        <Link href='/dashboard/reservation'>
-                            <a>
-                                <LogoutIcon className="h-5 w-5" />
-                                <span>Se déconnecter</span>
-                            </a>
-                        </Link>
+                        <button onClick={() => signOut()}>
+                            <LogoutIcon className="h-5 w-5" />
+                            <span>Se déconnecter</span>
+                        </button>
                     </div>
                 </div>
             </div>

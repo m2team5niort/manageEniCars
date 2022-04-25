@@ -2,21 +2,13 @@
 
 import Link from 'next/link'
 import UserService from "../../service/UserService"
-import { AppWrapper, useAppContext } from "../../context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import { SunIcon, MoonIcon } from '@heroicons/react/solid'
 import { MenuIcon } from '@heroicons/react/outline'
-
+import Link from 'next/link'
 
 // Navbar function
 export default function Navbar({user}) {
-
-    // signOut function
-    function signOut() {
-        UserService.signOut()
-        router.push('/')
-    }
-
-    console.log(user)
 
     return (
         <>
@@ -33,7 +25,8 @@ export default function Navbar({user}) {
                         <p>Bonjour, <b>{user.firstName ? user.firstName : user.email}</b></p>
                     </div>
                     <div className="profile-photo">
-                        <Link href={`/dashboard/profile/${user.id}`}>
+                      
+                        <Link href='/dashboard/profile/CG0tGkd6IMXvQ2FQJvHkmuwQte03'>
                             <a>
                                 <img className="w-8 h-8 rounded-full" src={user.profilPicture ? user.profilPicture : 'https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png'} alt="Profile image" />
                             </a>
