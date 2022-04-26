@@ -8,9 +8,11 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^2.15.5",
     "@emotion/styled": "^10.3.0",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "aws-amplify": "^4.3.20",
     "bcryptjs": "^2.4.3",
     "emotion-theming": "^10.3.0",
     "js-cookie": "^2.2.1",

@@ -412,3 +412,38 @@ main .recent-order a {
     }
 
 }
+
+[data-amplify-authenticator][data-variation=modal]{
+    background-color: #D9E1E6 !important;
+}
+
+[data-amplify-authenticator] [data-amplify-router]{
+    border: none !important;
+    height: 437px !important;
+}
+
+[data-amplify-authenticator] [data-amplify-container]{
+    width: 591px !important;
+}
+
+.flex-signup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    height: 437px;
+    box-shadow: 0 2px 20px lightgray !important;
+}
+
+.flex-signup > img{
+    height: 437px;
+}
+
+.signup-container{
+    height: 100vh;
+    display: flex;
+}
+
+.amplify-divider[aria-orientation=horizontal][data-size=small]{
+    margin: 1rem auto;
+}

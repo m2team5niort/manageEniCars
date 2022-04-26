@@ -1,544 +1,220 @@
 // Imports Used
+import Script from "next/script"
 
 // Home function
 export default function Home() {
 
   return (
 
-    <>
-      <header className="header" id="header">
-        <nav className="nav container-homepage">
-          <a href="#" className="nav__logo">
-            <i className="ri-steering-line"></i>
-            N DevOps - Cars
-          </a>
+    <div className="text-gray-700 bg-white antialiased">
 
-          <div className="nav__menu" id="nav-menu">
-            <ul className="nav__list">
-              <li className="nav__item">
-                <a href="#home" className="nav__link"> Home </a>
-              </li>
-              <li className="nav__item">
-                <a href="#about" className="nav__link"> About </a>
-              </li>
-              <li className="nav__item">
-                <a href="#popular" className="nav__link"> Popular </a>
-              </li>
-              <li className="nav__item">
-                <a href="#featured" className="nav__link"> Featured </a>
-              </li>
-            </ul>
+    <nav className="flex items-center justify-between flex-wrap p-6">
+        
+        <div className="flex items-center flex-shrink-0 text-dark md:text-right mr-6">
+            <img src="../assets/images/Compressed_Images/Logo_Compressed.png" style={{width: '100%', height: '50px'}} loading="lazy"/>
+        </div>
+        
+        <div className="block lg:hidden">
+          <button id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none">
+                  <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+            </svg>
+          </button>
+        </div>
+        
+      <div id="nav-content" className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0 md:text-right">
+        <div className="text-sm lg:flex-grow ">
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-1 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4 font-semibold"> Accueil </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4 font-semibold"> Nos voitures </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4 font-semibold" >  </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4"> </a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4" ></a>
+            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-teal-800 mr-4 font-semibold"> Connexion </a>
+         </div>
+       </div>
+        
+    </nav>
 
-            <div className="nav__close" id="nav-close">
-              <i className="ri-close-line"></i>
-            </div>
+    <div className="py-20 bg-cover bg-no-repeat bg-fixed" style={{backgroundImage: 'url(../assets/images/wallpaper.jpg)', paddingTop: '40rem'}}></div>
+      
+      <div className="container m-auto text-center px-6 opacity-100">
+        <h1 className="text-6xl font-bold mb-2 text-gray-800 mt-16"> Bienvenue sur ENI ManageCars  </h1>
+        <h3 className="text-2xl mb-8 text-gray-600"> Vous pouvez réserver, suivre une voiture ou bien covoiturer avec vos collègues. </h3>
+        <button className="bg-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:border-transparent hover:text-white hover:bg-gray-400"> Voulez-vous faire une réservation ? </button>
+      </div>
+          
+    <h2 className="text-4xl font-bold text-center text-gray-800 mt-32"> Les avantages majeurs </h2>
+
+    <section className="container mx-auto px-6 p-10 mt-8">
+      <div className="wrapper">
+        <div className="card">
+          <div className="card-banner">
+            <p className="category-tag popular"> Sociabilité </p>
+            <img className="banner-img" src='https://test.psychologies.com/var/tests/storage/images/6/1/3/7/7316-2-fre-FR/test-socio.jpg' alt='' loading="lazy"/>
           </div>
-
-          <div className="nav_toggle" id="nav-toggle">
-            <i className="ri-menu-line"></i>
-          </div>
-        </nav>
-      </header>
-
-      <main className="main">
-        <section className="home section" id="home">
-          <div className="shape shape__big"></div>
-          <div className="shape shape__small"></div>
-          <div className="home__container container-homepage grid-homepage">
-            <div className="home__data">
-              <h1 className="home__title">
-                Réverver la meilleure voiture
-              </h1>
-
-              <h2 className="home_subtitle">
-                Porsche Mission E
-              </h2>
-
-              <h3 className="home__elec">
-                <i className="ri-flashlight-fill"></i> Voiture électrique
-              </h3>
-            </div>
-
-            <img src="/assets/img/home.png" alt="" className="home__img" />
-
-            <div className="home__car">
-              <div className="home__car-data">
-                <div className="home__car-icon">
-                  <i className="ri-temp-cold-line"></i>
-                </div>
-                <h2 className="home__car-number"> 24° </h2>
-                <h3 className="home__car-name"> TEMPERATURE </h3>
-              </div>
-
-              <div className="home__car-data">
-                <div className="home__car-icon">
-                  <i className="ri-dashboard-3-line"></i>
-                </div>
-                <h2 className="home__car-number"> 873 </h2>
-                <h3 className="home__car-name"> AUTONOMIE </h3>
-              </div>
-
-              <div className="home__car-data">
-                <div className="home__car-icon">
-                  <i className="ri-flashlight-fill"></i>
-                </div>
-                <h2 className="home__car-number"> 94% </h2>
-                <h3 className="home__car-name"> BATTERIE </h3>
+          <div className="card-body">
+            <p className="blog-hashtag"> #Voyager #Discuter #S'amuser </p>
+            <h2 className="blog-title"> Le covoiturage entre collègues </h2>
+            <p className="blog-description"> Le voyage passe plus vite quand on s'amuse !</p>
+    
+            <div className="card-profile">
+              <img className="profile-img" src='https://www.chacun-sa-route.fr/wp-content/uploads/2020/09/Applis-covoiturage-Photo-1.jpg' alt='' loading="lazy"/>
+              <div className="card-profile-info">
+                <h3 className="profile-name"> Covoiturage</h3>
+                <p className="profile-followers"> 50 utilisateurs </p>
               </div>
             </div>
-
-            <a href="#" className="home__button"> Réserver </a>
-          </div>
-        </section>
-
-        <section className="about section" id="about">
-          <div className="about__container container-homepage grid-homepage">
-            <div className="about__group">
-              <img src="assets/img/about.png" alt="" className="about__img" />
-
-              <div className="about__card">
-                <h3 className="about__card-title"> 2.500+ </h3>
-                <p className="about__card-description">
-                  Supercharges placed along popular routes
-                </p>
-              </div>
-            </div>
-
-            <div className="about__data">
-              <h2 className="section__title about__title">
-                Machines With <br /> Future Technology
-              </h2>
-
-              <p className="about__description">
-                See the future with high-performance electric cars produced by
-                renowned brands. They feature futuristic builds and designs with
-                new and innovative platforms that last a long time.
-
-              </p>
-
-              <a href="#" className="button">  Know more </a>
-            </div>
-          </div>
-        </section>
-
-        <section className="popular section" id="popular">
-          <h2 className="section__title"> Choose Your Electric Car <br /> Of The Porsche Brand </h2>
-
-          <div className="popular__container container-homepage swiper">
-            <div className="swiper-wrapper">
-              <article className="popular__card swiper-slide">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="popular__title"> Porsche </h1>
-                <h3 className="popular__subtitle"> Turbo S </h3>
-
-                <img src="assets/img/popular1.png" alt="" className="popular__img" />
-
-                <div className="popular__data">
-                  <div className="popular__data-group">
-                    <i className="ri-dashboard-3-line"></i> 3.7 sec
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-funds_box-line"></i> 356 Km/h
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-charging-pile-2-line"></i> Electric
-                  </div>
-                </div>
-
-                <h3 className="popular__price"> $175,900 </h3>
-
-                <button className="popular__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-
-              <article className="popular__card swiper-slide">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="popular__title"> Porsche </h1>
-                <h3 className="popular__subtitle"> Taycan </h3>
-
-                <img src="assets/img/popular2.png" alt="" className="popular__img" />
-
-                <div className="popular__data">
-                  <div className="popular__data-group">
-                    <i className="ri-dashboard-3-line"></i> 3.7 sec
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-funds_box-line"></i> 356 Km/h
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-charging-pile-2-line"></i> Electric
-                  </div>
-                </div>
-
-                <h3 className="popular__price"> $114,900 </h3>
-
-                <button className="popular__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-
-              <article className="popular__card swiper-slide">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="popular__title"> Porsche </h1>
-                <h3 className="popular__subtitle"> Turbo S Cross </h3>
-
-                <img src="assets/img/popular3.png" alt="" className="popular__img" />
-
-                <div className="popular__data">
-                  <div className="popular__data-group">
-                    <i className="ri-dashboard-3-line"></i> 3.7 sec
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-funds_box-line"></i> 356 Km/h
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-charging-pile-2-line"></i> Electric
-                  </div>
-                </div>
-
-                <h3 className="popular__price"> $150,900 </h3>
-
-                <button className="popular__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-
-              <article className="popular__card swiper-slide">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="popular__title"> Porsche </h1>
-                <h3 className="popular__subtitle"> Boxster 718 </h3>
-
-                <img src="assets/img/popular4.png" alt="" className="popular__img" />
-
-                <div className="popular__data">
-                  <div className="popular__data-group">
-                    <i className="ri-dashboard-3-line"></i> 3.7 sec
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-funds_box-line"></i> 356 Km/h
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-charging-pile-2-line"></i> Electric
-                  </div>
-                </div>
-
-                <h3 className="popular__price"> $125,900 </h3>
-
-                <button className="popular__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-
-              <article className="popular__card swiper-slide">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="popular__title"> Porsche </h1>
-                <h3 className="popular__subtitle"> Cayman </h3>
-
-                <img src="assets/img/popular5.png" alt="" className="popular__img" />
-
-                <div className="popular__data">
-                  <div className="popular__data-group">
-                    <i className="ri-dashboard-3-line"></i> 3.7 sec
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-funds_box-line"></i>
-                  </div>
-                  <div className="popular__data-group">
-                    <i className="ri-charging-pile-2-line"></i>
-                  </div>
-                </div>
-
-                <h3 className="popular__price"> $128,900 </h3>
-
-                <button className="popular__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-            </div>
-
-            <div className="swiper-pagination"></div>
-          </div>
-        </section>
-
-        <section className="features section">
-          <h2 className="section__title">
-            More Features
-          </h2>
-
-          <div className="features__container container-homepage grid-homepage">
-            <div className="features__group">
-              <img src="assets/img/features.png" alt="" className="features__img" />
-
-              <div className="features__card features__card-1">
-                <h3 className="features__card-title"> 800v </h3>
-                <p className="features__card-description"> Turbo <br /> Chargin </p>
-              </div>
-
-              <div className="features__card features__card-2">
-                <h3 className="features__card-title"> 350 </h3>
-                <p className="features__card-description"> Km <br /> Range </p>
-              </div>
-
-              <div className="features__card features__card-3">
-                <h3 className="features__card-title"> 480 </h3>
-                <p className="features__card-description"> KM <br /> Travel </p>
-              </div>
-            </div>
-          </div>
-
-          <img src="assets/img/map.svg" alt="" className="features__map" />
-        </section>
-
-        <section className="featured section" id="featured">
-          <h2 className="section__title">
-            Featured Luxury Card
-          </h2>
-
-          <div className="featured__container container-homepage">
-            <ul className="featured__filters">
-              <li>
-                <button className="featured__item active_featured" data-filter="all">
-                  <span> All </span>
-                </button>
-              </li>
-              <li>
-                <button className="featured__item" data-filter=".tesla">
-                  <img src="assets/img/logo3.png" />
-                </button>
-              </li>
-              <li>
-                <button className="featured__item" data-filter=".audi">
-                  <img src="assets/img/logo2.png" />
-                </button>
-              </li>
-              <li>
-                <button className="featured__item" data-filter=".porsche">
-                  <img src="assets/img/logo1.png" />
-                </button>
-              </li>
-            </ul>
-
-            <div className="featured__content grid-homepage">
-              <article className="featured__card mix tesla">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="featured__title"> Tesla </h1>
-
-                <h3 className="featured__subtitle"> Model X </h3>
-
-                <img src="assets/img/featured1.png" alt="" className="featured__img" />
-
-                <h3 className="featured__price"> $98,000 </h3>
-
-                <button className="button featured__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-              <article className="featured__card mix tesla">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="featured__title"> Tesla </h1>
-
-                <h3 className="featured__subtitle"> Model 3 </h3>
-
-                <img src="assets/img/featured2.png" alt="" className="featured__img" />
-
-                <h3 className="featured__price"> $45,000 </h3>
-
-                <button className="button featured__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-              <article className="featured__card mix audi">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="featured__title"> Audi </h1>
-
-                <h3 className="featured__subtitle"> E-tron </h3>
-
-                <img src="assets/img/featured3.png" alt="" className="featured__img" />
-
-                <h3 className="featured__price"> $175,000 </h3>
-
-                <button className="button featured__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-              <article className="featured__card mix porsche">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="featured__title"> Porsche </h1>
-
-                <h3 className="featured__subtitle"> Boxster 987 </h3>
-
-                <img src="assets/img/featured4.png" alt="" className="featured__img" />
-
-                <h3 className="featured__price"> $126,000 </h3>
-
-                <button className="button featured__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-              <article className="featured__card mix porsche">
-                <div className="shape shape__smaller"></div>
-
-                <h1 className="featured__title"> Porsche </h1>
-
-                <h3 className="featured__subtitle"> Panamera </h3>
-
-                <img src="assets/img/featured5.png" alt="" className="featured__img" />
-
-                <h3 className="featured__price"> $126,900 </h3>
-
-                <button className="button featured__button">
-                  <i className="ri-shopping-bag-2-line"></i>
-                </button>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="offer section">
-          <div className="offer__container container-homepage grid-homepage">
-            <img src="assets/img/offer-bg.png" alt="" className="offer__bg" />
-
-            <div className="offer__data">
-              <h2 className="section__title offer__title">
-                Do You Want To Receive <br /> Special Offers?
-              </h2>
-
-              <p className="offer__description">
-                Be the first to receive all the information about our
-                products and new cars by email by subscribing to our
-                mailing list.
-              </p>
-
-              <a href="#" className="button">
-                Subscribe Now
-              </a>
-            </div>
-
-            <img src="assets/img/offer.png" alt="" className="offer__img" />
-          </div>
-        </section>
-
-        <section className="logos section">
-          <div className="logos__container container-homepage grid-homepage">
-            <div className="logos__content">
-              <img src="assets/img/logo1.png" alt="" className="logos__img" />
-            </div>
-            <div className="logos__content">
-              <img src="assets/img/logo2.png" alt="" className="logos__img" />
-            </div>
-            <div className="logos__content">
-              <img src="assets/img/logo3.png" alt="" className="logos__img" />
-            </div>
-            <div className="logos__content">
-              <img src="assets/img/logo4.png" alt="" className="logos__img" />
-            </div>
-            <div className="logos__content">
-              <img src="assets/img/logo5.png" alt="" className="logos__img" />
-            </div>
-            <div className="logos__content">
-              <img src="assets/img/logo6.png" alt="" className="logos__img" />
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="footer section">
-        <div className="shape shape__big"></div>
-        <div className="shape shape__small"></div>
-
-        <div className="footer__container container-homepage grid-homepage">
-          <div className="footer__content">
-            <a href="#" className="footer__logo">
-              <i className="ri-steering-line"></i> N Dev Ops - Cars
-            </a>
-            <p className="footer__description">
-              Système de gestion d'un parc automobile <br />
-              le plus reconnu <br />
-              en France.
-            </p>
-          </div>
-
-          <div className="footer__content">
-            <h3 className="footer_title">
-              Company
-            </h3>
-
-            <ul className="footer__links">
-              <li>
-                <a href="#" className="footer__link"> About </a>
-              </li>
-              <li>
-                <a href="#" className="footer__link"> Cars </a>
-              </li>
-              <li>
-                <a href="#" className="footer__link"> History </a>
-              </li>
-              <li>
-                <a href="#" className="footer__link"> Shop </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer__content">
-            <h3 className="footer_title">
-              Information
-            </h3>
-
-            <ul className="footer__links">
-              <li>
-                <a href="" className="footer__link"> Request a quote </a>
-              </li>
-              <li>
-                <a href="" className="footer__link"> Find a dealer </a>
-              </li>
-              <li>
-                <a href="" className="footer__link"> Contact us </a>
-              </li>
-              <li>
-                <a href="" className="footer__link"> Services </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer__content">
-            <h3 className="footer_title">
-              Follow us
-            </h3>
-
-            <ul className="footer__social">
-              <a href="#" target="_blank" className="footer__social-link">
-                <i className="ri-facebook-fill"></i>
-              </a>
-              <a href="#" target="_blank" className="footer__social-link">
-                <i className="ri-instagram-line"></i>
-              </a>
-              <a href="#" target="_blank" className="footer__social-link">
-                <i className="ri-twitter-line"></i>
-              </a>
-            </ul>
           </div>
         </div>
+    
+        <div className="card">
+          <div className="card-banner">
+            <p className="category-tag technology"> Rapidité </p>
+            <img className="banner-img" src='https://static9.depositphotos.com/1579454/1119/i/450/depositphotos_11194321-stock-photo-running-man-from-blocks.jpg' alt='' loading="lazy"/>
+          </div>
+          <div className="card-body">
+            <p className="blog-hashtag"> #Rechercher #Cliquer #Réserver </p>
+            <h2 className="blog-title">  Facile d'utilisation et technologies avancées. </h2>
+            <p className="blog-description"> Gain de temps grâce à la rapidité de l'application </p>
+    
+            <div className="card-profile">
+              <img className="profile-img" src='https://play-lh.googleusercontent.com/m-Ozx7aKqhyVjAieqIa9ctJJU0if1k94oAhrbX0tuA8ox-S6bemUQB6Ob9rZfza5fpc=w240-h480-rw' alt='' loading="lazy"/>
+              <div className="card-profile-info">
+                <h3 className="profile-name"> Fluidité </h3>
+                <p className="profile-followers"> 2 fois plus rapide </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div className="card">
+          <div className="card-banner">
+            <p className="category-tag psychology"> Ecologie </p>
+            <img className="banner-img" src='https://www.tonton-communication.fr/wp-content/uploads/2018/10/Image-%C3%A9cologique-1000x539.jpg' alt='' loading="lazy"/>
+          </div>
+          <div className="card-body">
+            <p className="blog-hashtag"> #Ecologie #Economie </p>
+            <h2 className="blog-title"> Centralisation des trajets </h2>
+            <p className="blog-description"> Moins de trajets donc plus écolo ! </p>
+    
+            <div className="card-profile">
+              <img className="profile-img" src='https://cdn4.vectorstock.com/i/1000x1000/76/93/ecology-world-map-vector-187693.jpg' alt='' loading="lazy" />
+              <div className="card-profile-info">
+                <h3 className="profile-name"> Responsable </h3>
+                <p className="profile-followers"> 3 fois moins poluant </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </section>
 
-        <span className="footer__copy">
-          &#169; Bedimcode. All rigths reserved
-        </span>
-      </footer>
+    <h2 className="text-4xl font-bold text-center text-gray-800 mt-32"> Les différentes fonctionnalités  </h2>
 
+          <section className="container mx-auto px-6 p-10 mt-8">
+            
+            <div className="flex items-center flex-wrap mb-20">
+              <div className="w-full md:w-1/2 pr-10">
+                <h4 className="text-3xl text-gray-800 font-bold mb-3"> Diversité dans le choix de votre véhicule </h4>
+                <p className="text-gray-600 mb-8"> Effectivement vous pouvez choisir la taille du véhicule en fonction de vos besoins. Comme le nombre de places, la taille du coffre, ou même le gabarit du véhicule. </p>
+              </div>
+              <div className="w-full md:w-1/2">
+                <img className="rounded-lg" src="./assets/images/interrior2.jpg" alt="Vortex" loading="lazy"/>
+              </div>
+            </div>
+            <div className="flex items-center flex-wrap mb-20">
+              <div className="w-full md:w-1/2">
+                <img className="rounded-lg" src="./assets/images/driving.jpg" alt="use the force" loading="lazy"/>
+              </div>
+              <div className="w-full md:w-1/2 pl-10">
+                <h4 className="text-3xl text-gray-800 font-bold mb-3"> Le covoiturage ! </h4>
+                <p className="text-gray-600 mb-8"> Vous pouvez faire votre trajet en conduisant vos collègues s'ils vont à la même destination que vous. Le processus inverse est également possible, réserver un covoiturage en tant que passager.</p>
+              </div>
+            </div>
+            <div className="flex items-center flex-wrap mb-20">
+              <div className="w-full md:w-1/2 pr-10">
+                <h4 className="text-3xl text-gray-800 font-bold mb-3"> La fiche de vie de la voiture </h4>
+                <p className="text-gray-600 mb-8"> Il est également possible de suivre la vie de la voiture, si elle a eu des accidents, etc...</p>
+              </div>
+              <div className="w-full md:w-1/2">
+                <img className="rounded-lg" src="./assets/images/repair.jpg" alt="Syncing" loading="lazy"/>
+              </div>
+            </div>
+          </section>
+          <div className="simple-carousel">
+            <a href="#" className="control_next"><i className="fa fa-chevron-right"></i></a>
+            <a href="#" className="control_prev"><i className="fa fa-chevron-left"></i></a>
+            <ul>
+              <li className="slide" style={{backgroundColor: 'transparent'}}>
+                <img src="./assets/images/911.jpg" loading="lazy"/>
+              </li>
+              <li className="slide" style={{backgroundColor: 'transparent'}}>
+                <img src="./assets/images/panamera.jpg" loading="lazy" />
+              </li>
+              <li className="slide" style={{backgroundColor: 'transparent'}}>
+                <img src="./assets/images/taycan.jpg" loading="lazy"/>
+              </li>
+              <li className="slide" style={{backgroundColor: 'transparent'}}>
+                <img src="./assets/images/gt3.jpg" loading="lazy"/>
+              </li>
+              <li className="slide" style={{backgroundImage: 'url(https://wallpapershome.com/images/pages/pic_h/23795.jpg)'}}></li>
+              <li className="slide" style={{backgroundImage: 'url(https://wallpapershome.com/images/pages/pic_h/23794.jpg)'}}></li>
+              <li className="slide" style={{backgroundImage: 'url(https://wallpapershome.com/images/pages/pic_h/4589.jpg)'}}></li>
+            </ul>
+          </div>
 
-      <a href="" className="scrollup" id="scroll-up">
-        <i className="ri-arrow-up-line"></i>
-      </a>
-    </>
+          <h2 className="text-4xl font-bold text-center text-gray-800 mt-32"> Les témoignages </h2>
+
+          <section className="bg-white">
+            <div className="container mx-auto px-6 py-20">
+              <div className="flex flex-wrap">
+                
+                <div className="w-full h-auto md:w-1/3 px-6 mb-4">
+                  <div className="flex flex-col justify-between h-full bg-white rounded  py-2" style={{boxShadow: '0px 2px 20px lightgray'}}>
+                    <p className="text-gray-800 text-base px-6 mb-5">How are you feeling, kid? You don't look so bad to me. In fact, you look strong enough to pull the ears off a Gundark. Thanks to you.</p>
+                    <p className="text-gray-500 text-xs md:text-sm px-6"> Brandon NALIN</p>
+                  </div>
+                </div>
+                
+                <div className="w-full h-auto md:w-1/3 px-6 mb-4">
+                  <div className="flex flex-col justify-between h-full bg-white rounded py-2" style={{boxShadow: '0px 2px 20px lightgray'}}>
+                    <p className="text-gray-800 text-base px-6 mb-5">That's two you owe me, junior. Well your Worship, looks like you managed to keep me around for a little while longer. I had nothing to do with it.</p>
+                    <p className="text-gray-500 text-xs md:text-sm px-6"> Antony Cochet </p>
+                  </div>
+                </div>
+                
+                <div className="w-full h-auto md:w-1/3 px-6 mb-4">
+                  <div className="flex flex-col justify-between h-full bg-white rounded py-2" style={{boxShadow: '0px 2px 20px lightgray'}}>
+                    <p className="text-gray-800 text-base px-6 mb-5">General Rieekan thinks it's dangerous for any ships to leave the system until we've activated the energy shield. That's a good story. I think you just can't bear to let a gorgeous guy like me out of your sight</p>
+                    <p className="text-gray-500 text-xs md:text-sm px-6"> Michel Obama </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <footer className="bg-white mb-4" style={{display: 'flex'}}>
+
+            <ul className="text-gray-600 flex justify-center w-full">
+              <li className="pr-8" > ENI ManageCars © 2022 </li>
+              <li className="pr-8" > Mentions légales </li>
+              <li className="pr-8"> Contact</li>
+              <li className="pr-8"> Plan du site </li>
+              <li className=""> Actualité </li>
+            </ul>
+          </footer>
+
+          <Script src="../assets/js/script.js" />
+
+    </div>
 
   )
 }
