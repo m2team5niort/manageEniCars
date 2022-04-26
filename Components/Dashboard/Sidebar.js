@@ -2,9 +2,22 @@
 import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon } from '@heroicons/react/outline'
 import router from 'next/router';
+import { Auth } from 'aws-amplify';
+import { useRouter } from 'next/router'
 
 // Sidebar function
 export default function Sidebar() {
+
+    const router = useRouter()
+
+    async function signOut() {
+        try {
+            await Auth.signOut({ global: true });
+            router.push('/dashboard')
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
 
     return (
         <>
@@ -44,9 +57,9 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-                        <button>
+                        <button onClick={() => signOut()}>
                             <LogoutIcon className="h-5 w-5" />
-                            <span>Se déconnecter</span>
+                            <span >Se déconnecter</span>
                         </button>
                     </div>
                 </div>

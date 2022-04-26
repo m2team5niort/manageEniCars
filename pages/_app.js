@@ -24,11 +24,7 @@ function MyApp({ Component, pageProps }) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       </Head>
 
-      <nav>
-        <Link href="/dashboard">
-          <a></a>
-        </Link>
-      </nav>
+     
 
       <Component {...pageProps} />
 
