@@ -1,6 +1,4 @@
 // Imports Used
-import Header from "../Components/HomePage/Header"
-import Features from "../Components/HomePage/Features"
 
 // Home function
 export default function Home() {

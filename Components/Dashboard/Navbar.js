@@ -5,10 +5,11 @@ import { SunIcon, MoonIcon } from '@heroicons/react/solid'
 import { MenuIcon } from '@heroicons/react/outline'
 
 // Navbar function
-export default function Navbar({ user }) {
+export default function Navbar() {
 
     return (
         <>
+        {/*
             <div className="top-profile">
                 <button id="menu-btn">
                     <MenuIcon className="w-5 h-5" />
@@ -31,6 +32,7 @@ export default function Navbar({ user }) {
                     </div>
                 </div>
             </div>
+        */}
         </>
     );
 };

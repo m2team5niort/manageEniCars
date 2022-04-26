@@ -3,7 +3,7 @@ import React from 'react';
 import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon } from '@heroicons/react/solid'
 import Navbar from "./Navbar";
 
-export default function Dashboard({user}) {
+export default function Dashboard() {
 
     return (
         <>
@@ -72,7 +72,7 @@ export default function Dashboard({user}) {
             </main>
 
             <div className="right-section">
-                <Navbar user={user}/>
+                <Navbar/>
                 <div className="insights">
                     <div className="reservations">
                         <ChartBarIcon className="h-10 w-10 bg-blue-600 p-2 rounded-full text-white" />

@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import Profile from './Profile';
 
 // DashboardContent function
-export default function DashboardDispatcher({ user }) {
+export default function DashboardDispatcher() {
 
     const router = useRouter();
     const url = router.asPath;
@@ -18,9 +18,9 @@ export default function DashboardDispatcher({ user }) {
     const renderComponent = () => {
         switch (url) {
             case '/dashboard/':
-                return (<Dashboard user={user} />)
+                return (<Dashboard />)
             case '/dashboard/profile/':
-                return (<Profile user={user} />)
+                return (<Profile />)
 
         }
     }
