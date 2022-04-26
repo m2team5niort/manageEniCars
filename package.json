@@ -13,15 +13,12 @@
     "@heroicons/react": "^1.0.5",
     "bcryptjs": "^2.4.3",
     "emotion-theming": "^10.3.0",
-    "firebase": "^8.10.0",
-    "firebase-admin": "^10.0.2",
     "js-cookie": "^2.2.1",
     "mapbox-gl": "^2.7.0",
     "next": "^12.1.4",
     "nodemailer": "^6.7.1",
     "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-firebaseui": "^4.2.0"
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",

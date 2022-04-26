@@ -1,13 +1,13 @@
 // Imports used
 import { useState } from 'react';
-import UserService from "../../service/UserService"
 import Toast from '../../Components/Common/Toast'
-import firebase from "firebase/app"
 import Navbar from './Navbar';
 
 // Profile function
 // Parameter : user
 export default function Profile({ user }) {
+
+    /*
 
     // Consts used
     const [stateText, setStateText] = useState('')
@@ -110,7 +110,6 @@ export default function Profile({ user }) {
             const result = await res.json()
 
             if (result.status === 200) {
-                UserService.setUserFirestoreProfile(user)
                 setToastState(true)
                 setStateText('Modification du profil effectué')
                 setToastStatus(1)
@@ -121,6 +120,8 @@ export default function Profile({ user }) {
             }
         }
     }
+
+    */
 
     return (
         <>

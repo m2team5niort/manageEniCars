@@ -2,8 +2,6 @@
 import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon } from '@heroicons/react/outline'
 import router from 'next/router';
-import UserService from '../../service/UserService';
-import { useUser } from '../../firebase/useUser';
 
 
 // Sidebar function

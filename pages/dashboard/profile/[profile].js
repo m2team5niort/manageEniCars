@@ -1,4 +1,3 @@
-import firebase from "firebase/app"
 import Sidebar from '../../../Components/Dashboard/Sidebar'
 import Profile from "../../../Components/Dashboard/Profile";
 
