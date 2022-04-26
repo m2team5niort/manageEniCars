@@ -7,8 +7,6 @@ import router from 'next/router';
 // Sidebar function
 export default function Sidebar() {
 
-    const { logout } = useUser();
-
     return (
         <>
             <div className="aside h-screen">
@@ -47,7 +45,7 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-                        <button onClick={logout}>
+                        <button>
                             <LogoutIcon className="h-5 w-5" />
                             <span>Se déconnecter</span>
                         </button>
