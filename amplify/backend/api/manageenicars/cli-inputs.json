@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "manageenicars",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\acochet2019\\Documents\\manageEniCars\\amplify\\backend\\api\\manageenicars\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-04-27T12:03:22.823Z",
+      "keyDescription": "manage eni car api key"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

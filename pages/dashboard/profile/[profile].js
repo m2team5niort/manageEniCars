@@ -1,5 +1,6 @@
 import Sidebar from '../../../Components/Dashboard/Sidebar'
 import Profile from "../../../Components/Dashboard/Profile";
+import { withSSRContext } from 'aws-amplify'
 
 export default function profile({ user }) {
 
@@ -11,19 +12,20 @@ export default function profile({ user }) {
     )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ req, res }) {
 
-    const userId = context.params['profile'];
+    const { Auth } = withSSRContext({ req })
 
-    let dataUser
-    await firebase.firestore().collection("User").doc(userId).get().then(doc => {
-        dataUser = doc.data();
-        dataUser['id'] = userId
-    });
-
-    return {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      return {
         props: {
-            user: dataUser
+          user: user.username,
         }
+      }
+    } catch (err) {
+      res.writeHead(302, { Location: '/signup' })
+      res.end()
     }
+    return {props: {}}
 }

@@ -1,9 +1,9 @@
 // Imports used
 import Link from 'next/link'
 import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon } from '@heroicons/react/outline'
-import router from 'next/router';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router'
+
 
 // Sidebar function
 export default function Sidebar() {

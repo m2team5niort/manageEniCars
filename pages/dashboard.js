@@ -2,20 +2,16 @@
 import { withSSRContext } from 'aws-amplify'
 import React, { useEffect } from 'react'
 import Sidebar from '../Components/Dashboard/Sidebar'
-import DashboardDispatcher from '../Components/Dashboard/DashboardDispatcher'
+import Dashboard from '../Components/Dashboard/Dashboard'
 
 // Dashboard function
 
-function dashboard({ authenticated, username }) {
+function dashboard({ username }) {
 
-  if (!authenticated) {
-    console.log(username)
-    return <h1>Not authenticated</h1>
-  }
   return (
     <div className={`container-dashboard mx-auto`}>
         <Sidebar />
-        <DashboardDispatcher />
+        <Dashboard username={username}/>
     </div>
   )
 }
@@ -26,8 +22,7 @@ export async function getServerSideProps({ req, res }) {
       const user = await Auth.currentAuthenticatedUser()
       return {
         props: {
-          authenticated: true,
-          username: user.username
+          username: user.username,
         }
       }
     } catch (err) {
