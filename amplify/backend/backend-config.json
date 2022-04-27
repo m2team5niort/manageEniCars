@@ -42,9 +42,7 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-04-27T12:03:22.823Z",
-              "description": "manage eni car api key"
+              "apiKeyExpirationDays": 7
             }
           },
           "additionalAuthenticationProviders": []
