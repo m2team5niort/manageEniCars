@@ -34,3 +34,36 @@ export const listCars = /* GraphQL */ `
     }
   }
 `;
+export const getModel = /* GraphQL */ `
+  query GetModel($id: ID!) {
+    getModel(id: $id) {
+      id
+      name
+      brand
+      image
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listModels = /* GraphQL */ `
+  query ListModels(
+    $filter: ModelModelFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        brand
+        image
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import GetCar from "../Components/HomePage/GetCar";
 
 
+
 // Home function
 export default function Home() {
 

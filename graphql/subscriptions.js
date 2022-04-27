@@ -40,3 +40,42 @@ export const onDeleteCar = /* GraphQL */ `
     }
   }
 `;
+export const onCreateModel = /* GraphQL */ `
+  subscription OnCreateModel {
+    onCreateModel {
+      id
+      name
+      brand
+      image
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateModel = /* GraphQL */ `
+  subscription OnUpdateModel {
+    onUpdateModel {
+      id
+      name
+      brand
+      image
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteModel = /* GraphQL */ `
+  subscription OnDeleteModel {
+    onDeleteModel {
+      id
+      name
+      brand
+      image
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
