@@ -15,7 +15,7 @@ export default function cars(){
 
   async function fetchCars() {
     const apiData = await API.graphql({ query: listCars });
-    setNotes(apiData.data.listCars.items);
+    setCars(apiData.data.listCars.items);
   }
 
   async function createCar() {
@@ -44,13 +44,26 @@ export default function cars(){
         placeholder="Car description"
         value={formData.description}
       />
+      <input
+        onChange={e => setFormData({ ...formData, 'modele': e.target.value})}
+        placeholder="Car modele"
+        value={formData.modele}
+      />
+      <input
+        onChange={e => setFormData({ ...formData, 'places': e.target.value})}
+        placeholder="Car places"
+        value={formData.places}
+      />
       <button onClick={createCar}>Create Car</button>
       <div style={{marginBottom: 30}}>
+          <h2>Les voitures</h2>
         {
           cars.map(car => (
-            <div key={car.id || car.name}>
+            <div className='bg-gray-200 p-12' key={car.id || car.name}>
               <h2>{car.name}</h2>
               <p>{car.description}</p>
+              <p>{car.modele}</p>
+              <p>{car.places}</p>
               <button onClick={() => deleteCar(car)}>Delete car</button>
             </div>
           ))
