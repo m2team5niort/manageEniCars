@@ -1,3 +1,5 @@
+/* ---- Home Page ---- */
+
 .lorem-ipsum {
   padding: 1em;
   margin: 1em;
@@ -81,7 +83,7 @@ a.control_next:hover {
   border-radius: 0.5rem;
   position: relative;
   width: 350px;
-  margin: 1.5rem;
+  margin: 4rem;
   transition: 250ms all ease-in-out;
   cursor: pointer;
 }
@@ -155,4 +157,11 @@ a.control_next:hover {
 .profile-followers {
   color: var(--clr-gray-med);
   font-size: 0.9rem;
+}
+
+
+/* ---- Cars Page ---- */
+.imgCarsHeader {
+  background-image: url(../public/assets/images/911.jpg);
+  height: 100vh;
 }
