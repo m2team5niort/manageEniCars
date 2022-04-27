@@ -9,3 +9,11 @@ type Car @model {
   modele: String!
   places: Int!
 }
+
+type Model @model {
+  id: ID!
+  name: String!
+  brand: String!
+  image: String!
+  description: String!
+}
