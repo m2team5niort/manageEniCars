@@ -16,18 +16,5 @@
         "manageEniCars": {}
       }
     }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-manageenicars-dev-205425-authRole",
-      "UnauthRoleArn": "arn:aws:iam::979471135753:role/amplify-manageenicars-dev-205425-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::979471135753:role/amplify-manageenicars-dev-205425-authRole",
-      "Region": "eu-west-3",
-      "DeploymentBucketName": "amplify-manageenicars-dev-205425-deployment",
-      "UnauthRoleName": "amplify-manageenicars-dev-205425-unauthRole",
-      "StackName": "amplify-manageenicars-dev-205425",
-      "StackId": "arn:aws:cloudformation:eu-west-3:979471135753:stack/amplify-manageenicars-dev-205425/20771b30-c4c9-11ec-8d2f-0a3d689a6280",
-      "AmplifyAppId": "d6ptggflo62g6"
-    }
   }
 }
