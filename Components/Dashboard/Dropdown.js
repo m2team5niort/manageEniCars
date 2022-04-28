@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 
-export default function MyDropdown() {
+export default function MyDropdown({id, onDelete}) {
 
     return (
 
@@ -19,37 +19,37 @@ export default function MyDropdown() {
                 leaveTo="transform opacity-0 scale-95"
               />
 
-        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
-          <Menu.Item className="bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
-                        >
-            {({ active }) => (
+        <Menu.Items className="z-30 absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+          <Menu.Item className="hover:bg-gray-300 bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
+            {/* {({ active }) => (
               <a
                 className={`${active && 'bg-blue-500'}`}
                 href="/account-settings"
               >
                 Details
               </a>
-            )}
+            )} */}
+            <button onClick={() => onDetail(id)}  className={`cursor-pointer'}`}>
+                Détails
+            </button>
           </Menu.Item>
-          <Menu.Item className="bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
-            {({ active }) => (
+          <Menu.Item className="hover:bg-gray-300 bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
+            {/* {({ active }) => (
               <a
                 className={`${active && 'bg-blue-500'}`}
                 href="/account-settings"
               >
                 Modifier
               </a>
-            )}
+            )} */}
+            <button onClick={() => onUpdate(id)}  className={`cursor-pointer'}`}>
+                Modifier
+            </button>
           </Menu.Item>
-          <Menu.Item className="bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
-            {({ active }) => (
-              <a
-                className={`${active && 'bg-blue-500'}`}
-                href="/account-settings"
-              >
+          <Menu.Item className="hover:bg-gray-300 bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
+              <button onClick={() => onDelete(id)}  className={`cursor-pointer'}`}>
                 Supprimer
-              </a>
-            )}
+              </button>
           </Menu.Item>
         </Menu.Items>
 

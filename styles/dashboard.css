@@ -4,7 +4,7 @@
     margin: 0 auto;
     gap: 1.8rem;
     grid-template-columns: 14rem auto 20rem;
-    background-color: hsl(0, 0%, 93%);
+    background-color: #f1f3f8;
     padding: 0 1rem;
 }
 
@@ -14,8 +14,9 @@
     margin: 0 auto;
     gap: 1.8rem;
     grid-template-columns: 14rem auto;
-    background-color: hsl(0, 0%, 93%);
+    background-color: #f1f3f8;
     padding: 0 1rem;
+    
 }
 
 .aside .header-dashboard {
