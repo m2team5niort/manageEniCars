@@ -16,8 +16,4 @@ type Model @model {
   brand: String!
   image: String!
   description: String!
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d971ac6 (Dashboard -> Cars -> List)

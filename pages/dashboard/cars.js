@@ -3,11 +3,6 @@ import React from 'react'
 import Car from '../../Components/Dashboard/Car'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 
-const initialFormState = { name: '', description: '' }
-
-
-// Dashboard function
-
 function cars({ username }) {
 
   return (
