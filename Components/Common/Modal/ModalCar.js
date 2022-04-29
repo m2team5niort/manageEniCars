@@ -52,7 +52,7 @@ export default function ModalCar({ setFormData, formData, createCar, setModal, m
                     value: modal.object.places
                 },
                 button: function () {
-                    return  updateCar(modal.object.id)
+                    return  updateCar(modal.object)
                 }
             }
             break;

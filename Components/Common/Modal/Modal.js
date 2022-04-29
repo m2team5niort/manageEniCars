@@ -3,8 +3,6 @@ import ModalModel from "./ModalModel";
 
 export default function Modal({setFormData, formData, createCar, setModal, modal, updateCar}){
 
-    console.log("la modal:", modal)
-    console.log("la page de la modal : ", modal.page)
     function renderModal(setFormData, formData, createCar, setModal, modal, updateCar){
         switch(modal.page){
             case 'car':

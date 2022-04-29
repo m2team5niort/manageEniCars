@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 
-export default function MyDropdown({car, id, onDelete, modal, setModal}) {
+export default function MyDropdown({car, deleteCar, modal, setModal}) {
 
     return (
 
@@ -47,7 +47,7 @@ export default function MyDropdown({car, id, onDelete, modal, setModal}) {
             </button>
           </Menu.Item>
           <Menu.Item className="hover:bg-gray-300 bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
-              <button onClick={() => onDelete(id)}  className={`cursor-pointer'}`}>
+              <button onClick={() => deleteCar(car)}  className={`cursor-pointer'}`}>
                 Supprimer
               </button>
           </Menu.Item>
