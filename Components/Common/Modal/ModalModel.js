@@ -1,82 +1,73 @@
-export default function ModalModel({type,  setFormData, formData, createObject}){
+export default function ModalModel({type,  setFormData, formData, createObject, modal, setModal}){
 
-    let modal = {}
+    let modalObj = {}
 
     switch(type){
         case 'add':
-            return (
-                modal = {
-                    title : 'Ajouter une voiture',
-                    inputs : [
-                        nameInput = {
+            modalObj = {
+                    title : 'Ajouter un modèle',
+                        nameInput : {
                             type: 'text',
                             placeholder: 'Nom de la voiture'
                         },
-                        descriptionInput = {
+                        descriptionInput : {
                             type: 'text',
                             placeholder: 'Description de la voiture'
                         },
-                        modelInput = {
+                        modelInput : {
                             type: 'text',
                             placeholder: 'Modèle de la voiture'
                         },
-                        placesInput = {
+                        placesInput : {
                             type: 'text',
-                            placeholder: 'Nombre de place dans la voiture'
+                            placeholder: 'Nombre de place dans la voiture456'
                         }
-                    ]
                 }  
-            )
             break;
         case 'update':
-            return (
-                modal = {
+            modalObj = {
                     title : 'Modifier une voiture',
-                    inputs : [
-                        nameInput = {
+                        nameInput : {
                             type: 'text',
                             placeholder: 'Nom de la voiture'
                         },
-                        descriptionInput = {
+                        descriptionInput : {
                             type: 'text',
                             placeholder: 'Description de la voiture'
                         },
-                        modelInput = {
+                        modelInput : {
                             type: 'text',
                             placeholder: 'Modèle de la voiture'
                         },
-                        placesInput = {
+                        placesInput : {
                             type: 'text',
-                            placeholder: 'Nombre de place dans la voiture'
+                            placeholder: 'Nombre de place dans la voiture456'
                         }
-                    ]
                 }  
-            )
             break;
-        case 'details':
-            return (
-                modal = {
-                    title : 'Détails d\'une voiture',
-                    inputs : [
-                        nameInput = {
-                            type: 'text',
-                            placeholder: 'Nom de la voiture'
-                        },
-                        descriptionInput = {
-                            type: 'text',
-                            placeholder: 'Description de la voiture'
-                        },
-                        modelInput = {
-                            type: 'text',
-                            placeholder: 'Modèle de la voiture'
-                        },
-                        placesInput = {
-                            type: 'text',
-                            placeholder: 'Nombre de place dans la voiture'
-                        }
-                    ]
-                }  
-            )
+            case 'details':
+                modalObj = {
+                        title : 'Détails d\'une voiture',
+                            nameInput : {
+                                type: 'text',
+                                placeholder: 'Nom de la voiture'
+                            },
+                            descriptionInput : {
+                                type: 'text',
+                                placeholder: 'Description de la voiture'
+                            },
+                            modelInput : {
+                                type: 'text',
+                                placeholder: 'Modèle de la voiture'
+                            },
+                            placesInput : {
+                                type: 'text',
+                                placeholder: 'Nombre de place dans la voiture456'
+                            }
+                    }  
+                break;
+        
+        
     }
 
     return(
@@ -85,7 +76,7 @@ export default function ModalModel({type,  setFormData, formData, createObject})
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                {modal.title}
+                                {modalObj.title}
                             </h3>
                             <button onClick={() => setModal(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -94,30 +85,25 @@ export default function ModalModel({type,  setFormData, formData, createObject})
 
                         <form>
                             <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
-                                <input
+                            <input
                                     className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
                                     onChange={e => setFormData({ ...formData, 'name': e.target.value })}
-                                    placeholder={modal.inputs.nameInput}
-                                    value={formData.name}
+                                    placeholder={modalObj.nameInput.placeholder}
                                 />
                                 <input
                                     className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
                                     onChange={e => setFormData({ ...formData, 'description': e.target.value })}
-                                    placeholder={modal.inputs.descriptionInput}
-                                    value={formData.description}
+                                    placeholder={modalObj.descriptionInput.placeholder}
                                 />
                                 <input
                                     className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
                                     onChange={e => setFormData({ ...formData, 'modele': e.target.value })}
-                                    placeholder={modal.inputs.modelInput}
-                                    value={formData.modele}
+                                    placeholder={modalObj.modelInput.placeholder}
                                 />
                                 <input
                                     className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
                                     onChange={e => setFormData({ ...formData, 'places': e.target.value })}
-                                    placeholder={modal.inputs.placesInput}
-                                    value={formData.places}
-                                    type={modal.inputs.title.type}
+                                    placeholder={modalObj.placesInput.placeholder}
                                 />
                             </div>
 

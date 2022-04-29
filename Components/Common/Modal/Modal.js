@@ -1,12 +1,14 @@
 import ModalCar from "./ModalCar";
 import ModalModel from "./ModalModel";
 
-export default function Modal({type, page, setFormData, formData, createCar, modal, setModal}){
+export default function Modal({setFormData, formData, createCar, setModal, modal, updateCar}){
 
-    function renderModal(page, type, setFormData, formData, createCar, modal, setModal){
-        switch(page){
+    console.log("la modal:", modal)
+    console.log("la page de la modal : ", modal.page)
+    function renderModal(setFormData, formData, createCar, setModal, modal, updateCar){
+        switch(modal.page){
             case 'car':
-                return <ModalCar type={type} setFormData={setFormData} formData={formData} createCar={createCar} modal={modal} setModal={setModal}/>
+                return <ModalCar setFormData={setFormData} formData={formData} createCar={createCar} setModal={setModal} modal={modal} updateCar={updateCar}/>
                 break;
             case 'model':
                 return <ModalModel />
@@ -16,7 +18,7 @@ export default function Modal({type, page, setFormData, formData, createCar, mod
 
     return(
         <>
-            {renderModal(page,type, setFormData, formData, createCar, modal, setModal)}
+            {renderModal(setFormData, formData, createCar, setModal, modal, updateCar)}
         </>
     )
 }

@@ -6,13 +6,16 @@ import { listCars } from '../../graphql/queries'
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation, detailCar as detailCarMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
-const initialFormState = { name: '', description: '' }
-
 export default function Car({ username }) {
 
     const [cars, setCars] = useState([]);
-    const [formData, setFormData] = useState(initialFormState);
-    const [modal, setModal] = useState(false);
+    const [formData, setFormData] = useState({ name: '', description: '', modele: '', places: '' });
+    const [modal, setModal] = useState({
+        isShow: false,
+        type: '',
+        page: 'car',
+        object: {}
+    });
     const [onDelete, setOnDelete] = useState();
     const [onUpdate, setOnUpdate] = useState();
 
@@ -24,6 +27,11 @@ export default function Car({ username }) {
         deleteCar(onDelete);
     }, [onDelete]);
 
+    useEffect(() => {
+        console.log(onUpdate)
+        updateCar(onUpdate);
+    }, [cars]);
+
     async function fetchCars() {
         const apiData = await API.graphql({ query: listCars });
         setCars(apiData.data.listCars.items);
@@ -34,39 +42,43 @@ export default function Car({ username }) {
         let query = await API.graphql({ query: createCarMutation, variables: { input: formData } });
         setCars([...cars, formData]);
         setFormData(initialFormState);
-
-        if(query)
-        {
-            setModal(false);
-        }
         
+        if(query.data.createCar)
+        {
+            setModal({...modal, isShow: false});
+        }
     }
 
     async function updateCar(id)
     {
-        const newCarsArray = cars.filter(car => car.id !== id);
-        setCars(newCarsArray);
-        await API.graphql({ query: updateCarMutation, variables: { input: formData } });
+        // console.log("formData: ", formData)
+
+        // const updated = await API.graphql({ query: updateCarMutation, variables: {input: formData}});
+        // console.log("updated", updated)
+        // setCars([...cars, formData]);
+        // setFormData(initialFormState);
+        
     }
 
-
-    async function deleteCar(id) {
+    async function deleteCar() {
         const newCarsArray = cars.filter(car => car.id !== id);
         setCars(newCarsArray);
         await API.graphql({ query: deleteCarMutation, variables: { input: { id } }});
     }
 
+
+
     return (
         <>
-        {modal &&
-            <Modal modal={modal} setModal={setModal} createCar={createCar} setFormData={setFormData} formData={formData} type={'add'} page={'car'} />
+        {/* {modal.isShow &&
+            <Modal setModal={setModal} updateCar={updateCar} createCar={createCar} setFormData={setFormData} formData={formData} modal={modal} />
         }
             
 
             <main>
                 <h1 className="text-3xl font-bold">DASHBOARD - <span className="font-normal text-3xl"> Liste des voitures </span></h1>
 
-                <button onClick={() => setModal(true)} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
+                <button onClick={() => setModal({...modal, isShow: true, type: 'add'})} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
                     Ajouter une voiture
                 </button>
                 <div className="App bg-gray-200 mt-2">
@@ -111,7 +123,7 @@ export default function Car({ username }) {
                                             </div>
                                             <div className="px-2 relative">
 
-                                                <MyDropdown id={car.id} onDelete={setOnDelete}/>
+                                                <MyDropdown id={car.id} car={car} onDelete={setOnDelete} modal={modal} setModal={setModal}/>
 
                                             </div>
                                         </div>
@@ -129,7 +141,7 @@ export default function Car({ username }) {
 
             <div className="right-section">
                 <Navbar username={username} />
-            </div>
+            </div> */}
 
 
         </>
