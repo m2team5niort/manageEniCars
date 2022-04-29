@@ -10,9 +10,6 @@ export default function Dashboard({username}) {
             <main>
                 <h1 className="text-3xl font-bold">DASHBOARD - <span className="font-normal text-3xl">Suivi en temps réel des voitures</span></h1>
 
-                <div className="date">
-                    <input type='date' />
-                </div>
 
                 <div>
                     <Map />
@@ -71,8 +68,7 @@ export default function Dashboard({username}) {
 
             </main>
 
-            <div className="right-section">
-                <Navbar username={username}/>
+            <div className="right-section pt-14">
                 <div className="insights">
                     <div className="reservations">
                         <ChartBarIcon className="h-10 w-10 bg-blue-600 p-2 rounded-full text-white" />

@@ -23,8 +23,7 @@ export default function Sidebar() {
         <>
             <div className="aside h-screen">
                 <div className='text-base-1 mt-6 header-dashboard'>
-                    <div className='logo'>
-                        <img className='w-3/12' src="https://cnes.fr/sites/default/files/drupal/201707/image/is_logo_2017_logo_carre_blanc_sur_bleu_transparent.png" />
+                    <div className='logo text-center m-auto'>
                         <h2 className='text-2xl font-bold'>ManageCar</h2>
                     </div>
                     <div className='close'>
