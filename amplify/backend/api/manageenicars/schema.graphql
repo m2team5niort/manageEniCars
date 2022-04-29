@@ -16,8 +16,15 @@ type Model @model {
   brand: String!
   image: String!
   description: String!
-<<<<<<< HEAD
 }
-=======
+
+type Reservation @model {
+  id: ID!
+  dateDebut: Datetime!
+  dateFin: Datetime!
+  commentaire: String!
+  vehicule: ID!
+  lieuVehicule: ID!
+  lieuClef: ID!
+  statut: String!
 }
->>>>>>> d971ac6 (Dashboard -> Cars -> List)
