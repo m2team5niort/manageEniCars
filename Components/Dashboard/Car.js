@@ -3,7 +3,7 @@ import Modal from '../Common/Modal/Modal';
 import Navbar from "./Navbar";
 import { API } from 'aws-amplify';
 import { listCars } from '../../graphql/queries'
-import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation, detailCar as detailCarMutation } from '../../graphql/mutations';
+import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
 let initialFormState = { name: '', description: '', modele: '', places: '' }
@@ -115,7 +115,7 @@ export default function Car({ username }) {
                                             </div>
                                             <div className="px-2 relative">
 
-                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal}/>
+                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} />
 
                                             </div>
                                         </div>

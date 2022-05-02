@@ -79,3 +79,51 @@ export const onDeleteModel = /* GraphQL */ `
     }
   }
 `;
+export const onCreateLocation = /* GraphQL */ `
+  subscription OnCreateLocation {
+    onCreateLocation {
+      name
+      city
+      departement
+      zip
+      streetNumber
+      longitude
+      latitude
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLocation = /* GraphQL */ `
+  subscription OnUpdateLocation {
+    onUpdateLocation {
+      name
+      city
+      departement
+      zip
+      streetNumber
+      longitude
+      latitude
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLocation = /* GraphQL */ `
+  subscription OnDeleteLocation {
+    onDeleteLocation {
+      name
+      city
+      departement
+      zip
+      streetNumber
+      longitude
+      latitude
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;

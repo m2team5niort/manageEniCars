@@ -17,3 +17,13 @@ type Model @model {
   image: String!
   description: String!
 }
+
+type Location @model {
+  name: String!
+  city: String!
+  departement: String!
+  zip: Int!
+  streetNumber: String!
+  longitude: String!
+  latitude: String!
+}
