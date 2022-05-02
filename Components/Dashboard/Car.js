@@ -122,7 +122,7 @@ export default function Car({ username }) {
                                             </div>
                                             <div className="px-2 relative">
 
-                                                <MyDropdown car={car} deleteCar={deleteCar} modal={modal} setModal={setModal}/>
+                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal}/>
 
                                             </div>
                                         </div>

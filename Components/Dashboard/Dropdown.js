@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 
-export default function MyDropdown({car, deleteCar, modal, setModal}) {
+export default function MyDropdown({deleteObject, modal, setModal, object}) {
 
     return (
 
@@ -42,12 +42,12 @@ export default function MyDropdown({car, deleteCar, modal, setModal}) {
                 Modifier
               </a>
             )} */}
-            <button onClick={() => setModal({...modal, isShow: true, type: 'update', object: car})}  className={`cursor-pointer'}`}>
+            <button onClick={() => setModal({...modal, isShow: true, type: 'update', object: object})}  className={`cursor-pointer'}`}>
                 Modifier
             </button>
           </Menu.Item>
           <Menu.Item className="hover:bg-gray-300 bg-gray-100 text-gray-900 text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
-              <button onClick={() => deleteCar(car)}  className={`cursor-pointer'}`}>
+              <button onClick={() => deleteObject(deleteObject)}  className={`cursor-pointer'}`}>
                 Supprimer
               </button>
           </Menu.Item>
