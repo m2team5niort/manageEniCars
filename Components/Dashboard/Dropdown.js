@@ -1,7 +1,11 @@
 import { Menu, Transition } from '@headlessui/react'
 import { PencilAltIcon, TrashIcon, DocumentSearchIcon } from '@heroicons/react/outline'
 
+<<<<<<< HEAD
 export default function MyDropdown({ car, deleteCar, modal, setModal }) {
+=======
+export default function MyDropdown({deleteObject, modal, setModal, object}) {
+>>>>>>> 374b83d (Intermitent model CRUD)
 
   return (
 
