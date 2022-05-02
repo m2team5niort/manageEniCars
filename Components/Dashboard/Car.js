@@ -23,8 +23,6 @@ export default function Car({ username }) {
         fetchCars();
     }, []);
 
-    console.log(cars)
-
     async function fetchCars() {
         const apiData = await API.graphql({ query: listCars });
         setCars(apiData.data.listCars.items);
@@ -34,55 +32,50 @@ export default function Car({ username }) {
         if (!formData.name || !formData.description) return;
 
         await API.graphql({ query: createCarMutation, variables: { input: formData } }).then((res) => {
-            console.log(res)
             setCars([...cars, res.data.createCar]);
             setFormData(initialFormState);
-            setModal({...modal, isShow: false});
+            setModal({ ...modal, isShow: false });
         }).catch((err) => {
             console.log(err)
         });
 
     }
 
-    async function updateCar({id})
-    {
-        console.log(id)
+    async function updateCar({ id }) {
 
         formData.id = id
 
-        await API.graphql({ query: updateCarMutation, variables: {input: formData}}).then((res) => {
+        await API.graphql({ query: updateCarMutation, variables: { input: formData } }).then((res) => {
             let index = cars.findIndex((obj => obj.id === id));
             cars[index] = res.data.updateCar
             setFormData(initialFormState);
-            setModal({...modal, isShow: false})
+            setModal({ ...modal, isShow: false })
         }).catch((err) => {
             console.log(err)
         });
-        
+
     }
 
-    async function deleteCar({id}) {
+    async function deleteCar({ id }) {
         const newCarsArray = cars.filter(car => car.id !== id);
         setCars(newCarsArray);
-        await API.graphql({ query: deleteCarMutation, variables: { input: { id } }});
+        await API.graphql({ query: deleteCarMutation, variables: { input: { id } } });
     }
-
-    console.log(cars)
 
     return (
         <>
-        {modal.isShow &&
-            <Modal modal={modal} setModal={setModal} updateCar={updateCar} createCar={createCar} setFormData={setFormData} formData={formData} />
-        }
+            {modal.isShow &&
+                <Modal modal={modal} setModal={setModal} updateObject={updateCar} createObject={createCar} setFormData={setFormData} formData={formData} />
+            }
 
             <main>
                 <h1 className="text-3xl font-bold">DASHBOARD - <span className="font-normal text-3xl"> Liste des voitures </span></h1>
 
-                <button onClick={() => setModal({...modal, isShow: true, type: 'add'})} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
+                <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
                     Ajouter une voiture
                 </button>
                 <div className="App bg-gray-200 mt-2">
-                    
+
                     <div style={{ marginBottom: 30 }}>
                         <div>
                             <div className="flex justify-between bg-gray-400 rounded-md py-2 px-4 text-white font-bold text-md">
@@ -104,7 +97,7 @@ export default function Car({ username }) {
                             </div>
 
                             {
-                                cars.map(car =>  (
+                                cars.map(car => (
 
                                     <div key={car.id}>
                                         <div className="flex justify-between border-t text-sm font-normal mt-2 space-x-4">
@@ -122,7 +115,7 @@ export default function Car({ username }) {
                                             </div>
                                             <div className="px-2 relative">
 
-                                                <MyDropdown car={car} deleteCar={deleteCar} modal={modal} setModal={setModal}/>
+                                                <MyDropdown car={car} deleteCar={deleteCar} modal={modal} setModal={setModal} />
 
                                             </div>
                                         </div>

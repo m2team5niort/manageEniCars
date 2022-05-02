@@ -1,9 +1,8 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export default function ModalCar({ setFormData, formData, createCar, setModal, modal, updateCar }) {
+export default function ModalCar({ setFormData, formData, createCar, updateCar, setModal, modal }) {
 
     let modalObj = {}
-    let modalTrigger = {}
 
     switch (modal.type) {
         case 'add':
@@ -52,7 +51,7 @@ export default function ModalCar({ setFormData, formData, createCar, setModal, m
                     value: modal.object.places
                 },
                 button: function () {
-                    return  updateCar(modal.object)
+                    return updateCar(modal.object)
                 }
             }
             break;
@@ -61,20 +60,29 @@ export default function ModalCar({ setFormData, formData, createCar, setModal, m
                 title: 'Détails d\'une voiture',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom de la voiture'
+                    placeholder: 'Nom de la voiture',
+                    value: modal.object.name,
+                    readOnly: 'readOnly',
                 },
                 descriptionInput: {
                     type: 'text',
-                    placeholder: 'Description de la voiture'
+                    placeholder: 'Description de la voiture',
+                    value: modal.object.description,
+                    readOnly: 'readOnly',
                 },
                 modelInput: {
                     type: 'text',
-                    placeholder: 'Modèle de la voiture'
+                    placeholder: 'Modèle de la voiture',
+                    value: modal.object.modele,
+                    readOnly: 'readOnly',
                 },
                 placesInput: {
                     type: 'text',
-                    placeholder: 'Nombre de place dans la voiture456'
-                }
+                    placeholder: 'Nombre de place dans la voiture456',
+                    value: modal.object.places,
+                    readOnly: 'readOnly',
+                },
+                className: 'cursor-not-allowed'
             }
             break;
 
@@ -82,13 +90,13 @@ export default function ModalCar({ setFormData, formData, createCar, setModal, m
     }
 
     useEffect(() => {
-        if(modal.type === 'update'){
+        if (modal.type === 'update') {
             setFormData({
-                ...formData, 
+                ...formData,
                 name: modalObj.nameInput.value,
                 description: modalObj.descriptionInput.value,
-                modele: modalObj.modelInput.value, 
-                places: modalObj.placesInput.value    
+                modele: modalObj.modelInput.value,
+                places: modalObj.placesInput.value
             })
         }
     }, [])
@@ -109,28 +117,32 @@ export default function ModalCar({ setFormData, formData, createCar, setModal, m
                     <form>
                         <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
                                 defaultValue={modalObj.nameInput.value}
+                                readOnly={modalObj.nameInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'description': e.target.value })}
                                 placeholder={modalObj.descriptionInput.placeholder}
                                 defaultValue={modalObj.descriptionInput.value}
+                                readOnly={modalObj.nameInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'modele': e.target.value })}
                                 placeholder={modalObj.modelInput.placeholder}
                                 defaultValue={modalObj.modelInput.value}
+                                readOnly={modalObj.nameInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'places': e.target.value })}
                                 placeholder={modalObj.placesInput.placeholder}
                                 defaultValue={modalObj.placesInput.value}
+                                readOnly={modalObj.nameInput.readOnly}
                             />
                         </div>
 
