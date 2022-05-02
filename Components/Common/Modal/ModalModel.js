@@ -4,6 +4,8 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
 
     let modalObj = {}
 
+    console.log("modal:", modal)
+    console.log("modal.obj:", modal.object)
     switch (modal.type) {
         case 'add':
             modalObj = {
@@ -32,19 +34,23 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                 title: 'Ajouter un modèle',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom du modèle'
+                    placeholder: 'Nom du modèle',
+                    value: modal.object.name
                 },
                 descriptionInput: {
                     type: 'text',
-                    placeholder: 'Description du modèle'
+                    placeholder: 'Description du modèle',
+                    value: modal.object.description
                 },
                 imageInput: {
                     type: 'text',
-                    placeholder: 'Image du modèle'
+                    placeholder: 'Image du modèle',
+                    value: modal.object.image
                 },
                 brandInput: {
                     type: 'text',
-                    placeholder: 'Marque du modèle'
+                    placeholder: 'Marque du modèle',
+                    value: modal.object.brand
                 },
                 button: function () {
                     return updateModel(modal.object)
@@ -56,19 +62,27 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                 title: 'Ajouter un modèle',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom du modèle'
+                    placeholder: 'Nom du modèle',
+                    value: modal.object.name,
+                    readOnly: 'readOnly',
                 },
                 descriptionInput: {
                     type: 'text',
-                    placeholder: 'Description du modèle'
+                    placeholder: 'Description du modèle',
+                    value: modal.object.description,
+                    readOnly: 'readOnly',
                 },
                 imageInput: {
                     type: 'text',
-                    placeholder: 'Image du modèle'
+                    placeholder: 'Image du modèle',
+                    value: modal.object.image,
+                    readOnly: 'readOnly',
                 },
                 brandInput: {
                     type: 'text',
-                    placeholder: 'Marque du modèle'
+                    placeholder: 'Marque du modèle',
+                    value: modal.object.brand,
+                    readOnly: 'readOnly',
                 }
             }
             break;
@@ -105,28 +119,32 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                     <form>
                         <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
                                 defaultValue={modalObj.nameInput.value}
+                                readOnly={modalObj.nameInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'description': e.target.value })}
                                 placeholder={modalObj.descriptionInput.placeholder}
                                 defaultValue={modalObj.descriptionInput.value}
+                                readOnly={modalObj.descriptionInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'image': e.target.value })}
                                 placeholder={modalObj.imageInput.placeholder}
                                 defaultValue={modalObj.imageInput.value}
+                                readOnly={modalObj.imageInput.readOnly}
                             />
                             <input
-                                className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'brand': e.target.value })}
                                 placeholder={modalObj.brandInput.placeholder}
                                 defaultValue={modalObj.brandInput.value}
+                                readOnly={modalObj.brandInput.readOnly}
                             />
                         </div>
 

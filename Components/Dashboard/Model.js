@@ -46,7 +46,7 @@ export default function Model({ username }) {
         formData.id = id
 
         await API.graphql({ query: updateModelMutation, variables: {input: formData}}).then((res) => {
-            let index = cars.findIndex((obj => obj.id === id));
+            let index = models.findIndex((obj => obj.id === id));
             models[index] = res.data.updateModel
             setFormData(initialFormState);
             setModal({...modal, isShow: false})
@@ -65,7 +65,7 @@ export default function Model({ username }) {
     return (
         <>
             {modal.isShow &&
-            <Modal modal={modal} setModal={setModal} updateModel={updateModel} createModel={createModel} setFormData={setFormData} formData={formData} />
+            <Modal modal={modal} setModal={setModal} updateObject={updateModel} createObject={createModel} setFormData={setFormData} formData={formData} />
         }
 
             <main>

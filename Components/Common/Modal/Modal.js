@@ -9,7 +9,7 @@ export default function Modal({ setFormData, formData, createObject, updateObjec
                 return <ModalCar setFormData={setFormData} formData={formData} createCar={createObject} updateCar={updateObject} setModal={setModal} modal={modal} />
                 break;
             case 'model':
-                return <ModalModel setFormData={setFormData} formData={formData} createModel={createModel} setModal={setModal} modal={modal} updateModel={updateModel}/>
+                return <ModalModel setFormData={setFormData} formData={formData} createModel={createObject} updateModel={updateObject} setModal={setModal} modal={modal} />
                 
         }
     }

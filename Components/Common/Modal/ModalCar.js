@@ -128,21 +128,21 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                                 onChange={e => setFormData({ ...formData, 'description': e.target.value })}
                                 placeholder={modalObj.descriptionInput.placeholder}
                                 defaultValue={modalObj.descriptionInput.value}
-                                readOnly={modalObj.nameInput.readOnly}
+                                readOnly={modalObj.descriptionInput.readOnly}
                             />
                             <input
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'modele': e.target.value })}
                                 placeholder={modalObj.modelInput.placeholder}
                                 defaultValue={modalObj.modelInput.value}
-                                readOnly={modalObj.nameInput.readOnly}
+                                readOnly={modalObj.modelInput.readOnly}
                             />
                             <input
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'places': e.target.value })}
                                 placeholder={modalObj.placesInput.placeholder}
                                 defaultValue={modalObj.placesInput.value}
-                                readOnly={modalObj.nameInput.readOnly}
+                                readOnly={modalObj.placesInput.readOnly}
                             />
                         </div>
 
