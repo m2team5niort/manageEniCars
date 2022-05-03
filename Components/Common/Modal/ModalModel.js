@@ -83,7 +83,9 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                     placeholder: 'Marque du modèle',
                     value: modal.object.brand,
                     readOnly: 'readOnly',
-                }
+                },
+                className: 'cursor-not-allowed'
+
             }
             break;
 

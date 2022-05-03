@@ -18,8 +18,12 @@ type Model @model {
   description: String!
 }
 
-type Key @model {
-  id: ID!
-  locationFollowed: String!
-  locationStatic: String!
+type Location @model {
+  name: String!
+  city: String!
+  departement: String!
+  zip: Int!
+  streetNumber: String!
+  longitude: String!
+  latitude: String!
 }

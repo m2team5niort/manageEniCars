@@ -67,3 +67,42 @@ export const listModels = /* GraphQL */ `
     }
   }
 `;
+export const getLocation = /* GraphQL */ `
+  query GetLocation($id: ID!) {
+    getLocation(id: $id) {
+      name
+      city
+      departement
+      zip
+      streetNumber
+      longitude
+      latitude
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLocations = /* GraphQL */ `
+  query ListLocations(
+    $filter: ModelLocationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

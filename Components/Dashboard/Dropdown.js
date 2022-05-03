@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import { PencilAltIcon, TrashIcon, DocumentSearchIcon } from '@heroicons/react/outline'
 
-export default function MyDropdown({deleteObject, modal, setModal, object}) {
+export default function MyDropdown({ deleteObject, modal, setModal, object }) {
 
   return (
 
