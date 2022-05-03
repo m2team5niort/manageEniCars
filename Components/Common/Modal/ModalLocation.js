@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react';
 export default function ModalLocation({ setFormData, formData, createLocation, setModal, modal, updateLocation }) {
 
     let modalObj = {}
-    const [adresses, setAdresses] = useState([])
+    const [adresses, setAdresses] = useState({
+        objects: [],
+        isShow: ''
+    })
     const [adressSelect, setAdressSelect] = useState()
 
     switch (modal.type) {
@@ -17,7 +20,6 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 streetNumberInput: {
                     type: 'adress',
                     placeholder: 'Numéro de rue',
-                    value: adressSelect ? adressSelect.streetNumber : ''
                 },
                 cityInput: {
                     type: 'text',
@@ -37,12 +39,14 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 longitudeInput: {
                     type: 'text',
                     placeholder: 'Longitude',
-                    value: adressSelect ? adressSelect.longitude : ''
+                    value: adressSelect ? adressSelect.longitude : '',
+                    readOnly: 'readOnly'
                 },
                 latitudeInput: {
                     type: 'text',
                     placeholder: 'Latitude',
-                    value: adressSelect ? adressSelect.latidude : ''
+                    value: adressSelect ? adressSelect.latidude : '',
+                    readOnly: 'readOnly'
                 },
                 button: function () { return createLocation() }
             }
@@ -82,25 +86,26 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                     type: 'text',
                     placeholder: 'Nom du modèle',
                     value: modal.object.name,
-                    readOnly: 'readOnly',
+                    readOnly: 'readOnly'
                 },
                 descriptionInput: {
                     type: 'text',
                     placeholder: 'Description du modèle',
                     value: modal.object.description,
-                    readOnly: 'readOnly',
+                    readOnly: 'readOnly'
                 },
                 imageInput: {
                     type: 'text',
                     placeholder: 'Image du modèle',
                     value: modal.object.image,
-                    readOnly: 'readOnly',
+                    readOnly: 'readOnly'
                 },
                 brandInput: {
                     type: 'text',
                     placeholder: 'Marque du modèle',
                     value: modal.object.brand,
-                    readOnly: 'readOnly',
+                    readOnly: 'readOnly'
+                    
                 },
                 className: 'cursor-not-allowed'
             }
@@ -124,14 +129,18 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
     useEffect(() => {
         if (formData.streetNumber !== '') {
             getAdressModal()
+        }else{
+            setAdresses([],{...adresses, isShow: false})
         }
     }, [formData.streetNumber])
 
+    /*
     useEffect(() => {
         if (adressSelect) {
             handleFormDataAutomaticly()
         }
     }, [adressSelect])
+    */
 
     const getAdressModal = async () => {
 
@@ -147,14 +156,15 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
         })
 
         const data = await response.json()
-        setAdresses(data)
+        setAdresses({...adresses, objects: [data], isShow: true})
 
     }
 
-    function handleAdressChange(e) {
+    function handleAdressChange(adress) {
 
-        if (e.target.value !== '') {
-            let obj = JSON.parse(e.target.value)
+        if (adress !== '') {
+            console.log('test')
+            let obj = JSON.parse(adress)
             setAdressSelect({
                 ...adressSelect,
                 city: obj.properties.city,
@@ -164,21 +174,11 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 longitude: obj.geometry.coordinates[0],
                 latidude: obj.geometry.coordinates[1]
             })
+            setAdresses({...adresses, isShow: false})
         }
     }
 
-    function handleFormDataAutomaticly() {
-
-        setFormData({
-            ...formData,
-            city: adressSelect.city,
-            departement: adressSelect.departement,
-            zip: adressSelect.zip,
-            streetNumber: adressSelect.streetNumber,
-            longitude: adressSelect.longitude,
-            latitude: adressSelect.latidude
-        })
-    }
+    console.log(adresses)
 
     return (
 
@@ -195,9 +195,9 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                     </div>
 
                     <form>
-                        <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
+                        <div className='flex flex-col md:w-2/3 mx-auto py-8'>
                             <input
-                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
                                 defaultValue={modalObj.nameInput.value}
@@ -214,16 +214,19 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                                 />
                             }
 
-                            {adresses.length > 0 ?
-                                <select onChange={(e) => handleAdressChange(e)} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'>
-                                    <option value=''>Choisir l'adresse</option>
-                                    {adresses.map(adress => (
-                                        <option key={adress.properties.id} value={JSON.stringify(adress)}>{adress.properties.label}</option>
+
+                            {/*adresses.isShow ?
+                            
+                                <ul className="bg-gray-50 p-4">
+                                    {adresses.objects.map(adress => (
+                                        <li onClick={adress => handleAdressChange(adress)} className="mb-2 hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
                                     ))}
-                                </select>
+                                </ul>
+                                
                                 :
                                 <></>
-                            }
+                                
+                            */}
 
                             {adressSelect && formData.name &&
                                 <>
@@ -249,14 +252,14 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                                         readOnly={modalObj.zipInput.readOnly}
                                     />
                                     <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
                                         onChange={e => setFormData({ ...formData, 'longitude': e.target.value })}
                                         placeholder={modalObj.longitudeInput.placeholder}
                                         defaultValue={modalObj.longitudeInput.value}
                                         readOnly={modalObj.longitudeInput.readOnly}
                                     />
                                     <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
                                         onChange={e => setFormData({ ...formData, 'latitude': e.target.value })}
                                         placeholder={modalObj.latitudeInput.placeholder}
                                         defaultValue={modalObj.latitudeInput.value}
