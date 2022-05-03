@@ -78,7 +78,7 @@ export default function Car({ username }) {
 
                     <div style={{ marginBottom: 30 }}>
                         <div>
-                            <div className="flex justify-between bg-gray-400 rounded-md py-2 px-4 text-white font-bold text-md">
+                            <div className="flex justify-between bg-gray-400 rounded-md py-2 px-4 text-white text-left  text-md">
                                 <div>
                                     <span>Nom</span>
                                 </div>
@@ -100,12 +100,12 @@ export default function Car({ username }) {
                                 cars.map(car => (
 
                                     <div key={car.id}>
-                                        <div className="flex justify-between border-t text-sm font-normal mt-2 space-x-4">
+                                        <div className="flex justify-between border-t text-sm font-normal text-right mt-2 ">
                                             <div className="px-2 flex">
-                                                <span> {car.name} </span>
+                                                <span > {car.name} </span>
                                             </div>
                                             <div>
-                                                <span> {car.description} </span>
+                                                <span > {car.description} </span>
                                             </div>
                                             <div className="px-2">
                                                 <span> {car.modele} </span>
