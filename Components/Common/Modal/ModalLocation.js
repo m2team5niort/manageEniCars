@@ -7,7 +7,7 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
         objects: [],
         isShow: ''
     })
-    const [adressSelect, setAdressSelect] = useState()
+    const [adressSelect, setAdressSelect] = useState(false)
 
     switch (modal.type) {
         case 'add':
@@ -15,38 +15,33 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 title: 'Ajouter un lieu',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom du lieu'
+                    placeholder: 'Nom du lieu',
                 },
                 streetNumberInput: {
                     type: 'adress',
-                    placeholder: 'Numéro de rue',
+                    placeholder: 'Numéro et nom de rue',
                 },
                 cityInput: {
                     type: 'text',
                     placeholder: 'Nom de la ville',
-                    value: adressSelect ? adressSelect.city : ''
                 },
                 departementInput: {
                     type: 'text',
                     placeholder: 'Département',
-                    value: adressSelect ? adressSelect.departement : ''
                 },
                 zipInput: {
                     type: 'number',
                     placeholder: 'Code postal',
-                    value: adressSelect ? adressSelect.zip : ''
                 },
                 longitudeInput: {
                     type: 'text',
                     placeholder: 'Longitude',
-                    value: adressSelect ? adressSelect.longitude : '',
-                    readOnly: 'readOnly'
+                    readOnly: 'readOnly',
                 },
                 latitudeInput: {
                     type: 'text',
                     placeholder: 'Latitude',
-                    value: adressSelect ? adressSelect.latidude : '',
-                    readOnly: 'readOnly'
+                    readOnly: 'readOnly',
                 },
                 button: function () { return createLocation() }
             }
@@ -105,7 +100,7 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                     placeholder: 'Marque du modèle',
                     value: modal.object.brand,
                     readOnly: 'readOnly'
-                    
+
                 },
                 className: 'cursor-not-allowed'
             }
@@ -127,20 +122,14 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
     }, [])
 
     useEffect(() => {
-        if (formData.streetNumber !== '') {
-            getAdressModal()
-        }else{
-            setAdresses([],{...adresses, isShow: false})
+        if (!adressSelect.isSelect) {
+            if (formData.streetNumber !== '') {
+                getAdressModal()
+            } else if (adressSelect) {
+                setAdresses({ ...adresses, objects: [], isShow: false })
+            }
         }
     }, [formData.streetNumber])
-
-    /*
-    useEffect(() => {
-        if (adressSelect) {
-            handleFormDataAutomaticly()
-        }
-    }, [adressSelect])
-    */
 
     const getAdressModal = async () => {
 
@@ -156,29 +145,28 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
         })
 
         const data = await response.json()
-        setAdresses({...adresses, objects: [data], isShow: true})
+        setAdresses({ ...adresses, objects: data, isShow: true })
 
     }
 
     function handleAdressChange(adress) {
 
         if (adress !== '') {
-            console.log('test')
-            let obj = JSON.parse(adress)
-            setAdressSelect({
-                ...adressSelect,
-                city: obj.properties.city,
-                departement: obj.properties.context.split(',')[1].replace(' ', ''),
-                zip: obj.properties.postcode,
-                streetNumber: obj.properties.label,
-                longitude: obj.geometry.coordinates[0],
-                latidude: obj.geometry.coordinates[1]
+            setAdresses({ ...adresses, objects: [], isShow: false })
+            setFormData({
+                ...formData,
+                city: adress.properties.city,
+                departement: adress.properties.context.split(',')[1].replace(' ', ''),
+                zip: adress.properties.postcode,
+                streetNumber: adress.properties.label,
+                longitude: adress.geometry.coordinates[0],
+                latitude: adress.geometry.coordinates[1]
             })
-            setAdresses({...adresses, isShow: false})
+            setAdressSelect(true)
         }
     }
 
-    console.log(adresses)
+    console.log(adressSelect)
 
     return (
 
@@ -196,75 +184,96 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
 
                     <form>
                         <div className='flex flex-col md:w-2/3 mx-auto py-8'>
+                            <label>Nom du lieu</label>
                             <input
                                 className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
-                                defaultValue={modalObj.nameInput.value}
+                                value={modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
                             />
 
                             {formData.name &&
-                                <input
-                                    className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                    onChange={e => setFormData({ ...formData, 'streetNumber': e.target.value })}
-                                    placeholder={modalObj.streetNumberInput.placeholder}
-                                    defaultValue={modalObj.streetNumberInput.value}
-                                    readOnly={modalObj.streetNumberInput.readOnly}
-                                />
+                                <div className="relative">
+                                    <label>Numéro et nom de rue</label>
+                                    <input
+                                        className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                        onChange={e => setFormData({ ...formData, 'streetNumber': e.target.value }, setAdressSelect(false))}
+                                        placeholder={modalObj.streetNumberInput.placeholder}
+                                        value={formData.streetNumber}
+                                        readOnly={modalObj.streetNumberInput.readOnly}
+                                    />
+
+                                    {adresses.isShow && !adressSelect ?
+
+                                        <ul className="-mt-6 mb-6 bg-gray-100 p-4 absolute w-full">
+                                            {adresses.objects.map(adress => (
+                                                <li onClick={() => handleAdressChange(adress)} className="hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
+                                            ))}
+                                        </ul>
+
+                                        :
+                                        <></>
+
+                                    }
+                                </div>
                             }
 
 
-                            {/*adresses.isShow ?
-                            
-                                <ul className="bg-gray-50 p-4">
-                                    {adresses.objects.map(adress => (
-                                        <li onClick={adress => handleAdressChange(adress)} className="mb-2 hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
-                                    ))}
-                                </ul>
-                                
-                                :
-                                <></>
-                                
-                            */}
-
-                            {adressSelect && formData.name &&
+                            {adressSelect && formData.city !== '' &&
                                 <>
+                                    <label>Ville</label>
                                     <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                        className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                         onChange={e => setFormData({ ...formData, 'city': e.target.value })}
                                         placeholder={modalObj.cityInput.placeholder}
-                                        defaultValue={modalObj.cityInput.value}
+                                        value={formData.city}
                                         readOnly={modalObj.cityInput.readOnly}
                                     />
-                                    <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                        onChange={e => setFormData({ ...formData, 'departement': e.target.value })}
-                                        placeholder={modalObj.departementInput.placeholder}
-                                        defaultValue={modalObj.departementInput.value}
-                                        readOnly={modalObj.departementInput.readOnly}
-                                    />
-                                    <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                        onChange={e => setFormData({ ...formData, 'zip': e.target.value })}
-                                        placeholder={modalObj.zipInput.placeholder}
-                                        defaultValue={modalObj.zipInput.value}
-                                        readOnly={modalObj.zipInput.readOnly}
-                                    />
-                                    <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
-                                        onChange={e => setFormData({ ...formData, 'longitude': e.target.value })}
-                                        placeholder={modalObj.longitudeInput.placeholder}
-                                        defaultValue={modalObj.longitudeInput.value}
-                                        readOnly={modalObj.longitudeInput.readOnly}
-                                    />
-                                    <input
-                                        className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
-                                        onChange={e => setFormData({ ...formData, 'latitude': e.target.value })}
-                                        placeholder={modalObj.latitudeInput.placeholder}
-                                        defaultValue={modalObj.latitudeInput.value}
-                                        readOnly={modalObj.latitudeInput.readOnly}
-                                    />
+                                    <div className='flex flex-row gap-4'>
+                                        <div className='flex flex-col'>
+                                            <label>Département</label>
+                                            <input
+                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                                onChange={e => setFormData({ ...formData, 'departement': e.target.value })}
+                                                placeholder={modalObj.departementInput.placeholder}
+                                                value={formData.departement}
+                                                readOnly={modalObj.departementInput.readOnly}
+                                            />
+                                        </div>
+                                        <div className='flex flex-col'>
+                                            <label>Code postal</label>
+                                            <input
+                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                                onChange={e => setFormData({ ...formData, 'zip': e.target.value })}
+                                                placeholder={modalObj.zipInput.placeholder}
+                                                value={formData.zip}
+                                                readOnly={modalObj.zipInput.readOnly}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-row gap-4'>
+                                        <div className='flex flex-col'>
+                                            <label>Longitude</label>
+                                            <input
+                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
+                                                onChange={e => setFormData({ ...formData, 'longitude': e.target.value })}
+                                                placeholder={modalObj.longitudeInput.placeholder}
+                                                value={formData.longitude}
+                                                readOnly={modalObj.longitudeInput.readOnly}
+                                            />
+                                        </div>
+                                        <div className='flex flex-col'>
+                                            <label>Latitude</label>
+                                            <input
+                                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
+                                                onChange={e => setFormData({ ...formData, 'latitude': e.target.value })}
+                                                placeholder={modalObj.latitudeInput.placeholder}
+                                                value={formData.latitude}
+                                                readOnly={modalObj.latitudeInput.readOnly}
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             }
                         </div>
@@ -275,8 +284,8 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
 
 
     )
