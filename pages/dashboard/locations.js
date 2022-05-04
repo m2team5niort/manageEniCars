@@ -1,12 +1,14 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
 import Location from '../../Components/Dashboard/Location'
+import Navbar from '../../Components/Dashboard/Navbar'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 
 function locations({ username }) {
 
     return (
-        <div className={`container-dashboard mx-auto`}>
+        <div className={`container-dashboard mx-auto bg-gray-900`}>
+            <Navbar />
             <Sidebar />
             <Location username={username} />
         </div>

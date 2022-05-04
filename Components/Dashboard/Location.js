@@ -70,84 +70,65 @@ export default function Location({ username }) {
                 <Modal modal={modal} setModal={setModal} updateObject={updateLocation} createObject={createLocation} setFormData={setFormData} formData={formData} />
             }
 
-            <main>
-                <h1 className="text-3xl font-bold">DASHBOARD - <span className="font-normal text-3xl"> Liste des lieux </span></h1>
-
-                <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
-                    Ajouter un lieu
-                </button>
-                <div className="App bg-gray-200 mt-2">
-
-                    <div style={{ marginBottom: 30 }}>
-                        <div>
-                            <div className="flex justify-between bg-gray-400 rounded-md py-2 px-4 text-white font-bold text-md">
-                                <div>
-                                    <span> Nom </span>
-                                </div>
-                                <div>
-                                    <span> Ville </span>
-                                </div>
-                                <div>
-                                    <span> Département </span>
-                                </div>
-                                <div>
-                                    <span> Code postal </span>
-                                </div>
-                                <div>
-                                    <span> Numéro de rue </span>
-                                </div>
-                                <div>
-                                    <span> Longitude </span>
-                                </div>
-                                <div>
-                                    <span> Latitude </span>
-                                </div>
-                                <div>
-                                    <span> Action </span>
-                                </div>
-                            </div>
-
-                            {
-                                locations.map(location => (
-
-                                    <div key={location.id}>
-                                        <div className="flex justify-between border-t text-sm font-normal mt-2 space-x-4">
-                                            <div className="px-2 flex">
-                                                <span> {location.name} </span>
-                                            </div>
-                                            <div>
-                                                <span> {location.city} </span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {location.departement} </span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {location.zip}</span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {location.streetNumber}</span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {location.longitude}</span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {location.latitude}</span>
-                                            </div>
-                                            <div className="px-2 relative">
-
-                                                <MyDropdown object={location} deleteObject={deleteLocation} modal={modal} setModal={setModal} />
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                ))
-                            }
-
-
-                        </div>
+<main  id="Content">
+                <div className='h-full w-full  p-24'>
+                <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                    <div className='flex justify-between px-6 py-4'>
+                        <h1 className='text-white '> Liste des lieux </h1>
+                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-cyan-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un lieu </button>
                     </div>
+                                
+                                <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                                    <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                #
+                                            </th>
+                                            <th scope="col-3" className="px-6 py-3">
+                                                Nom
+                                            </th>
+                                            <th scope="col-4" className="px-6 py-3">
+                                                Ville
+                                            </th>
+                                            <th scope="col-2" className="px-6 py-3">
+                                                Département
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Code postal
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3 text-center">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                        locations.map((location, index) => (
+                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                            <th scope="row" className="px-6 py-4 whitespace-nowrap">
+                                                {index + 1}
+                                            </th>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {location.name} </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {location.city}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {location.departement}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {location.zip} </span>
+                                            </td>
+                                            <td className="px-6 py-4 relative text-center">
+                                                <MyDropdown object={location} deleteObject={deleteLocation} modal={modal} setModal={setModal} />
+                                            </td>
+                                        </tr>
+                                        ))
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
                 </div>
             </main>
 
