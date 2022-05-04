@@ -1,6 +1,6 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
-import Key from '../../Components/Dashboard/Key'
+import Keys from '../../Components/Dashboard/Keys'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 import Navbar from '../../Components/Dashboard/Navbar'
 
@@ -10,7 +10,7 @@ function keys({ username }) {
     <div className={`container-dashboard mx-auto bg-gray-900`}>
       <Navbar />
       <Sidebar />
-      <Key username={username} />
+      <Keys username={username} />
     </div>
   )
 }
