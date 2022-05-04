@@ -51,23 +51,33 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 title: 'Modifier un lieu',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom du modèle',
-                    value: modal.object.name
+                    placeholder: 'Nom du lieu',
                 },
-                descriptionInput: {
-                    type: 'text',
-                    placeholder: 'Description du modèle',
-                    value: modal.object.description
+                streetNumberInput: {
+                    type: 'adress',
+                    placeholder: 'Numéro et nom de rue',
                 },
-                imageInput: {
+                cityInput: {
                     type: 'text',
-                    placeholder: 'Image du modèle',
-                    value: modal.object.image
+                    placeholder: 'Nom de la ville',
                 },
-                brandInput: {
+                departementInput: {
                     type: 'text',
-                    placeholder: 'Marque du modèle',
-                    value: modal.object.brand
+                    placeholder: 'Département',
+                },
+                zipInput: {
+                    type: 'number',
+                    placeholder: 'Code postal',
+                },
+                longitudeInput: {
+                    type: 'text',
+                    placeholder: 'Longitude',
+                    readOnly: 'readOnly',
+                },
+                latitudeInput: {
+                    type: 'text',
+                    placeholder: 'Latitude',
+                    readOnly: 'readOnly'
                 },
                 button: function () {
                     return updateLocation(modal.object)
@@ -79,28 +89,45 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                 title: 'Visualisation du lieu',
                 nameInput: {
                     type: 'text',
-                    placeholder: 'Nom du modèle',
+                    placeholder: 'Nom du lieu',
                     value: modal.object.name,
                     readOnly: 'readOnly'
                 },
-                descriptionInput: {
-                    type: 'text',
-                    placeholder: 'Description du modèle',
-                    value: modal.object.description,
+                streetNumberInput: {
+                    type: 'adress',
+                    placeholder: 'Numéro et nom de rue',
+                    value: modal.object.streetNumber,
                     readOnly: 'readOnly'
                 },
-                imageInput: {
+                cityInput: {
                     type: 'text',
-                    placeholder: 'Image du modèle',
-                    value: modal.object.image,
+                    placeholder: 'Nom de la ville',
+                    value: modal.object.city,
                     readOnly: 'readOnly'
                 },
-                brandInput: {
+                departementInput: {
                     type: 'text',
-                    placeholder: 'Marque du modèle',
-                    value: modal.object.brand,
+                    placeholder: 'Département',
+                    value: modal.object.departement,
                     readOnly: 'readOnly'
-
+                },
+                zipInput: {
+                    type: 'number',
+                    placeholder: 'Code postal',
+                    value: modal.object.zip,
+                    readOnly: 'readOnly'
+                },
+                longitudeInput: {
+                    type: 'text',
+                    placeholder: 'Longitude',
+                    value: modal.object.longitude,
+                    readOnly: 'readOnly'
+                },
+                latitudeInput: {
+                    type: 'text',
+                    placeholder: 'Latitude',
+                    value: modal.object.latitude,
+                    readOnly: 'readOnly'
                 },
                 className: 'cursor-not-allowed'
             }
@@ -110,18 +137,25 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
     }
 
     useEffect(() => {
+        // Set adressSelect and unshow autocomplete adresse , then init data input with modal.object
         if (modal.type === 'update') {
+            setAdressSelect(true)
+            setAdresses({ ...adresses, objects: [], isShow: false })
             setFormData({
                 ...formData,
-                name: modalObj.nameInput.value,
-                description: modalObj.descriptionInput.value,
-                image: modalObj.imageInput.value,
-                brand: modalObj.brandInput.value
+                name: modal.object.name,
+                streetNumber: modal.object.streetNumber,
+                city: modal.object.city,
+                zip: modal.object.zip,
+                departement: modal.object.departement,
+                longitude: modal.object.longitude,
+                latitude: modal.object.latitude,
             })
         }
     }, [])
 
     useEffect(() => {
+        // If adress is not selected, and if streetnumber is not null, then , search for adress with api gouv
         if (!adressSelect.isSelect) {
             if (formData.streetNumber !== '') {
                 getAdressModal()
@@ -131,6 +165,8 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
         }
     }, [formData.streetNumber])
 
+    // This function call the function getAdress() and return an array of adresses by search ing in formData.streetNumber.
+    // When response comes, the function setAdresses() to objects data and to set modal isShow to true, to display the selected adresses
     const getAdressModal = async () => {
 
         const response = await fetch('http://localhost:3000/api/dashboard/getAdress/', {
@@ -149,6 +185,7 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
 
     }
 
+    // When user click on select adresses, he choose one of them, so we destruct adress object to setFormData input value
     function handleAdressChange(adress) {
 
         if (adress !== '') {
@@ -166,7 +203,7 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
         }
     }
 
-    console.log(adressSelect)
+    console.log(formData)
 
     return (
 
@@ -189,93 +226,88 @@ export default function ModalLocation({ setFormData, formData, createLocation, s
                                 className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
-                                value={modalObj.nameInput.value}
+                                value={formData.name ? formData.name : modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
                             />
 
-                            {formData.name &&
-                                <div className="relative">
-                                    <label>Numéro et nom de rue</label>
-                                    <input
-                                        className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                        onChange={e => setFormData({ ...formData, 'streetNumber': e.target.value }, setAdressSelect(false))}
-                                        placeholder={modalObj.streetNumberInput.placeholder}
-                                        value={formData.streetNumber}
-                                        readOnly={modalObj.streetNumberInput.readOnly}
-                                    />
+                            <div className="relative">
+                                <label>Numéro et nom de rue</label>
+                                <input
+                                    className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                    onChange={e => setFormData({ ...formData, 'streetNumber': e.target.value }, setAdressSelect(false))}
+                                    placeholder={modalObj.streetNumberInput.placeholder}
+                                    value={formData.streetNumber ? formData.streetNumber : modalObj.streetNumberInput.value}
+                                    readOnly={modalObj.streetNumberInput.readOnly}
+                                />
 
-                                    {adresses.isShow && !adressSelect ?
+                                {adresses.isShow && !adressSelect ?
 
-                                        <ul className="-mt-6 mb-6 bg-gray-100 p-4 absolute w-full">
-                                            {adresses.objects.map(adress => (
-                                                <li onClick={() => handleAdressChange(adress)} className="hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
-                                            ))}
-                                        </ul>
+                                    <ul className="-mt-6 mb-6 bg-gray-100 p-4 absolute w-full">
+                                        {adresses.objects.map(adress => (
+                                            <li onClick={() => handleAdressChange(adress)} className="hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
+                                        ))}
+                                    </ul>
 
-                                        :
-                                        <></>
+                                    :
+                                    <></>
 
-                                    }
+                                }
+                            </div>
+
+                            <>
+                                <label>Ville</label>
+                                <input
+                                    className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                    onChange={e => setFormData({ ...formData, 'city': e.target.value })}
+                                    placeholder={modalObj.cityInput.placeholder}
+                                    value={formData.city ? formData.city : modalObj.cityInput.value}
+                                    readOnly={modalObj.cityInput.readOnly}
+                                />
+                                <div className='flex flex-row gap-4'>
+                                    <div className='flex flex-col'>
+                                        <label>Département</label>
+                                        <input
+                                            className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                            onChange={e => setFormData({ ...formData, 'departement': e.target.value })}
+                                            placeholder={modalObj.departementInput.placeholder}
+                                            value={formData.departement ? formData.departement : modalObj.departementInput.value}
+                                            readOnly={modalObj.departementInput.readOnly}
+                                        />
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <label>Code postal</label>
+                                        <input
+                                            className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                            onChange={e => setFormData({ ...formData, 'zip': e.target.value })}
+                                            placeholder={modalObj.zipInput.placeholder}
+                                            value={formData.zip ? formData.zip : modalObj.zipInput.value}
+                                            readOnly={modalObj.zipInput.readOnly}
+                                        />
+                                    </div>
                                 </div>
-                            }
-
-
-                            {adressSelect && formData.city !== '' &&
-                                <>
-                                    <label>Ville</label>
-                                    <input
-                                        className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                        onChange={e => setFormData({ ...formData, 'city': e.target.value })}
-                                        placeholder={modalObj.cityInput.placeholder}
-                                        value={formData.city}
-                                        readOnly={modalObj.cityInput.readOnly}
-                                    />
-                                    <div className='flex flex-row gap-4'>
-                                        <div className='flex flex-col'>
-                                            <label>Département</label>
-                                            <input
-                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                                onChange={e => setFormData({ ...formData, 'departement': e.target.value })}
-                                                placeholder={modalObj.departementInput.placeholder}
-                                                value={formData.departement}
-                                                readOnly={modalObj.departementInput.readOnly}
-                                            />
-                                        </div>
-                                        <div className='flex flex-col'>
-                                            <label>Code postal</label>
-                                            <input
-                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                                onChange={e => setFormData({ ...formData, 'zip': e.target.value })}
-                                                placeholder={modalObj.zipInput.placeholder}
-                                                value={formData.zip}
-                                                readOnly={modalObj.zipInput.readOnly}
-                                            />
-                                        </div>
+                                <div className='flex flex-row gap-4'>
+                                    <div className='flex flex-col'>
+                                        <label>Longitude</label>
+                                        <input
+                                            className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
+                                            onChange={e => setFormData({ ...formData, 'longitude': e.target.value })}
+                                            placeholder={modalObj.longitudeInput.placeholder}
+                                            value={formData.longitude ? formData.longitude : modalObj.longitudeInput.value}
+                                            readOnly={modalObj.longitudeInput.readOnly}
+                                        />
                                     </div>
-                                    <div className='flex flex-row gap-4'>
-                                        <div className='flex flex-col'>
-                                            <label>Longitude</label>
-                                            <input
-                                                className={`mb-6 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
-                                                onChange={e => setFormData({ ...formData, 'longitude': e.target.value })}
-                                                placeholder={modalObj.longitudeInput.placeholder}
-                                                value={formData.longitude}
-                                                readOnly={modalObj.longitudeInput.readOnly}
-                                            />
-                                        </div>
-                                        <div className='flex flex-col'>
-                                            <label>Latitude</label>
-                                            <input
-                                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
-                                                onChange={e => setFormData({ ...formData, 'latitude': e.target.value })}
-                                                placeholder={modalObj.latitudeInput.placeholder}
-                                                value={formData.latitude}
-                                                readOnly={modalObj.latitudeInput.readOnly}
-                                            />
-                                        </div>
+                                    <div className='flex flex-col'>
+                                        <label>Latitude</label>
+                                        <input
+                                            className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed`}
+                                            onChange={e => setFormData({ ...formData, 'latitude': e.target.value })}
+                                            placeholder={modalObj.latitudeInput.placeholder}
+                                            value={formData.latitude ? formData.latitude : modalObj.latitudeInput.value}
+                                            readOnly={modalObj.latitudeInput.readOnly}
+                                        />
                                     </div>
-                                </>
-                            }
+                                </div>
+                            </>
                         </div>
 
                         <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
