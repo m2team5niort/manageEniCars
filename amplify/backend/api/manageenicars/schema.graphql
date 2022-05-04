@@ -27,3 +27,7 @@ type Location @model {
   longitude: String!
   latitude: String!
 }
+
+type Key @model {
+  
+}
