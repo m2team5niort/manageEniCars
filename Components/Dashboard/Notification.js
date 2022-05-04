@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BellIcon, ExclamationIcon, ClockIcon, ArchiveIcon, StarIcon, DotsVerticalIcon } from '@heroicons/react/solid'
+import Modal from '../Common/Modal/Modal';
+import Navbar from "./Navbar";
+import { API } from 'aws-amplify';
+import { listCars } from '../../graphql/queries'
+import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
+import MyDropdown from './Dropdown';
+import { BellIcon, ExclamationIcon, ClockIcon, ArchiveIcon, StarIcon, DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 
 export default function Notification() {
 
@@ -11,8 +17,15 @@ export default function Notification() {
                     <div className='flex flex-col h-full w-8/12 p-24 '>
                         <div className="shadow-md sm:rounded-lg bg-transparent ">
                             <div className='flex px-6 py-4'>
-                                <h1 className='text-white text-2xl'> Liste de vos dernières notifications </h1>
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                </div>
+                                <h1 className='text-white text-2xl ml-4'> Liste de vos dernières notifications </h1>
                                 <BellIcon className='h-8 w-8 ml-4 text-white' />
+                                <div className='w-2 border-l border-white ml-4'></div>
+                                <TrashIcon className='h-8 w-8 ml-4 text-white' />
+                                <ArchiveIcon className='h-8 w-8 ml-4 text-white' />
+                                <StarIcon className='h-8 w-8 ml-4 text-white' />
                             </div>
                             <div className=' bg-transparent rounded-lg p-4'>
                                 <div className='h-28 w-full shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -26,7 +39,10 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div className='h-28 w-full mt-6 shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -40,7 +56,9 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-28 w-full mt-6 shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -54,7 +72,9 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-28 w-full mt-6 shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -68,7 +88,9 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-28 w-full mt-6 shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -82,7 +104,9 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-28 w-full mt-6 shadow-xl bg-gray-800 rounded-lg flex flex-row '>
@@ -96,7 +120,9 @@ export default function Notification() {
                                         <p className='text-gray-500 text-md'> Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor sitae Lorem ipsum dolor  </p>
                                     </div>
                                     <div className='flex flex-col h-full w-24 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-10 w-10 text-white' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +165,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -151,7 +179,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -163,7 +193,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -175,7 +207,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -187,7 +221,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -199,7 +235,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -211,7 +249,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='h-24 flex flex-row w-full rounded-lg bg-white mt-8'>
@@ -223,7 +263,9 @@ export default function Notification() {
                                         <h1 className='text-gray-800 text-2xl mr-6 font-semibold'> Titre de la notif </h1>
                                     </div>
                                     <div className='flex flex-col h-full w-1/6 justify-center items-center'>
-                                        <DotsVerticalIcon className='h-6 w-6 text-gray-800' />
+                                        <div class="form-check">
+                                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="checkbox" value="" id="flexCheckDefault3" />
+                                        </div>
                                     </div>
                                 </div>
 
