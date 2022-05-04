@@ -75,7 +75,7 @@ export default function Location({ username }) {
                 <div className="shadow-md sm:rounded-lg bg-gray-700 ">
                     <div className='flex justify-between px-6 py-4'>
                         <h1 className='text-white '> Liste des lieux </h1>
-                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-cyan-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un lieu </button>
+                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-amber-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
                     </div>
                                 
                                 <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
@@ -109,7 +109,7 @@ export default function Location({ username }) {
                                                 {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {location.name} </span>
+                                                <span className="bg-emerald-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded "> {location.name} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {location.city}
@@ -118,7 +118,7 @@ export default function Location({ username }) {
                                                 {location.departement}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {location.zip} </span>
+                                                <span className="bg-amber-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded "> {location.zip} </span>
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={location} deleteObject={deleteLocation} modal={modal} setModal={setModal} />
