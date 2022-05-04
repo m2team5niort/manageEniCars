@@ -1,8 +1,7 @@
 // Imports Used
 
 import Link from 'next/link'
-import { SunIcon, MoonIcon } from '@heroicons/react/solid'
-import { MenuIcon, CogIcon, BellIcon } from '@heroicons/react/outline'
+import { MenuIcon, CogIcon, BellIcon, MoonIcon, SunIcon, InformationCircleIcon } from '@heroicons/react/outline'
 
 // Navbar function
 export default function Navbar({ username }) {
@@ -15,7 +14,12 @@ export default function Navbar({ username }) {
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white text-white"> Dashboard </span>
                     </a>
                     <div className="flex items-center md:order-2">
-                        <BellIcon className='h-6 w-6 mr-8 text-white'/>
+                        <InformationCircleIcon className='h-6 w-6 mr-16 text-white'/>
+                        <SunIcon className='h-6 w-6 mr-8 text-white'/>
+                        <MoonIcon className='h-6 w-6 mr-16 text-white'/>
+                        <Link href='/dashboard/notifications'>
+                            <BellIcon className='h-6 w-6 mr-8 text-white'/>
+                        </Link>
                         <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
                         <p className='text-white mr-8 ml-8 '> NALIN Brandon </p>
                         <CogIcon className='h-6 w-6 text-white'/>
