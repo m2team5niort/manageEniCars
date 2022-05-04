@@ -68,72 +68,68 @@ export default function Car({ username }) {
                 <Modal modal={modal} setModal={setModal} updateObject={updateCar} createObject={createCar} setFormData={setFormData} formData={formData} />
             }
 
-            <main>
-                <h1 className="text-3xl font-bold">DASHBOARD - <span className="font-normal text-3xl"> Liste des voitures </span></h1>
-
-                <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-20">
-                    Ajouter une voiture
-                </button>
-                <div className="App bg-gray-200 mt-2">
-
-                    <div style={{ marginBottom: 30 }}>
-                        <div>
-                            <div className="flex justify-between bg-gray-400 rounded-md py-2 px-4 text-white text-left  text-md">
-                                <div>
-                                    <span>Nom</span>
-                                </div>
-                                <div>
-                                    <span>Description</span>
-                                </div>
-                                <div>
-                                    <span>Modèle</span>
-                                </div>
-                                <div>
-                                    <span> Nb Places</span>
-                                </div>
-                                <div>
-                                    <span> Actions </span>
-                                </div>
-                            </div>
-
-                            {
-                                cars.map(car => (
-
-                                    <div key={car.id}>
-                                        <div className="flex justify-between border-t text-sm font-normal text-right mt-2 ">
-                                            <div className="px-2 flex">
-                                                <span > {car.name} </span>
-                                            </div>
-                                            <div>
-                                                <span > {car.description} </span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {car.modele} </span>
-                                            </div>
-                                            <div className="px-2">
-                                                <span> {car.places}</span>
-                                            </div>
-                                            <div className="px-2 relative">
-
-                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} />
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                ))
-                            }
-
-
-                        </div>
+            <main  id="Content">
+                <div className='h-full w-full  p-24'>
+                <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                    <div className='flex justify-between px-6 py-4'>
+                        <h1 className='text-white '> Liste des voitures </h1>
+                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une voiture </button>
                     </div>
+                                
+                                <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                                    <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                #
+                                            </th>
+                                            <th scope="col-3" className="px-6 py-3">
+                                                Nom
+                                            </th>
+                                            <th scope="col-4" className="px-6 py-3">
+                                                Description
+                                            </th>
+                                            <th scope="col-2" className="px-6 py-3">
+                                                Modèle
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Nb Places
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3 text-center">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                        cars.map((car, index) => (
+                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                            <th scope="row" className="px-6 py-4 whitespace-nowrap">
+                                                {index + 1}
+                                            </th>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.name} </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {car.description}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.places} </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {car.places}
+                                            </td>
+                                            <td className="px-6 py-4 relative text-center">
+                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} />
+                                            </td>
+                                        </tr>
+                                        ))
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
                 </div>
             </main>
 
-            <div className="right-section">
-                <Navbar username={username} />
-            </div>
 
 
         </>

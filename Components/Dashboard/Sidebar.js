@@ -20,18 +20,27 @@ export default function Sidebar() {
     }
 
     return (
-        <>
+        <div id="Sidebar" className="bg-white">
             <div className="aside h-screen">
                 <div className='text-base-1 mt-6 header-dashboard'>
                     <div className='logo text-center m-auto'>
                         <h2 className='text-2xl font-bold'>ManageCar</h2>
+                        
                     </div>
+                    
                     <div className='close'>
                         <XIcon className="h-5 w-5 mr-2" />
                     </div>
+
+                    
+                </div>
+                <div className="h-48 font-medium"> 
+                        <img className='w-28 mx-auto mt-12' src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" />
+                        <h1 className=' mx-auto mt-4 text-center'> NALIN Brandon </h1> 
+                        <h3 className=' mx-auto mt-2 text-center'> Développeur </h3> 
                 </div>
                 <div className="sidebar-dashboard flex flex-col relative top-12 font-medium">
-                    <div className='mb-6'>
+                    <div className='mb-6 mt-2'>
                         <Link href='/dashboard'>
                             <a className='active'>
                                 <HomeIcon className="h-5 w-5" />
@@ -69,12 +78,12 @@ export default function Sidebar() {
                             </a>
                         </Link>
                         <button onClick={() => signOut()}>
-                            <LogoutIcon className="h-5 w-5" />
-                            <span >Se déconnecter</span>
+                            <LogoutIcon className="h-5 w-5 mt-48" />
+                            <span className='mt-48'>Se déconnecter</span>
                         </button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };

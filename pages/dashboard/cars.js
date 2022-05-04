@@ -1,12 +1,14 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
 import Car from '../../Components/Dashboard/Car'
+import Navbar from '../../Components/Dashboard/Navbar'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 
 function cars({ username }) {
 
   return (
-    <div className={`container-dashboard mx-auto`}>
+    <div className={`container-dashboard mx-auto bg-gray-900`}>
+      <Navbar />
       <Sidebar />
       <Car username={username} />
     </div>

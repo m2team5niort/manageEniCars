@@ -3,13 +3,15 @@ import { withSSRContext } from 'aws-amplify'
 import React, { useEffect } from 'react'
 import Sidebar from '../Components/Dashboard/Sidebar'
 import Dashboard from '../Components/Dashboard/Dashboard'
+import Navbar from '../Components/Dashboard/Navbar'
 
 // Dashboard function
 
 function dashboard({ username }) {
 
   return (
-    <div className={`container-dashboard mx-auto`}>
+    <div className={`container-dashboard mx-auto bg-gray-900`}>
+        <Navbar /> 
         <Sidebar />
         <Dashboard username={username}/>
     </div>

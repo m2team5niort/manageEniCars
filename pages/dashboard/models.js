@@ -2,11 +2,13 @@ import { withSSRContext } from 'aws-amplify'
 import React from 'react'
 import Model from '../../Components/Dashboard/Model'
 import Sidebar from '../../Components/Dashboard/Sidebar'
+import Navbar from '../../Components/Dashboard/Navbar'
 
 function models({ username }) {
 
   return (
-    <div className={`container-dashboard mx-auto`}>
+    <div className={`container-dashboard mx-auto bg-gray-900`}>
+        <Navbar />
         <Sidebar />
         <Model username={username}/>
     </div>

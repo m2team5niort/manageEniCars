@@ -1,24 +1,61 @@
-.container-dashboard {
-    display: grid;
-    width: 100%;
-    margin: 0 auto;
-    gap: 1.8rem;
-    grid-template-columns: 14rem auto 20rem;
-    background-color: #f1f3f8;
-    padding: 0 1rem;
-}
+/* --- Container --- */
 
-.container-test{
+
+
+  .container-dashboard {  
     display: grid;
-    width: 100%;
-    margin: 0 auto;
-    gap: 1.8rem;
-    grid-template-columns: 14rem auto;
-    background-color: #f1f3f8;
-    padding: 0 1rem;
+    grid-template-columns: 0.6fr 1.4fr 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1.7fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Sidebar Navbar Navbar Navbar Navbar"
+      "Sidebar Content Content Content Content"
+      "Sidebar Content Content Content Content"
+      "Sidebar Content Content Content Content"
+      "Sidebar Content Content Content Content";
+
     
-}
+  }
+  
+  #Navbar { grid-area: Navbar; }
+  
+  #Sidebar { grid-area: Sidebar; }
+  
+  #Content { grid-area: Content; }
 
+/* Content */
+.container-content {  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 1.5fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Div1 Div1 Div1 Div2 Div2 Div2 Div3 Div3 Div3 Div4 Div4 Div4"
+      "Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Statistics Statistics Statistics Statistics"
+      "Users Users Users Users Reservations Reservations Reservations Reservations Reservations Reservations Reservations Reservations";
+  }
+  
+  #Div1 { grid-area: Div1; }
+  
+  #Div2 { grid-area: Div2; }
+  
+  #Div3 { grid-area: Div3; }
+  
+  #Div4 { grid-area: Div4; }
+  
+  #Mapbox { grid-area: Mapbox; }
+  
+  #Statistics { grid-area: Statistics; }
+  
+  #Users { grid-area: Users; }
+  
+  #Reservations { grid-area: Reservations; }
+
+  .countour{
+      border: 1px solid white;
+  }
 .aside .header-dashboard {
     display: flex;
     align-items: center;
@@ -35,9 +72,11 @@
     display: none;
 }
 
-.sidebar-dashboard {
+/* --- SideBar --- */
+
+/* .sidebar-dashboard {
     height: 85vh;
-}
+} */
 
 .sidebar-dashboard a,
 .sidebar-dashboard button {
@@ -61,20 +100,22 @@
 }
 
 .sidebar-dashboard a.active {
-    background-color: lavender;
+    background-color: #e5e7eb;
     margin-left: 0;
+    color:#111827;
 }
 
 .sidebar-dashboard a.active::before {
     content: '';
     width: 6px;
     height: 100%;
-    background-color: blueviolet;
+    background-color: #111827;
 }
 
 .sidebar-dashboard a.active span {
-    color: blueviolet;
+    color: #4b5563;
     margin-left: calc(.5rem - 3px);
+    color: #111827;
 }
 
 .sidebar-dashboard a:hover {
@@ -112,7 +153,7 @@ main .recent-order h2 {
     font-weight: 700;
 
 }
-
+/* 
 main .recent-order table {
     background-color: white;
     width: 100%;
@@ -134,14 +175,13 @@ main .recent-order table thead tr th {
 
 main table tbody td {
     height: 3.5rem;
-    border-bottom: 1px solid lightgray;
     color: black;
     vertical-align: middle;
 }
 
 main .recent-order table tr:last-child td {
     border: none;
-}
+} */
 
 main .recent-order a {
     text-align: center;
@@ -155,11 +195,8 @@ main .recent-order a {
 }
 
 .top-profile {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    width: 80%;
-    margin: 0 auto 2rem auto;
+    width: 100%;
+    border: 1px solid red;
 }
 
 .top-profile button {
