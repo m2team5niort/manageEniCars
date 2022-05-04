@@ -21,10 +21,9 @@ function MyApp({ Component, pageProps }) {
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"></link>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        {/* <script src="https://cdn.tailwindcss.com"></script> */}
       </Head>
 
-     
+
 
       <Component {...pageProps} />
 
