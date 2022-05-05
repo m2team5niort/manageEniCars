@@ -70,6 +70,7 @@ export const listModels = /* GraphQL */ `
 export const getLocation = /* GraphQL */ `
   query GetLocation($id: ID!) {
     getLocation(id: $id) {
+      id
       name
       city
       departement
@@ -77,7 +78,6 @@ export const getLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
     }
@@ -91,6 +91,7 @@ export const listLocations = /* GraphQL */ `
   ) {
     listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         name
         city
         departement
@@ -98,9 +99,79 @@ export const listLocations = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        id
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getKey = /* GraphQL */ `
+  query GetKey($id: ID!) {
+    getKey(id: $id) {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
+    }
+  }
+`;
+export const listKeys = /* GraphQL */ `
+  query ListKeys(
+    $filter: ModelKeyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listKeys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          modele
+          places
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        keyLocationId
+        keyCarId
       }
       nextToken
     }

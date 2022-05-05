@@ -103,6 +103,7 @@ export const createLocation = /* GraphQL */ `
     $condition: ModelLocationConditionInput
   ) {
     createLocation(input: $input, condition: $condition) {
+      id
       name
       city
       departement
@@ -110,7 +111,6 @@ export const createLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
     }
@@ -122,6 +122,7 @@ export const updateLocation = /* GraphQL */ `
     $condition: ModelLocationConditionInput
   ) {
     updateLocation(input: $input, condition: $condition) {
+      id
       name
       city
       departement
@@ -129,7 +130,6 @@ export const updateLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
     }
@@ -141,6 +141,7 @@ export const deleteLocation = /* GraphQL */ `
     $condition: ModelLocationConditionInput
   ) {
     deleteLocation(input: $input, condition: $condition) {
+      id
       name
       city
       departement
@@ -148,9 +149,113 @@ export const deleteLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
+    }
+  }
+`;
+export const createKey = /* GraphQL */ `
+  mutation CreateKey(
+    $input: CreateKeyInput!
+    $condition: ModelKeyConditionInput
+  ) {
+    createKey(input: $input, condition: $condition) {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
+    }
+  }
+`;
+export const updateKey = /* GraphQL */ `
+  mutation UpdateKey(
+    $input: UpdateKeyInput!
+    $condition: ModelKeyConditionInput
+  ) {
+    updateKey(input: $input, condition: $condition) {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
+    }
+  }
+`;
+export const deleteKey = /* GraphQL */ `
+  mutation DeleteKey(
+    $input: DeleteKeyInput!
+    $condition: ModelKeyConditionInput
+  ) {
+    deleteKey(input: $input, condition: $condition) {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
     }
   }
 `;

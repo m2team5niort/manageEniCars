@@ -82,6 +82,7 @@ export const onDeleteModel = /* GraphQL */ `
 export const onCreateLocation = /* GraphQL */ `
   subscription OnCreateLocation {
     onCreateLocation {
+      id
       name
       city
       departement
@@ -89,7 +90,6 @@ export const onCreateLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
     }
@@ -98,6 +98,7 @@ export const onCreateLocation = /* GraphQL */ `
 export const onUpdateLocation = /* GraphQL */ `
   subscription OnUpdateLocation {
     onUpdateLocation {
+      id
       name
       city
       departement
@@ -105,7 +106,6 @@ export const onUpdateLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
     }
@@ -114,6 +114,7 @@ export const onUpdateLocation = /* GraphQL */ `
 export const onDeleteLocation = /* GraphQL */ `
   subscription OnDeleteLocation {
     onDeleteLocation {
+      id
       name
       city
       departement
@@ -121,9 +122,104 @@ export const onDeleteLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
-      id
       createdAt
       updatedAt
+    }
+  }
+`;
+export const onCreateKey = /* GraphQL */ `
+  subscription OnCreateKey {
+    onCreateKey {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
+    }
+  }
+`;
+export const onUpdateKey = /* GraphQL */ `
+  subscription OnUpdateKey {
+    onUpdateKey {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
+    }
+  }
+`;
+export const onDeleteKey = /* GraphQL */ `
+  subscription OnDeleteKey {
+    onDeleteKey {
+      id
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        createdAt
+        updatedAt
+      }
+      car {
+        id
+        name
+        description
+        modele
+        places
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      keyLocationId
+      keyCarId
     }
   }
 `;
