@@ -19,6 +19,7 @@ type Model @model {
 }
 
 type Location @model {
+  id: ID!
   name: String!
   city: String!
   departement: String!
@@ -26,4 +27,10 @@ type Location @model {
   streetNumber: String!
   longitude: String!
   latitude: String!
+}
+
+type Key @model {
+  id: ID!
+  location: Location @hasOne
+  car: Car @hasOne
 }
