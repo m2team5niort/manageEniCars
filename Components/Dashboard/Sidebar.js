@@ -21,7 +21,7 @@ export default function Sidebar({ username }) {
 
     return (
         <div id="Sidebar" className="bg-white">
-            <div className="aside h-screen">
+            <div className="aside h-screen relative">
                 <div className='text-base-1 mt-6 header-dashboard'>
                     <div className='logo text-center m-auto'>
                         <h2 className='text-2xl font-bold'>ManageCar</h2>
@@ -40,7 +40,7 @@ export default function Sidebar({ username }) {
                     <h3 className=' mx-auto mt-2 text-center'> Développeur </h3>
                 </div>
                 <div className="sidebar-dashboard flex flex-col relative top-12 font-medium">
-                    <div className='mb-6 mt-2'>
+                    <div className='mb-6 mt-2 relative'>
                         <Link href='/dashboard'>
                             <a className='active'>
                                 <HomeIcon className="h-5 w-5" />
@@ -84,8 +84,8 @@ export default function Sidebar({ username }) {
                             </a>
                         </Link>
                         <button onClick={() => signOut()}>
-                            <LogoutIcon className="h-5 w-5 mt-48" />
-                            <span className='mt-48'>Se déconnecter</span>
+                            <LogoutIcon className="h-5 w-5" />
+                            <span>Se déconnecter</span>
                         </button>
                     </div>
                 </div>

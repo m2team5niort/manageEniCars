@@ -144,7 +144,7 @@ export default function Location() {
                             </div>
                             {locationSearch && locationSearch.cars.items.map((car, index) => (
                                 <div className='p-2 w-full' key={index}>
-                                    <h1 className='bg-blue-500 text-white p-4 font-semibold'>{car.name}</h1>
+                                    <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.name} </span>
                                 </div>
                             ))}
                         </div>
