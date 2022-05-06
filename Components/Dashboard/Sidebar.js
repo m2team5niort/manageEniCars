@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 
 // Sidebar function
-export default function Sidebar() {
+export default function Sidebar({ username }) {
 
     const router = useRouter()
 

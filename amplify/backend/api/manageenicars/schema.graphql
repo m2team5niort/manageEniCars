@@ -6,8 +6,10 @@ type Car @model {
   id: ID!
   name: String!
   description: String
-  modele: String!
+  model: Model! @hasOne
   places: Int!
+  key: Key @hasOne
+  location: Location @hasOne
 }
 
 type Model @model {
@@ -16,6 +18,7 @@ type Model @model {
   brand: String!
   image: String!
   description: String!
+  cars: [Car] @hasMany
 }
 
 type Location @model {
@@ -27,6 +30,8 @@ type Location @model {
   streetNumber: String!
   longitude: String!
   latitude: String!
+  cars: [Car] @hasMany
+  keys: [Key] @hasMany
 }
 
 type Key @model {

@@ -5,8 +5,6 @@ import ModalKey from "./ModalKey";
 
 export default function Modal({ setFormData, formData, createObject, updateObject, setModal, modal }) {
 
-    console.log(modal)
-
     function renderModal(setFormData, formData, createObject, updateObject, setModal, modal) {
         switch (modal.page) {
             case 'car':

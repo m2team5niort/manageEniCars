@@ -1,62 +1,84 @@
-
- /* --- Container --- */
-
+/* --- Container --- */
 
 
-  .container-dashboard {  
+
+.container-dashboard {
     display: grid;
     grid-template-columns: 0.6fr 1.4fr 1fr 1fr 1fr;
     grid-template-rows: 0.3fr 1.7fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-      "Sidebar Navbar Navbar Navbar Navbar"
-      "Sidebar Content Content Content Content"
-      "Sidebar Content Content Content Content"
-      "Sidebar Content Content Content Content"
-      "Sidebar Content Content Content Content";
+        "Sidebar Navbar Navbar Navbar Navbar"
+        "Sidebar Content Content Content Content"
+        "Sidebar Content Content Content Content"
+        "Sidebar Content Content Content Content"
+        "Sidebar Content Content Content Content";
 
-    
-  }
-  
-  #Navbar { grid-area: Navbar; }
-  
-  #Sidebar { grid-area: Sidebar; }
-  
-  #Content { grid-area: Content; }
+
+}
+
+#Navbar {
+    grid-area: Navbar;
+}
+
+#Sidebar {
+    grid-area: Sidebar;
+}
+
+#Content {
+    grid-area: Content;
+}
 
 /* Content */
-.container-content {  
+.container-content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 0.5fr 1.5fr 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-      "Div1 Div1 Div1 Div2 Div2 Div2 Div3 Div3 Div3 Div4 Div4 Div4"
-      "Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Statistics Statistics Statistics Statistics"
-      "Users Users Users Users Reservations Reservations Reservations Reservations Reservations Reservations Reservations Reservations";
-  }
-  
-  #Div1 { grid-area: Div1; }
-  
-  #Div2 { grid-area: Div2; }
-  
-  #Div3 { grid-area: Div3; }
-  
-  #Div4 { grid-area: Div4; }
-  
-  #Mapbox { grid-area: Mapbox; }
-  
-  #Statistics { grid-area: Statistics; }
-  
-  #Users { grid-area: Users; }
-  
-  #Reservations { grid-area: Reservations; }
+        "Card1 Card1 Card1 Card2 Card2 Card2 Card3 Card3 Card3 Card4 Card4 Card4"
+        "Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Mapbox Statistics Statistics Statistics Statistics"
+        "Users Users Users Users Reservations Reservations Reservations Reservations Reservations Reservations Reservations Reservations";
+}
 
-  .countour{
-      border: 1px solid white;
-  }
+#Card1 {
+    grid-area: Card1;
+}
+
+#Card2 {
+    grid-area: Card2;
+}
+
+#Card3 {
+    grid-area: Card3;
+}
+
+#Card4 {
+    grid-area: Card4;
+}
+
+#Mapbox {
+    grid-area: Mapbox;
+}
+
+#Statistics {
+    grid-area: Statistics;
+}
+
+#Users {
+    grid-area: Users;
+}
+
+#Reservations {
+    grid-area: Reservations;
+}
+
+.countour {
+    border: 1px solid white;
+}
+
 .aside .header-dashboard {
     display: flex;
     align-items: center;
@@ -103,7 +125,7 @@
 .sidebar-dashboard a.active {
     background-color: #e5e7eb;
     margin-left: 0;
-    color:#111827;
+    color: #111827;
 }
 
 .sidebar-dashboard a.active::before {
@@ -154,6 +176,7 @@ main .recent-order h2 {
     font-weight: 700;
 
 }
+
 /* 
 main .recent-order table {
     background-color: white;
@@ -452,20 +475,20 @@ main .recent-order a {
 
 }
 
-[data-amplify-authenticator][data-variation=modal]{
+[data-amplify-authenticator][data-variation=modal] {
     background-color: #D9E1E6 !important;
 }
 
-[data-amplify-authenticator] [data-amplify-router]{
+[data-amplify-authenticator] [data-amplify-router] {
     border: none !important;
     height: 437px !important;
 }
 
-[data-amplify-authenticator] [data-amplify-container]{
+[data-amplify-authenticator] [data-amplify-container] {
     width: 591px !important;
 }
 
-.flex-signup{
+.flex-signup {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -474,15 +497,15 @@ main .recent-order a {
     box-shadow: 0 2px 20px lightgray !important;
 }
 
-.flex-signup > img{
+.flex-signup>img {
     height: 437px;
 }
 
-.signup-container{
+.signup-container {
     height: 100vh;
     display: flex;
 }
 
-.amplify-divider[aria-orientation=horizontal][data-size=small]{
+.amplify-divider[aria-orientation=horizontal][data-size=small] {
     margin: 1rem auto;
 }

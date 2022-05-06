@@ -7,9 +7,10 @@ import MyDropdown from './Dropdown';
 
 const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '' }
 
-export default function Location({ username }) {
+export default function Location() {
 
     const [locations, setLocations] = useState([]);
+    const [locationSearch, setLocationSearch] = useState();
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
         isShow: false,
@@ -25,6 +26,12 @@ export default function Location({ username }) {
     async function fetchLocations() {
         const apiData = await API.graphql({ query: listLocations });
         setLocations(apiData.data.listLocations.items);
+        setLocationSearch(apiData.data.listLocations.items[0]);
+    }
+
+    function onChangeSelectLocation(locationId) {
+        let carsLocation = locations.filter(location => location.id === locationId);
+        setLocationSearch(carsLocation[0])
     }
 
     async function createLocation() {
@@ -67,8 +74,8 @@ export default function Location({ username }) {
             }
 
             <main id="Content">
-                <div className='h-full w-full  p-24'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                <div className='flex flex-row w-full p-24 gap-12'>
+                    <div className="shadow-md sm:rounded-lg bg-gray-700 w-8/12 flex flex-col">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des lieux </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-amber-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
@@ -124,6 +131,23 @@ export default function Location({ username }) {
                                 }
                             </tbody>
                         </table>
+                    </div>
+                    <div className='flex flex-col w-4/12'>
+                        <div className='bg-gray-700 w-full rounded-lg p-6'>
+                            <div className='flex flex-row text-white text-xl justify-between items-center mb-6'>
+                                <h1> Liste des voitures par lieu ({locationSearch && locationSearch.cars.items.length})</h1>
+                                <select onChange={(e) => onChangeSelectLocation(JSON.parse(e.target.value))} className='w-4/12 bg-gray-200 border-2 border-gray-200 rounded text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 pl-2 text-sm' name="locations" id="locations-select">
+                                    {locations.map((location) =>
+                                        <option value={JSON.stringify(location.id)}>{location.name}</option>
+                                    )}
+                                </select>
+                            </div>
+                            {locationSearch && locationSearch.cars.items.map((car, index) => (
+                                <div className='p-2 w-full' key={index}>
+                                    <h1 className='bg-blue-500 text-white p-4 font-semibold'>{car.name}</h1>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </main>

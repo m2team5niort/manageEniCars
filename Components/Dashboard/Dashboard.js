@@ -1,140 +1,86 @@
 import Map from "./Map"
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon, CogIcon } from '@heroicons/react/solid'
-import Navbar from "./Navbar";
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import DashboardCard from "./Cards/DashboardCard";
 
-export default function Dashboard({username}) {
+export default function Dashboard({ ssrDataDashboard }) {
 
-     const options = {
+    const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
+
+    const options = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: {
-            position: 'top',
-            labels: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: 'white'
+                }
+            },
+            title: {
+                display: true,
+                text: 'Réservations de l\'année',
                 color: 'white'
-            }
-          },
-          title: {
-            display: true,
-            text: 'Réservations de l\'année',
-            color: 'white'
-          },
+            },
         },
-      };
-      
-      const labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
-      
-       const data = {
+    };
+
+    const labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    const data = {
         labels,
         datasets: [
-          {
-            label: 'Cette année',
-            data: [33, 53, 85, 41, 44, 65],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            color: 'white'
-          },
-          {
-            label: 'Année dernière',
-            data: [23, 73, 25, 41, 74, 95],
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            color: 'white'
-          },
+            {
+                label: 'Cette année',
+                data: [33, 53, 85, 41, 44, 65],
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                color: 'white'
+            },
+            {
+                label: 'Année dernière',
+                data: [23, 73, 25, 41, 74, 95],
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                color: 'white'
+            },
         ],
-      };
+    };
 
     return (
         <div id="Content" className="container-content">
-            <div id="Div1" className=" pl-4 pr-4 pb-4">
+            <div id="Card1" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <div className="flex flex-col px-4">
-                        <div className="flex flex-row px-4 h-16 items-center justify-between">
-                            <p className="text-white text-left text-lg font-semi-bold"> Nombre de voitures : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-16">
-                            <span className="bg-green-500 text-white text-sm font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Voitures </span>
-                            <p className="text-white text-left text-4xl"> 49 </p>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-14">
-                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div className="bg-green-500 h-2.5 rounded-full" style={{width: "55%"}}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <DashboardCard title="Nombre de voitures" label="Voitures" color="green-500" data={dashboardData.cars.length} />
                 </div>
             </div>
-            <div id="Div2" className=" pl-4 pr-4 pb-4">
+            <div id="Card2" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <div className="flex flex-col px-4">
-                        <div className="flex flex-row px-4 h-16 items-center justify-between">
-                            <p className="text-white text-left text-lg font-semi-bold"> Nombre de réservations : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-16">
-                            <span className="bg-yellow-500 text-white text-sm font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Réservations </span>
-                            <p className="text-white text-left text-4xl"> 256 </p>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-14">
-                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div className="bg-yellow-500 h-2.5 rounded-full" style={{width: "70%"}}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <DashboardCard title="Nombre de réservations" label="Réservations" color="yellow-500" data={256} />
                 </div>
             </div>
-            <div id="Div3" className=" pl-4 pr-4 pb-4">
+            <div id="Card3" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <div className="flex flex-col px-4">
-                        <div className="flex flex-row px-4 h-16 items-center justify-between">
-                            <p className="text-white text-left text-lg font-semi-bold"> Nombre de modèles : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-16">
-                            <span className="bg-blue-500 text-white text-sm font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Modèles </span>
-                            <p className="text-white text-left text-4xl"> 12 </p>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-14">
-                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div className="bg-blue-500 h-2.5 rounded-full" style={{width: "15%"}}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <DashboardCard title="Nombre de modèles" label="Modèles" color="blue-500" data={dashboardData.models.length} />
                 </div>
             </div>
-            <div id="Div4" className=" pl-4 pr-4 pb-4">
+            <div id="Card4" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <div className="flex flex-col px-4">
-                        <div className="flex flex-row px-4 h-16 items-center justify-between">
-                            <p className="text-white text-left text-lg font-semi-bold"> Nombre d'utilisateurs : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-16">
-                            <span className="bg-pink-500 text-white text-sm font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateurs </span>
-                            <p className="text-white text-left text-4xl"> 300 </p>
-                        </div>
-                        <div className="flex flex-row px-4 items-center justify-between h-14">
-                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div className="bg-pink-500 h-2.5 rounded-full" style={{width: "55%"}}></div>
-                            </div>
-                        </div>
-                    </div>
+                    <DashboardCard title="Nombre d'utilisateurs" label="Utilisateurs" color="pink-500" data={300} />
                 </div>
             </div>
 
             <div id="Mapbox" className="p-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <Map className="h-full"/>
-                </div>  
+                    <Map className="h-full" />
+                </div>
             </div>
             <div id="Statistics" className=" p-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <Line  options={options} data={data}  className="p-4 " />
-                </div> 
+                    <Line options={options} data={data} className="p-4 " />
+                </div>
             </div>
 
             <div id="Users" className=" p-4">
@@ -142,10 +88,10 @@ export default function Dashboard({username}) {
                     <div className="flex flex-col px-4">
                         <div className="flex flex-row px-4 h-16 items-center justify-between">
                             <p className="text-white text-left text-lg font-semi-bold"> Les derniers utilisateurs : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
+                            <DotsVerticalIcon className="w-6 text-white " />
                         </div>
                         <div className=" px-4 items-center justify-between h-72">
-                            <div id="user"  className="flex flex-row">
+                            <div id="user" className="flex flex-row">
                                 <div className="flex flex-col  h-16 w-24 justify-center">
                                     <img className="w-10 h-10 rounded-full mx-auto" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
                                 </div>
@@ -161,7 +107,7 @@ export default function Dashboard({username}) {
                                     <span className=" mx-auto bg-yellow-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Admin </span>
                                 </div>
                             </div>
-                            <div id="user"  className="flex flex-row">
+                            <div id="user" className="flex flex-row">
                                 <div className="flex flex-col  h-16 w-24 justify-center">
                                     <img className="w-10 h-10 rounded-full mx-auto" src="https://www.timexpress.ae/wp-content/uploads/2016/11/circle-man.png" alt="user photo" />
                                 </div>
@@ -177,7 +123,7 @@ export default function Dashboard({username}) {
                                     <span className=" mx-auto bg-green-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateur </span>
                                 </div>
                             </div>
-                            <div id="user"  className="flex flex-row">
+                            <div id="user" className="flex flex-row">
                                 <div className="flex flex-col  h-16 w-24 justify-center">
                                     <img className="w-10 h-10 rounded-full mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo-CP7ChC_RjSlZcIC59_FH4KBl41Enn74Zw&usqp=CAU" alt="user photo" />
                                 </div>
@@ -193,7 +139,7 @@ export default function Dashboard({username}) {
                                     <span className=" mx-auto bg-green-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateur </span>
                                 </div>
                             </div>
-                            <div id="user"  className="flex flex-row">
+                            <div id="user" className="flex flex-row">
                                 <div className="flex flex-col  h-16 w-24 justify-center">
                                     <img className="w-10 h-10 rounded-full mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oC0cLNyFt4XMtPNe35Tct-8iicsxnDi--fghnv05pczTghd04zc3wR9ATttVVHswLX4&usqp=CAU" alt="user photo" />
                                 </div>
@@ -209,19 +155,19 @@ export default function Dashboard({username}) {
                                     <span className=" mx-auto bg-blue-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Visiteur </span>
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
-                        
+
                     </div>
-                </div> 
+                </div>
             </div>
             <div id="Reservations" className=" p-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                <div className="flex flex-col px-4">
+                    <div className="flex flex-col px-4">
                         <div className="flex flex-row px-4 h-16 items-center justify-between">
                             <p className="text-white text-left text-lg font-semi-bold"> Les dernières réservations : </p>
-                            <DotsVerticalIcon className="w-6 text-white "/>
+                            <DotsVerticalIcon className="w-6 text-white " />
                         </div>
                         <div className=" px-4 items-center justify-between h-72">
                             <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
@@ -260,7 +206,7 @@ export default function Dashboard({username}) {
                                                 $2999
                                             </td>
                                             <td className="px-6 py-4 text-right">
-                                                <CogIcon  className="text-white h-6 w-6"/>
+                                                <CogIcon className="text-white h-6 w-6" />
                                             </td>
                                         </tr>
                                         <tr className="bg-transparent  dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -277,7 +223,7 @@ export default function Dashboard({username}) {
                                                 $1999
                                             </td>
                                             <td className="px-6 py-4 text-right">
-                                                <CogIcon  className="text-white h-6 w-6"/>
+                                                <CogIcon className="text-white h-6 w-6" />
                                             </td>
                                         </tr>
                                         <tr className="bg-transparent dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -294,7 +240,7 @@ export default function Dashboard({username}) {
                                                 $99
                                             </td>
                                             <td className="px-6 py-4 text-right">
-                                                <CogIcon  className="text-white h-6 w-6"/>
+                                                <CogIcon className="text-white h-6 w-6" />
                                             </td>
                                         </tr>
                                         <tr className="bg-transparent dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -311,7 +257,7 @@ export default function Dashboard({username}) {
                                                 $99
                                             </td>
                                             <td className="px-6 py-4 text-right">
-                                                <CogIcon  className="text-white h-6 w-6"/>
+                                                <CogIcon className="text-white h-6 w-6" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -319,7 +265,7 @@ export default function Dashboard({username}) {
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     )

@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 import { API } from 'aws-amplify';
-import { listCars } from '../../graphql/queries'
+import { listCars, listLocations, listModels } from '../../graphql/queries'
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
+import { createKey as createKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
-let initialFormState = { name: '', description: '', modele: '', places: '' }
+let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "" }
 
-export default function Car({ username }) {
+export default function Car() {
 
+    const [locations, setLocations] = useState([])
+    const [models, setModels] = useState([])
     const [cars, setCars] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
         isShow: false,
         type: '',
         page: 'car',
-        object: {}
+        object: {},
+        listObjects: []
     });
 
     useEffect(() => {
         fetchCars();
+        fetchLocations();
+        fetchModels();
     }, []);
 
     async function fetchCars() {
@@ -27,10 +33,37 @@ export default function Car({ username }) {
         setCars(apiData.data.listCars.items);
     }
 
+    async function fetchLocations() {
+        const apiData = await API.graphql({ query: listLocations });
+        setLocations(apiData.data.listLocations.items);
+    }
+
+    async function fetchModels() {
+        const apiData = await API.graphql({ query: listModels });
+        setModels(apiData.data.listModels.items);
+    }
+
+
+    async function createKey(carId, locationId) {
+        const formDataKey = { keyCarId: carId, keyLocationId: locationId }
+        await API.graphql({ query: createKeyMutation, variables: { input: formDataKey } }).then((res) => {
+            setKeys([...keys, res.data.createKey]);
+            setFormData(initialFormState);
+            setModal({ ...modal, isShow: false });
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
+
     async function createCar() {
         if (!formData.name || !formData.description) return;
 
+        formData.locationCarsId = formData.carLocationId;
+        formData.modelCarsId = formData.carModelId;
+
         await API.graphql({ query: createCarMutation, variables: { input: formData } }).then((res) => {
+            createKey(res.data.createCar.id, formData.carLocationId)
             setCars([...cars, res.data.createCar]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
@@ -72,7 +105,7 @@ export default function Car({ username }) {
                     <div className="shadow-md sm:rounded-lg bg-gray-700 ">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des voitures </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-green-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une voiture </button>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [locations, models] })} className="bg-green-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une voiture </button>
                         </div>
 
                         <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
@@ -93,6 +126,9 @@ export default function Car({ username }) {
                                     <th scope="col-1" className="px-6 py-3">
                                         Nb Places
                                     </th>
+                                    <th scope="col-1" className="px-6 py-3">
+                                        Localisation
+                                    </th>
                                     <th scope="col-1" className="px-6 py-3 text-center">
                                         Actions
                                     </th>
@@ -112,13 +148,16 @@ export default function Car({ username }) {
                                                 {car.description}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {car.modele}
+                                                {car.model.name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.places} </span>
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.location.name} </span>
+                                            </td>
                                             <td className="px-6 py-4 relative text-center">
-                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} listObjects={[]} />
+                                                <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} listObjects={[locations, models]} />
                                             </td>
                                         </tr>
                                     ))

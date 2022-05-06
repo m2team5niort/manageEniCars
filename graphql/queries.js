@@ -7,10 +7,77 @@ export const getCar = /* GraphQL */ `
       id
       name
       description
-      modele
+      model {
+        id
+        name
+        brand
+        image
+        description
+        cars {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       places
+      key {
+        id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        createdAt
+        updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
+      }
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      modelCarsId
+      locationCarsId
+      carModelId
+      carKeyId
+      carLocationId
     }
   }
 `;
@@ -25,10 +92,43 @@ export const listCars = /* GraphQL */ `
         id
         name
         description
-        modele
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       nextToken
     }
@@ -42,6 +142,22 @@ export const getModel = /* GraphQL */ `
       brand
       image
       description
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -60,6 +176,9 @@ export const listModels = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -78,6 +197,33 @@ export const getLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
+      keys {
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -99,6 +245,25 @@ export const listLocations = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+          items {
+            id
+            name
+            description
+            places
+            createdAt
+            updatedAt
+            modelCarsId
+            locationCarsId
+            carModelId
+            carKeyId
+            carLocationId
+          }
+        }
+        keys {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -119,6 +284,12 @@ export const getKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -126,13 +297,47 @@ export const getKey = /* GraphQL */ `
         id
         name
         description
-        modele
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
       keyLocationId
       keyCarId
     }
@@ -163,13 +368,18 @@ export const listKeys = /* GraphQL */ `
           id
           name
           description
-          modele
           places
           createdAt
           updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
         }
         createdAt
         updatedAt
+        locationKeysId
         keyLocationId
         keyCarId
       }

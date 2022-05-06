@@ -30,7 +30,6 @@ export default function Key() {
 
     async function fetchKeys() {
         const apiData = await API.graphql({ query: listKeys });
-        console.log(apiData)
         setKeys(apiData.data.listKeys.items);
     }
 
@@ -46,7 +45,6 @@ export default function Key() {
 
     async function createKey() {
         await API.graphql({ query: createKeyMutation, variables: { input: formData } }).then((res) => {
-            console.log(res)
             setKeys([...keys, res.data.createKey]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
@@ -77,7 +75,7 @@ export default function Key() {
         await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } });
     }
 
-    console.log(formData)
+    console.log(keys)
 
     return (
         <>
@@ -119,10 +117,10 @@ export default function Key() {
                                             </th>
 
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {key.car.name} </span>
+                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {key.car !== null ? key.car.name : 'Clé sans voiture'} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {key.location.name}
+                                                {key.location !== null ? key.location.name : 'Clé sans lieu'}
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={key} listObjects={[cars, locations]} deleteObject={deleteKey} modal={modal} setModal={setModal} />

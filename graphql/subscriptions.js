@@ -7,10 +7,77 @@ export const onCreateCar = /* GraphQL */ `
       id
       name
       description
-      modele
+      model {
+        id
+        name
+        brand
+        image
+        description
+        cars {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       places
+      key {
+        id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        createdAt
+        updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
+      }
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      modelCarsId
+      locationCarsId
+      carModelId
+      carKeyId
+      carLocationId
     }
   }
 `;
@@ -20,10 +87,77 @@ export const onUpdateCar = /* GraphQL */ `
       id
       name
       description
-      modele
+      model {
+        id
+        name
+        brand
+        image
+        description
+        cars {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       places
+      key {
+        id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        createdAt
+        updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
+      }
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      modelCarsId
+      locationCarsId
+      carModelId
+      carKeyId
+      carLocationId
     }
   }
 `;
@@ -33,10 +167,77 @@ export const onDeleteCar = /* GraphQL */ `
       id
       name
       description
-      modele
+      model {
+        id
+        name
+        brand
+        image
+        description
+        cars {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       places
+      key {
+        id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        createdAt
+        updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
+      }
+      location {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      modelCarsId
+      locationCarsId
+      carModelId
+      carKeyId
+      carLocationId
     }
   }
 `;
@@ -48,6 +249,22 @@ export const onCreateModel = /* GraphQL */ `
       brand
       image
       description
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -61,6 +278,22 @@ export const onUpdateModel = /* GraphQL */ `
       brand
       image
       description
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -74,6 +307,22 @@ export const onDeleteModel = /* GraphQL */ `
       brand
       image
       description
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -90,6 +339,33 @@ export const onCreateLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
+      keys {
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -106,6 +382,33 @@ export const onUpdateLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
+      keys {
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -122,6 +425,33 @@ export const onDeleteLocation = /* GraphQL */ `
       streetNumber
       longitude
       latitude
+      cars {
+        items {
+          id
+          name
+          description
+          places
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
+      }
+      keys {
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -140,6 +470,12 @@ export const onCreateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -147,13 +483,47 @@ export const onCreateKey = /* GraphQL */ `
         id
         name
         description
-        modele
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
       keyLocationId
       keyCarId
     }
@@ -172,6 +542,12 @@ export const onUpdateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -179,13 +555,47 @@ export const onUpdateKey = /* GraphQL */ `
         id
         name
         description
-        modele
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
       keyLocationId
       keyCarId
     }
@@ -204,6 +614,12 @@ export const onDeleteKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -211,13 +627,47 @@ export const onDeleteKey = /* GraphQL */ `
         id
         name
         description
-        modele
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
       keyLocationId
       keyCarId
     }
