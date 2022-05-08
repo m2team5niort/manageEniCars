@@ -39,3 +39,9 @@ type Key @model {
   location: Location @hasOne
   car: Car @hasOne
 }
+
+type User @model{
+  id: ID!
+  email: String
+  isAdmin: Boolean
+}

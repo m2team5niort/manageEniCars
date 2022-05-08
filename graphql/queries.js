@@ -247,19 +247,6 @@ export const listLocations = /* GraphQL */ `
         latitude
         cars {
           nextToken
-          items {
-            id
-            name
-            description
-            places
-            createdAt
-            updatedAt
-            modelCarsId
-            locationCarsId
-            carModelId
-            carKeyId
-            carLocationId
-          }
         }
         keys {
           nextToken
@@ -382,6 +369,37 @@ export const listKeys = /* GraphQL */ `
         locationKeysId
         keyLocationId
         keyCarId
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      email
+      isAdmin
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
       }
       nextToken
     }

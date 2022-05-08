@@ -4,10 +4,14 @@ import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon, CogIcon } from '@her
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DashboardCard from "./Cards/DashboardCard";
+import { getUser } from '../../graphql/queries'
+import { API } from 'aws-amplify'
 
-export default function Dashboard({ ssrDataDashboard }) {
+export default function Dashboard({ ssrDataDashboard, username }) {
 
     const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
+
+    console.log(dashboardData)
 
     const options = {
         responsive: true,
@@ -53,7 +57,7 @@ export default function Dashboard({ ssrDataDashboard }) {
         <div id="Content" className="container-content">
             <div id="Card1" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre de voitures" label="Voitures" color="green-500" data={dashboardData.cars.length} />
+
                 </div>
             </div>
             <div id="Card2" className=" pl-4 pr-4 pb-4">
@@ -63,7 +67,7 @@ export default function Dashboard({ ssrDataDashboard }) {
             </div>
             <div id="Card3" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre de modèles" label="Modèles" color="blue-500" data={dashboardData.models.length} />
+
                 </div>
             </div>
             <div id="Card4" className=" pl-4 pr-4 pb-4">

@@ -4,16 +4,17 @@ import React from 'react'
 import Sidebar from '../Components/Dashboard/Sidebar'
 import Dashboard from '../Components/Dashboard/Dashboard'
 import Navbar from '../Components/Dashboard/Navbar'
-import { listCars, listModels } from '../graphql/queries'
+import { listCars, listModels, getUser } from '../graphql/queries'
+import MySpace from '../Components/MySpace/MySpace'
 
 // Dashboard function
 
-function dashboard({ username, ssrDataDashboard }) {
+function dashboard({ ssrDataDashboard }) {
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>
       <Navbar />
-      <Sidebar username={username} />
+      <Sidebar ssrDataDashboard={ssrDataDashboard} />
       <Dashboard ssrDataDashboard={ssrDataDashboard} />
     </div>
   )
@@ -24,23 +25,31 @@ export async function getServerSideProps({ req, res }) {
   try {
     const user = await Auth.currentAuthenticatedUser();
 
+    let id = user.username
+
     const apiDataCars = await API.graphql({ query: listCars });
     const apiDataModels = await API.graphql({ query: listModels });
+    const apiDataUsers = await API.graphql({ query: getUser, variables: { id } });
+
+    if (!apiDataUsers.data.getUser.isAdmin) {
+      res.writeHead(302, { Location: '/myspace' })
+      res.end()
+    }
 
     return {
       props: {
-        username: user.username,
         ssrDataDashboard: {
           cars: apiDataCars.data.listCars.items,
           models: apiDataModels.data.listModels.items,
+          user: apiDataUsers.data.getUser
         }
       }
     }
 
   } catch (err) {
     console.log(err)
-    //res.writeHead(302, { Location: '/signup' })
-    //res.end()
+    res.writeHead(302, { Location: '/signup' })
+    res.end()
   }
 
   return {
