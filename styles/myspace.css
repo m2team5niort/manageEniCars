@@ -1,0 +1,17 @@
+.container-myspace {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 1.9fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "Navbar"
+        "Content";
+}
+
+#Content {
+    grid-area: Content;
+}
+
+#Navbar {
+    grid-area: Navbar;
+}

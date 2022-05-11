@@ -1,28 +1,44 @@
-// Imports Used
-
 import Link from 'next/link'
-import { CogIcon, BellIcon, MoonIcon, SunIcon, InformationCircleIcon } from '@heroicons/react/outline'
+import { router } from "next/router"
+import { CogIcon, BellIcon, InformationCircleIcon, PlusCircleIcon, LogoutIcon } from '@heroicons/react/outline'
 
-// Navbar function
-export default function Navbar({ username }) {
+export default function NavbarMySpace() {
+
+    async function signOut() {
+        try {
+            await Auth.signOut({ global: true });
+            router.push('/signup')
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
 
     return (
-        <div id="Navbar">
-            <nav className="bg-gray-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 w-full ">
-                <div className=" flex flex-wrap justify-between items-center px-12">
+        <div id='Navbar'>
+            <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 dark:text-white text-blue-500 w-full ">
+                <div className="flex flex-wrap justify-between items-center px-12">
                     <a href="https://flowbite.com" className="flex items-center">
-                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white text-white"> Dashboard </span>
+                        <span className="self-center text-xl font-semibold whitespace-nowrap"> ManageCars </span>
                     </a>
-                    <div className="flex items-center md:order-2">
-                        <InformationCircleIcon className='h-6 w-6 mr-16 text-white' />
-                        <SunIcon className='h-6 w-6 mr-8 text-white' />
-                        <MoonIcon className='h-6 w-6 mr-16 text-white' />
+                    <ul className='flex flex-row space-x-8 font-semibold'>
+                        <li>Mes trajets</li>
+                        <li>Mes réservations</li>
+                    </ul>
+                    <div className="flex items-center md:order-2 space-x-6">
+                        <button className='bg-blue-500 text-white px-5 py-3 rounded-lg hover:bg-cyan-500 transition flex flex-row items-center'>
+                            <PlusCircleIcon className='h-5 w-5 mr-2' />
+                            Publier un trajet
+                        </button>
+                        <InformationCircleIcon className='h-6 w-6 mr-16' />
                         <Link href='/dashboard/notifications'>
-                            <BellIcon className='h-6 w-6 mr-8 text-white' />
+                            <BellIcon className='h-6 w-6 mr-8 ' />
                         </Link>
                         <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
-                        <p className='text-white mr-8 ml-8 '> NALIN Brandon </p>
-                        <CogIcon className='h-6 w-6 text-white' />
+                        <p className='mr-8 ml-8 '> NALIN Brandon </p>
+                        <CogIcon className='h-6 w-6' />
+                        <button onClick={() => signOut()}>
+                            <LogoutIcon className='h-6 w-6' />
+                        </button>
                         <div className="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
                             <div className="py-3 px-4">
                                 <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
@@ -55,5 +71,5 @@ export default function Navbar({ username }) {
                 </div>
             </nav>
         </div>
-    );
-};
+    )
+}

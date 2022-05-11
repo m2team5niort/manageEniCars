@@ -1,6 +1,5 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
-import Model from '../../Components/Dashboard/Model'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 import Navbar from '../../Components/Dashboard/Navbar'
 import Reservation from '../../Components/Dashboard/Reservation'

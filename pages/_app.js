@@ -1,8 +1,8 @@
 // Imports Used
 import Head from "next/head";
-import Link from 'next/link';
 import '../styles/global.css';
 import '../styles/dashboard.css';
+import '../styles/myspace.css';
 import '../styles/homepage.css';
 import Amplify from 'aws-amplify';
 import config from '../aws-exports';
