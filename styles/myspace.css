@@ -15,3 +15,12 @@
 #Navbar {
     grid-area: Navbar;
 }
+
+.marker {
+    background-image: url('../public/assets/images/eni-logo.png');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }

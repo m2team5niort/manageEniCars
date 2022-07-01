@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 
 // Sidebar function
-export default function Sidebar({ ssrDataDashboard }) {
+export default function Sidebar() {
 
     const router = useRouter()
 
@@ -47,52 +47,48 @@ export default function Sidebar({ ssrDataDashboard }) {
                                 <span>Dashboard</span>
                             </a>
                         </Link>
-                        {ssrDataDashboard.user.isAdmin &&
-                            <>
-                                <Link href='/dashboard/users'>
-                                    <a>
-                                        <UserIcon className="h-5 w-5" />
-                                        <span>Gestion utilisateurs</span>
-                                    </a>
-                                </Link>
-                                <Link href='/dashboard/models'>
-                                    <a>
-                                        <TagIcon className="h-5 w-5" />
-                                        <span>Gestion modèles</span>
-                                    </a>
-                                </Link>
-                                <Link href='/dashboard/locations'>
-                                    <a>
-                                        <LocationMarkerIcon className="h-5 w-5" />
-                                        <span>Gestion lieux</span>
-                                    </a>
-                                </Link>
-                                <Link href='/dashboard/cars'>
-                                    <a>
-                                        <TruckIcon className="h-5 w-5" />
-                                        <span>Gestion voitures</span>
-                                    </a>
-                                </Link>
-                                <Link href='/dashboard/keys'>
-                                    <a>
-                                        <KeyIcon className="h-5 w-5" />
-                                        <span>Gestion clés</span>
-                                    </a>
-                                </Link>
-                                <Link href='/dashboard/reservations'>
-                                    <a>
-                                        <ShoppingCartIcon className="h-5 w-5" />
-                                        <span>Gestion réservations</span>
-                                    </a>
-                                </Link>
-                                <Link href='/myspace'>
-                                    <a>
-                                        <ShoppingCartIcon className="h-5 w-5" />
-                                        <span>User space</span>
-                                    </a>
-                                </Link>
-                            </>
-                        }
+                        <Link href='/dashboard/users'>
+                            <a>
+                                <UserIcon className="h-5 w-5" />
+                                <span>Gestion utilisateurs</span>
+                            </a>
+                        </Link>
+                        <Link href='/dashboard/models'>
+                            <a>
+                                <TagIcon className="h-5 w-5" />
+                                <span>Gestion modèles</span>
+                            </a>
+                        </Link>
+                        <Link href='/dashboard/locations'>
+                            <a>
+                                <LocationMarkerIcon className="h-5 w-5" />
+                                <span>Gestion lieux</span>
+                            </a>
+                        </Link>
+                        <Link href='/dashboard/cars'>
+                            <a>
+                                <TruckIcon className="h-5 w-5" />
+                                <span>Gestion voitures</span>
+                            </a>
+                        </Link>
+                        <Link href='/dashboard/keys'>
+                            <a>
+                                <KeyIcon className="h-5 w-5" />
+                                <span>Gestion clés</span>
+                            </a>
+                        </Link>
+                        <Link href='/dashboard/reservations'>
+                            <a>
+                                <ShoppingCartIcon className="h-5 w-5" />
+                                <span>Gestion réservations</span>
+                            </a>
+                        </Link>
+                        <Link href='/myspace'>
+                            <a>
+                                <ShoppingCartIcon className="h-5 w-5" />
+                                <span>User space</span>
+                            </a>
+                        </Link>
                         <button onClick={() => signOut()}>
                             <LogoutIcon className="h-5 w-5" />
                             <span>Se déconnecter</span>
