@@ -10,11 +10,6 @@
       "StackName": "amplify-amplifyc9817ec0b9d44-staging-80446",
       "StackId": "arn:aws:cloudformation:eu-west-3:979471135753:stack/amplify-amplifyc9817ec0b9d44-staging-80446/8a2b9d30-c537-11ec-b15d-069ed579c186",
       "AmplifyAppId": "d2amym9auhu16h"
-    },
-    "categories": {
-      "auth": {
-        "manageEniCars": {}
-      }
     }
   }
 }

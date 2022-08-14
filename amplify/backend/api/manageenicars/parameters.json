@@ -1,6 +1,0 @@
-{
-  "AppSyncApiName": "manageenicars",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-04-27T12:03:27.565Z"
-}
