@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "manageEniCars": {}
+      },
+      "function": {
+        "manageenicars211ec78b": {
+          "deploymentBucketName": "amplify-amplifyc9817ec0b9d44-staging-80446-deployment",
+          "s3Key": "amplify-builds/manageenicars211ec78b-56642f487443714a3248-build.zip"
+        }
       }
     }
   }

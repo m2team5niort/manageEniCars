@@ -42,6 +42,19 @@ type Key @model {
 
 type User @model{
   id: ID!
+  name: String
   email: String
   isAdmin: Boolean
+}
+
+type Travel @model{
+  id: ID!
+  locations: [Location] @hasMany
+  driver: User @hasOne
+  passengers: [User] @hasMany
+  car: Car @hasOne
+  model: Model @hasOne
+  dateBegin: AWSDateTime!
+  dateEnd: AWSDateTime!
+  places: Int!
 }

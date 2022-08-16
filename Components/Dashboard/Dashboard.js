@@ -7,11 +7,9 @@ import DashboardCard from "./Cards/DashboardCard";
 import { getUser } from '../../graphql/queries'
 import { API } from 'aws-amplify'
 
-export default function Dashboard({ ssrDataDashboard, username }) {
+export default function Dashboard({ ssrDataDashboard }) {
 
     const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
-
-    console.log(dashboardData)
 
     const options = {
         responsive: true,

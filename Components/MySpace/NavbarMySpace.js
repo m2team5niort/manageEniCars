@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { router } from "next/router"
 import { CogIcon, BellIcon, InformationCircleIcon, PlusCircleIcon, LogoutIcon } from '@heroicons/react/outline'
+import { Auth } from 'aws-amplify';
 
 export default function NavbarMySpace() {
 
