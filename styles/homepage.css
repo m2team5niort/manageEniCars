@@ -162,6 +162,12 @@ a.control_next:hover {
 
 /* ---- Cars Page ---- */
 .imgCarsHeader {
-  background-image: url(../public/assets/images/911.jpg);
   height: 100vh;
+}
+
+.homepage-car {
+  background-image: url('../public/assets/images/homepage/b1.jpg');
+  background-repeat: no-repeat;
+  width: 1200px;
+  height: 600px;
 }

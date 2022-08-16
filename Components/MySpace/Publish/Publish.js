@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { LocationMarkerIcon } from '@heroicons/react/solid'
 import MapTravel from '../MapTravel'
-import ModalDesctination from './Modals/ModalDestination'
+import ModalDestination from './Modals/ModalDestination'
 
-export default function Publish(){
+export default function Publish() {
 
     const [modalDisplay, setModalDisplay] = useState(false)
     const [trip, setTrip] = useState({
@@ -11,7 +11,7 @@ export default function Publish(){
         destination: 'Destination'
     })
 
-    return(
+    return (
         <div className="flex flex-row w-full">
             <div className="bg-white shadow-lg p-8 rounded-xl w-full">
                 <div className='flex flex-row space-x-6'>
@@ -45,7 +45,7 @@ export default function Publish(){
                     </div>
                 </div>
             </div>
-            {modalDisplay && <ModalDesctination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
+            {modalDisplay && <ModalDestination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
         </div>
     )
 }

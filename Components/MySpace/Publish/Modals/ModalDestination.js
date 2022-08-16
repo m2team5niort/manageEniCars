@@ -1,74 +1,51 @@
+import React, { useEffect } from 'react'
 import { Dialog, Transition, Tab } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import useSWR from 'swr'
+import { clearPrewarmedResources } from 'mapbox-gl'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
-    
+
+    const { data, error } = useSWR('/api/myspace/markerEni', fetcher)
     let [isOpen, setIsOpen] = useState(true)
     let [tab, setTab] = useState(0)
+    let [categories, setCategories] = useState({})
+    let [destinations, setDestinations] = useState(['start', 'end'])
 
     function closeModal() {
         setIsOpen(false)
         setModalDisplay(false)
     }
 
-    let [categories] = useState({
-        Arrivée: [
-            {
-                name: 'Eni Nantes',
-                address: '3 Rue Michael Faraday,',
-                zip: '44800 Saint-Herblain',
-                href: '##',
-            },
-            {
-                name: 'Eni Rennes',
-                address: 'ZAC de, La Conterie, 8 Rue Léo Lagrange,',
-                zip: '35131 Chartres-de-Bretagne',
-                href: '##',
-            },
-            {
-                name: 'Eni Niort',
-                address: '19 Av. Léo Lagrange Bâtiment B et C,',
-                zip: '79000 Niort',
-                href: '##',
-            },
-        ],
-        Destination: [
-            {
-                name: 'Eni Nantes',
-                address: '3 Rue Michael Faraday,',
-                zip: '44800 Saint-Herblain',
-                href: '##',
-            },
-            {
-                name: 'Eni Niort',
-                address: '19 Av. Léo Lagrange Bâtiment B et C,',
-                zip: '79000 Niort',
-                href: '##',
-            },
-            {
-                name: 'Eni Rennes',
-                address: 'ZAC de, La Conterie, 8 Rue Léo Lagrange,',
-                zip: '35131 Chartres-de-Bretagne',
-                href: '##',
-            },
-        ],
-    })
+    useEffect(() => {
+        data.eni.forEach(elem => {
+            elem.selection = false
+        })
+        setCategories({
+            start: data.eni,
+            destination: data.eni
+        })
+    }, [])
 
-    const setChoiceTrip = (name) => {
-        if(tab === 0){
-            setTrip(prev => ({...prev, arrival: name}))
-        }else{
-            setTrip(prev => ({...prev, destination: name}))
+    const setChoiceTrip = (name, id) => {
+        if (tab === 0) {
+            setTrip(prev => ({ ...prev, arrival: name }))
+            setDestinations(prev => ({ ...prev, start: name }))
+        } else {
+            setTrip(prev => ({ ...prev, destination: name }))
+            setDestinations(prev => ({ ...prev, end: name }))
         }
     }
 
+    console.log(destinations)
+
     return (
         <>
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -105,12 +82,12 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                         <Tab.Group
                                             onChange={(index) => {
                                                 setTab(index)
-                                              }}
+                                            }}
                                         >
                                             <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                                                {Object.keys(categories).map((category) => (
+                                                {Object.keys(categories).map((category, index) => (
                                                     <Tab
-                                                        key={category}
+                                                        key={index}
                                                         className={({ selected }) =>
                                                             classNames(
                                                                 'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
@@ -121,13 +98,13 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                                             )
                                                         }
                                                     >
-                                                        {category}
+                                                        {category === 'start' ? 'Départ' : 'Destination'}
                                                     </Tab>
                                                 ))}
                                             </Tab.List>
-                                            <div className='w-full flex flex-row mt-6 bg-white content-center bg-gray-200 p-2 space-x-4'>
-                                                <input readOnly defaultValue={trip.arrival} type='text' value={trip.arrival} className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'}/> 
-                                                <input defaultValue={trip.destination} type='text' value={trip.destination} className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'}/>        
+                                            <div className='w-full flex flex-row mt-6 content-center bg-gray-200 p-2 space-x-4'>
+                                                <input readOnly value={trip.arrival} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
+                                                <input value={trip.destination} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
                                             </div>
                                             <Tab.Panels className="mt-6">
                                                 {Object.values(categories).map((posts, idx) => (
@@ -139,32 +116,35 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                                         )}
                                                     >
                                                         <ul>
-                                                            {posts.map((post) => (
-                                                                <li
-                                                                    key={post.id}
-                                                                    className="relative rounded-md p-3 hover:bg-gray-100"
-                                                                    onClick={() => setChoiceTrip(post.name)}
-                                                                >
-                                                                    <h3 className="text-sm font-medium leading-5 text-gray-900">
-                                                                        {post.name}
-                                                                    </h3>
+                                                            {posts.map((post, index) => (
+                                                                post.selection === false ?
+                                                                    <li
+                                                                        key={index}
+                                                                        className={`relative rounded-md p-3 hover:bg-gray-100 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
+                                                                        onClick={() => setChoiceTrip(post.title, post.id)}
+                                                                    >
+                                                                        <h3 className="text-sm font-medium leading-5 text-gray-900">
+                                                                            {post.title}
+                                                                        </h3>
 
-                                                                    <p className="text-xs font-normal leading-4 text-gray-500">
-                                                                        {post.address}
-                                                                    </p>
+                                                                        <p className="text-xs font-normal leading-4 text-gray-500">
+                                                                            {post.address}
+                                                                        </p>
 
-                                                                    <p className="text-xs font-normal leading-4 text-gray-400">
-                                                                        {post.zip}
-                                                                    </p>
+                                                                        <p className="text-xs font-normal leading-4 text-gray-400">
+                                                                            {post.zip}
+                                                                        </p>
 
-                                                                    <a
-                                                                        href="#"
-                                                                        className={classNames(
-                                                                            'absolute inset-0 rounded-md',
-                                                                            'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                                                        )}
-                                                                    />
-                                                                </li>
+                                                                        <a
+                                                                            href="#"
+                                                                            className={classNames(
+                                                                                'absolute inset-0 rounded-md',
+                                                                                'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
+                                                                            )}
+                                                                        />
+                                                                    </li>
+                                                                    :
+                                                                    ''
                                                             ))}
                                                         </ul>
                                                     </Tab.Panel>
