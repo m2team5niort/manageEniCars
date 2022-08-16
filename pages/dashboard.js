@@ -30,11 +30,11 @@ export async function getServerSideProps({ req, res }) {
 
     const apiDataCars = await API.graphql({ query: listCars });
     const apiDataModels = await API.graphql({ query: listModels });
-    const apiDataUsers = await API.graphql({ query: getUser, variables: { id } });
+    const apiDataUser = await API.graphql({ query: getUser, variables: { id } });
 
-    console.log(apiDataUsers)
+    console.log(apiDataUser)
 
-    if (!apiDataUsers.data.getUser.isAdmin) {
+    if (!apiDataUser.data.getUser.isAdmin) {
       res.writeHead(302, { Location: '/myspace' })
       res.end()
     }
@@ -44,7 +44,7 @@ export async function getServerSideProps({ req, res }) {
         ssrDataDashboard: {
           cars: apiDataCars.data.listCars.items,
           models: apiDataModels.data.listModels.items,
-          user: apiDataUsers.data.getUser
+          user: apiDataUser.data.getUser
         }
       }
     }
@@ -53,6 +53,10 @@ export async function getServerSideProps({ req, res }) {
     console.log(err)
     res.writeHead(302, { Location: '/signup' })
     res.end()
+  }
+
+  return {
+    props: {}
   }
 
 }

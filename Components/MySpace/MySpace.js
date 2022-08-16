@@ -6,10 +6,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function MySpace() {
+export default function MySpace({ssrDataMySpace}) {
 
     return (
-        <>
         <div id="Container" className="bg-cyan-100/10">
             <div className="container px-48 mx-auto space-y-12 py-20">
                 <h1 className="text-5xl text-indigo-800 font-semibold text-center">Publier, réserver un trajet avec Eni ManageCars</h1>
@@ -47,19 +46,15 @@ export default function MySpace() {
                         </Tab.List>
                         <Tab.Panels>
                             <Tab.Panel>
-                                <Publish />
+                                <Publish ssrDataMySpace={ssrDataMySpace}/>
                             </Tab.Panel>
                             <Tab.Panel>
-                                <Reservation />
+                                <Reservation ssrDataMySpace={ssrDataMySpace}/>
                             </Tab.Panel>
                         </Tab.Panels>
                     </Tab.Group>
                 </div>
             </div>
         </div>
-        <div className="container py-20 bg-white">
-            <h1 className="text-5xl text-indigo-800 font-semibold text-center">Texte explicatif</h1>
-        </div>
-        </>
     )
 }
