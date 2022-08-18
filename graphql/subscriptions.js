@@ -13,40 +13,12 @@ export const onCreateCar = /* GraphQL */ `
         brand
         image
         description
-        cars {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       places
       key {
         id
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
-        car {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         createdAt
         updatedAt
         locationKeysId
@@ -62,14 +34,9 @@ export const onCreateCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       createdAt
       updatedAt
@@ -93,40 +60,12 @@ export const onUpdateCar = /* GraphQL */ `
         brand
         image
         description
-        cars {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       places
       key {
         id
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
-        car {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         createdAt
         updatedAt
         locationKeysId
@@ -142,14 +81,9 @@ export const onUpdateCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       createdAt
       updatedAt
@@ -173,40 +107,12 @@ export const onDeleteCar = /* GraphQL */ `
         brand
         image
         description
-        cars {
-          nextToken
-        }
         createdAt
         updatedAt
       }
       places
       key {
         id
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
-        car {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         createdAt
         updatedAt
         locationKeysId
@@ -222,14 +128,9 @@ export const onDeleteCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       createdAt
       updatedAt
@@ -250,19 +151,6 @@ export const onCreateModel = /* GraphQL */ `
       image
       description
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       createdAt
@@ -279,19 +167,6 @@ export const onUpdateModel = /* GraphQL */ `
       image
       description
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       createdAt
@@ -308,19 +183,6 @@ export const onDeleteModel = /* GraphQL */ `
       image
       description
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       createdAt
@@ -340,34 +202,14 @@ export const onCreateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       keys {
-        items {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
         nextToken
       }
       createdAt
       updatedAt
+      travelLocationsId
     }
   }
 `;
@@ -383,34 +225,14 @@ export const onUpdateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       keys {
-        items {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
         nextToken
       }
       createdAt
       updatedAt
+      travelLocationsId
     }
   }
 `;
@@ -426,34 +248,14 @@ export const onDeleteLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        items {
-          id
-          name
-          description
-          places
-          createdAt
-          updatedAt
-          modelCarsId
-          locationCarsId
-          carModelId
-          carKeyId
-          carLocationId
-        }
         nextToken
       }
       keys {
-        items {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
         nextToken
       }
       createdAt
       updatedAt
+      travelLocationsId
     }
   }
 `;
@@ -470,49 +272,15 @@ export const onCreateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       car {
         id
         name
         description
-        model {
-          id
-          name
-          brand
-          image
-          description
-          createdAt
-          updatedAt
-        }
         places
-        key {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
         modelCarsId
@@ -542,49 +310,15 @@ export const onUpdateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       car {
         id
         name
         description
-        model {
-          id
-          name
-          brand
-          image
-          description
-          createdAt
-          updatedAt
-        }
         places
-        key {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
         modelCarsId
@@ -614,49 +348,15 @@ export const onDeleteKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
-        cars {
-          nextToken
-        }
-        keys {
-          nextToken
-        }
         createdAt
         updatedAt
+        travelLocationsId
       }
       car {
         id
         name
         description
-        model {
-          id
-          name
-          brand
-          image
-          description
-          createdAt
-          updatedAt
-        }
         places
-        key {
-          id
-          createdAt
-          updatedAt
-          locationKeysId
-          keyLocationId
-          keyCarId
-        }
-        location {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
         modelCarsId
@@ -682,6 +382,7 @@ export const onCreateUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
+      travelPassengersId
     }
   }
 `;
@@ -694,6 +395,7 @@ export const onUpdateUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
+      travelPassengersId
     }
   }
 `;
@@ -706,6 +408,163 @@ export const onDeleteUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
+      travelPassengersId
+    }
+  }
+`;
+export const onCreateTravel = /* GraphQL */ `
+  subscription OnCreateTravel {
+    onCreateTravel {
+      id
+      locations {
+        nextToken
+      }
+      driver {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+        travelPassengersId
+      }
+      passengers {
+        nextToken
+      }
+      car {
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      model {
+        id
+        name
+        brand
+        image
+        description
+        createdAt
+        updatedAt
+      }
+      dateBegin
+      dateEnd
+      places
+      createdAt
+      updatedAt
+      travelDriverId
+      travelCarId
+      travelModelId
+    }
+  }
+`;
+export const onUpdateTravel = /* GraphQL */ `
+  subscription OnUpdateTravel {
+    onUpdateTravel {
+      id
+      locations {
+        nextToken
+      }
+      driver {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+        travelPassengersId
+      }
+      passengers {
+        nextToken
+      }
+      car {
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      model {
+        id
+        name
+        brand
+        image
+        description
+        createdAt
+        updatedAt
+      }
+      dateBegin
+      dateEnd
+      places
+      createdAt
+      updatedAt
+      travelDriverId
+      travelCarId
+      travelModelId
+    }
+  }
+`;
+export const onDeleteTravel = /* GraphQL */ `
+  subscription OnDeleteTravel {
+    onDeleteTravel {
+      id
+      locations {
+        nextToken
+      }
+      driver {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+        travelPassengersId
+      }
+      passengers {
+        nextToken
+      }
+      car {
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      model {
+        id
+        name
+        brand
+        image
+        description
+        createdAt
+        updatedAt
+      }
+      dateBegin
+      dateEnd
+      places
+      createdAt
+      updatedAt
+      travelDriverId
+      travelCarId
+      travelModelId
     }
   }
 `;

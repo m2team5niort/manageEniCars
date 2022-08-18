@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import { LocationMarkerIcon } from '@heroicons/react/solid'
 import MapTravel from '../MapTravel'
-import ModalDesctination from './Modals/ModalDestination'
+import ModalDestination from './Modals/ModalDestination'
 import ListTravels from './ListTravels'
 import { API } from 'aws-amplify';
-
-let initialFormState = { dateBegin: "", dateEnd: "", id: "", places: 10, travelCarId: "", travelDriverId: "", travelModelId: ""}
+import { createTravel as createTravelMutation, deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '../../../graphql/mutations';
 
 export default function Publish({ssrDataMySpace}){
 
@@ -20,25 +19,27 @@ export default function Publish({ssrDataMySpace}){
         destination: 'Destination'
     })
     const [travel, setTravel] = useState({
-        locations: [],
-        driver: {},
-        passengers: [],
-        car: '',
-        model: '',
-        dateBegin: '',
-        dateEnd: '',
-        places: 0
+        dateBegin: "", 
+        dateEnd: "", 
+        places: 10, 
+        travelCarId: "",
+        travelDriverId: data.user.id,
+        travelModelId: ""
     })
 
-    const publishTravel = () => {
-        setTravel({...travel, driver: data.user})
+    async function createTravel() {
+        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId) return;
+
+        travel.dateBegin = new Date(travel.dateBegin).toISOString()
+        travel.dateEnd = new Date(travel.dateEnd).toISOString()
+
+        await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        });
+
     }
-
-    useEffect(() => {
-        setTravel({...travel, locations: [trip.arrival, trip.destination]})
-    },[trip])
-
-    console.log(travel)
 
     return(
         <div className='flex flex-col space-y-12'>
@@ -58,7 +59,7 @@ export default function Publish({ssrDataMySpace}){
                                     {trip.arrival} / {trip.destination}
                                 </div>
                             </div>
-                            <select onChange={e => setTravel({...travel, model: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
+                            <select onChange={e => setTravel({...travel, travelModelId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
                                 {data.models.map((elem => {
                                         return (
                                             <option value={JSON.stringify(elem.id)} key={elem.id}>{elem.name}</option>
@@ -66,7 +67,7 @@ export default function Publish({ssrDataMySpace}){
                                     }
                                 ))}
                             </select>
-                            <select onChange={e => setTravel({...travel, car: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
+                            <select onChange={e => setTravel({...travel, travelCarId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
                                 {data.cars.map((elem => {
                                         return (
                                             <option value={JSON.stringify(elem.id)} key={elem.id}>{elem.name}</option>
@@ -81,14 +82,14 @@ export default function Publish({ssrDataMySpace}){
                                 min={0}
                                 max={4}
                             />
-                            <button onClick={() => publishTravel()} className='bg-blue-500 text-white px-5 py-3 rounded-lg hover:bg-cyan-500 transition'>Publier mon trajet</button>
+                            <button onClick={() => createTravel()} className='bg-blue-500 text-white px-5 py-3 rounded-lg hover:bg-cyan-500 transition'>Publier mon trajet</button>
                         </div>
                         <div className=" w-8/12">
                             <MapTravel />
                         </div>
                     </div>
                 </div>
-                {modalDisplay && <ModalDesctination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
+                {modalDisplay && <ModalDestination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
             </div>
             <ListTravels />
         </div>
