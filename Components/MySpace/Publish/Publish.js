@@ -34,7 +34,7 @@ export default function Publish({ssrDataMySpace}){
         travel.dateEnd = new Date(travel.dateEnd).toISOString()
 
         await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then((res) => {
-            console.log(res)
+            setTravel(travel)
         }).catch((err) => {
             console.log(err)
         });
@@ -91,7 +91,7 @@ export default function Publish({ssrDataMySpace}){
                 </div>
                 {modalDisplay && <ModalDestination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
             </div>
-            <ListTravels />
+            <ListTravels travel={travel}/>
         </div>
     )
 }

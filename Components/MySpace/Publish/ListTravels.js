@@ -1,47 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import { API } from 'aws-amplify';
-import { listTravels, getTravel } from '../../../graphql/queries';
-import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '../../../graphql/mutations';
+import { listTravels } from '../../../graphql/queries';
 import ModalTravel from './Modals/ModalTravel';
+import { TruckIcon, UserCircleIcon } from '@heroicons/react/solid';
 
-export default function ListTravels(){
+export default function ListTravels({travel}){
 
     const [travels, setTravels] = useState([])
-    const [modalDisplay, setModalDisplay] = useState(false)
-    const [data, setData] = useState({})
+    const [modalDisplay, setModalDisplay] = useState({
+        isDisplayed: false,
+        travelId: ''
+    })
 
     useEffect(() => {
         fetchTravels();
-    }, []);
+    }, [travel]);
 
     
     async function fetchTravels() {
         await API.graphql({ query: listTravels }).then((res => {
-            res.data.listTravels.items.forEach(element => {
-                fetchTravel(element.id)
-            });
+            setTravels(res.data.listTravels.items)
         }));
     }
 
-    async function fetchTravel(idTravel){
-        let travelsArray = []
-        const apiData = await API.graphql({ query: getTravel, variables: { id: idTravel } });
-        travelsArray.push(apiData.data.getTravel)
-        setTravels(travelsArray)
+    const nbrPlaces = (places) => {
+        [ ...Array(places).keys() ].map(() => {
+            return (
+                <div>
+                    <UserCircleIcon className='w-8 h-8' />
+                </div>
+            )
+        })
     }
-
-    async function deleteTravel({ id }) {
-        const newCarsArray = travels.filter(travel => travel.id !== id);
-        setTravels(newCarsArray);
-        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } });
-    }
-
-    const handleModal = (travel) => {
-        setData(travel)
-        setModalDisplay(!modalDisplay)
-    }
-
-    console.log(travels)
 
     return(
         <>
@@ -50,16 +40,24 @@ export default function ListTravels(){
                    <h2 className="text-4xl text-indigo-800 font-semibold text-center">Liste de mes trajets à venir</h2>
                     {travels.map((travel => {
                             return (
-                                <div onClick={() => handleModal(travel)} className='flex flex-row space-x-2 items-center bg-sky-400 shadow-2xl p-8 rounded-md cursor-pointer'>
-                                    <h1>Nom du conducteur : {travel.driver.email}</h1>
-                                    <p>Voiture : {travel.car.name}</p>
-                                    <p>Places : {travel.places}</p>
-                                    <button onClick={() => deleteTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white'>Supprimer</button>
+                                <div onClick={() => setModalDisplay({...modalDisplay, isDisplayed: !modalDisplay.isDisplayed, travelId: travel.id})} className='flex flex-row items-center bg-gray-50 shadow-md hover:bg-white ease-in duration-200 p-8 rounded-md cursor-pointer space-x-6 w-6/12 mx-auto'>
+                                    <TruckIcon className='w-10 h-10 bg-indigo-800 text-white p-2 rounded-full'/>
+                                    <div className='flex flex-col'>
+                                        <p className='text-xs'>Du: {new Date(travel.dateBegin).toLocaleString()}</p>
+                                        <p className='text-xs'>Au: {new Date(travel.dateEnd).toLocaleString()}</p>
+                                    </div>
+                                    <div className='flex flex-row'>
+                                        {[ ...Array(travel.places).keys() ].map(() => {
+                                            return (
+                                                    <UserCircleIcon className='w-8 h-8 text-indigo-200' />
+                                            )
+                                        })}
+                                    </div>
                                 </div>
                             )
                         }
                     ))}
-                    { modalDisplay && <ModalTravel setModalDisplay={setModalDisplay} data={data} /> }
+                    { modalDisplay.isDisplayed && <ModalTravel modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} idTravel={modalDisplay.travelId} /> }
                 </>
             }        
         </>
