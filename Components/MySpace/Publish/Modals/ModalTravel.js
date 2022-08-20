@@ -3,16 +3,17 @@ import { API } from 'aws-amplify';
 import { Fragment, useState, useEffect } from 'react'
 import { getTravel } from '/graphql/queries';
 import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '/graphql/mutations';
-import { SwitchVerticalIcon, FlagIcon, OfficeBuildingIcon } from '@heroicons/react/solid';
+import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon } from '@heroicons/react/solid';
+import Image from 'next/image'
 
-export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
+export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
 
     let [isOpen, setIsOpen] = useState(true)
-    let [travel, setTravel] = useState({})
+    let [travel, setTravel] = useState()
 
     function closeModal() {
         setIsOpen(false)
-        setModalDisplay({...modalDisplay, isDisplayed: false})
+        setModalHandler({...modalHandler, isDisplayed: false})
     }
 
     useEffect(() => {
@@ -26,7 +27,11 @@ export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
     }
 
     async function deleteTravel({ id }) {
-        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } }).then(() => {
+                setModalHandler({...modalHandler, isRefreshed: true})
+                closeModal()
+            }
+        );
     }
 
     const formatDate = (date) => {
@@ -37,6 +42,7 @@ export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
 
     return (
         <>
+        {travel ? 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -62,40 +68,62 @@ export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-50 p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-gray-50 p-10 text-left align-middle shadow-2xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-xl font-medium leading-6 text-gray-900 mb-6"
+                                        className="text-xl font-medium leading-6 text-gray-900 mb-8"
                                     >
                                         Récapitulatif de mon trajet
                                     </Dialog.Title>
-                                    <div className="flex flex-col mt-6 space-y-8">
-                                        <div className='flex flex-row'>
-                                            <OfficeBuildingIcon className='w-8 h-8 text-indigo-600 mr-6'/>
-                                            <div className='flex flex-col text-xs'>
-                                                <p className='text-lg font-semibold mb-1'>Eni Nantes,</p>
-                                                <p>3 Rue Michael Faraday,</p>
-                                                <p>44800 Saint-Herblain</p>
-                                                <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
+                                    <div className='flex flex-row'>
+                                        <div className="flex flex-col justify-between space-y-8 pr-12 border-r-2 border-indigo-300">
+                                            <div className='flex flex-row items-center'>
+                                                <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                                <div className='flex flex-col text-xs'>
+                                                    <p className='text-lg font-semibold mb-1'>Eni Nantes,</p>
+                                                    <p>3 Rue Michael Faraday,</p>
+                                                    <p>44800 Saint-Herblain</p>
+                                                    <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
+                                                </div>
+                                            </div>
+                                            <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/>
+                                            <div className='flex flex-row items-center'>
+                                                <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                                <div className='flex flex-col text-xs'>
+                                                    <p className='text-lg font-semibold mb-1'>Eni Rennes,</p>
+                                                    <p>8 Rue Léo Lagrange,</p>
+                                                    <p>35131 Chartres-de-Bretagne</p>
+                                                    <p className='text-gray-700'>{formatDate(travel.dateEnd)}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className='flex flex-row'>
-                                            <FlagIcon className='w-8 h-8 text-indigo-600 mr-6'/>
-                                            <div className='flex flex-col text-xs'>
-                                                <p className='text-lg font-semibold mb-1'>Eni Rennes,</p>
-                                                <p>8 Rue Léo Lagrange,</p>
-                                                <p>35131 Chartres-de-Bretagne</p>
-                                                <p className='text-gray-700'>{formatDate(travel.dateEnd)}</p>
+                                        <div className='mx-auto'>
+                                            <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="384" height="216" />
+                                            <div className='flex flex-row justify-between items-center'>
+                                                <div className='ml-12'>
+                                                    <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
+                                                    <p className='text-sm font-light'>{travel.car.name}</p>
+                                                </div>
+                                                <div className='flex flex-row'>
+                                                    {[ ...Array(travel.places).keys() ].map((index) => {
+                                                        return (
+                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                        )
+                                                    })}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                        {/*<button onClick={() => deleteTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-12'>Supprimer</button>*/}
+                                        <button onClick={() => deleteTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-12'>Supprimer</button>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
                 </Dialog>
             </Transition>
+            :
+            ''
+        }
         </>
     )
 }

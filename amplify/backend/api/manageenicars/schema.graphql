@@ -33,6 +33,7 @@ type Location @model {
   latitude: String!
   cars: [Car] @hasMany
   keys: [Key] @hasMany
+  travels: [Travel] @hasMany
 }
 
 type Key @model {
@@ -50,7 +51,6 @@ type User @model {
 
 type Travel @model {
   id: ID!
-  locations: [Location] @hasMany
   driver: User @hasOne
   passengers: [User] @hasMany
   car: Car @hasOne

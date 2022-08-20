@@ -42,7 +42,7 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
         }
     }
 
-    console.log(destinations)
+    console.log(data)
 
     return (
         <>

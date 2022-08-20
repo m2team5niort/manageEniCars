@@ -36,7 +36,6 @@ export const getCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -125,9 +124,11 @@ export const getLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -149,7 +150,6 @@ export const listLocations = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       nextToken
     }
@@ -170,7 +170,6 @@ export const getKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -249,9 +248,6 @@ export const getTravel = /* GraphQL */ `
   query GetTravel($id: ID!) {
     getTravel(id: $id) {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -291,6 +287,7 @@ export const getTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -311,6 +308,7 @@ export const listTravels = /* GraphQL */ `
         places
         createdAt
         updatedAt
+        locationTravelsId
         travelDriverId
         travelCarId
         travelModelId

@@ -39,7 +39,6 @@ export const createCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -89,7 +88,6 @@ export const updateCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -139,7 +137,6 @@ export const deleteCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -228,9 +225,11 @@ export const createLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -254,9 +253,11 @@ export const updateLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -280,9 +281,11 @@ export const deleteLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -304,7 +307,6 @@ export const createKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -345,7 +347,6 @@ export const updateKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -386,7 +387,6 @@ export const deleteKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -464,9 +464,6 @@ export const createTravel = /* GraphQL */ `
   ) {
     createTravel(input: $input, condition: $condition) {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -506,6 +503,7 @@ export const createTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -519,9 +517,6 @@ export const updateTravel = /* GraphQL */ `
   ) {
     updateTravel(input: $input, condition: $condition) {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -561,6 +556,7 @@ export const updateTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -574,9 +570,6 @@ export const deleteTravel = /* GraphQL */ `
   ) {
     deleteTravel(input: $input, condition: $condition) {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -616,6 +609,7 @@ export const deleteTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId

@@ -36,7 +36,6 @@ export const onCreateCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -83,7 +82,6 @@ export const onUpdateCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -130,7 +128,6 @@ export const onDeleteCar = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       createdAt
       updatedAt
@@ -207,9 +204,11 @@ export const onCreateLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -230,9 +229,11 @@ export const onUpdateLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -253,9 +254,11 @@ export const onDeleteLocation = /* GraphQL */ `
       keys {
         nextToken
       }
+      travels {
+        nextToken
+      }
       createdAt
       updatedAt
-      travelLocationsId
     }
   }
 `;
@@ -274,7 +277,6 @@ export const onCreateKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -312,7 +314,6 @@ export const onUpdateKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -350,7 +351,6 @@ export const onDeleteKey = /* GraphQL */ `
         latitude
         createdAt
         updatedAt
-        travelLocationsId
       }
       car {
         id
@@ -416,9 +416,6 @@ export const onCreateTravel = /* GraphQL */ `
   subscription OnCreateTravel {
     onCreateTravel {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -458,6 +455,7 @@ export const onCreateTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -468,9 +466,6 @@ export const onUpdateTravel = /* GraphQL */ `
   subscription OnUpdateTravel {
     onUpdateTravel {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -510,6 +505,7 @@ export const onUpdateTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -520,9 +516,6 @@ export const onDeleteTravel = /* GraphQL */ `
   subscription OnDeleteTravel {
     onDeleteTravel {
       id
-      locations {
-        nextToken
-      }
       driver {
         id
         name
@@ -562,6 +555,7 @@ export const onDeleteTravel = /* GraphQL */ `
       places
       createdAt
       updatedAt
+      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId

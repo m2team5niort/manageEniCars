@@ -67,6 +67,8 @@ export default function Location() {
         await API.graphql({ query: deleteLocationMutation, variables: { input: { id } } });
     }
 
+    console.log(locationSearch)
+
     return (
         <>
             {modal.isShow &&
@@ -132,6 +134,7 @@ export default function Location() {
                             </tbody>
                         </table>
                     </div>
+                    {/*
                     <div className='flex flex-col w-4/12'>
                         <div className='bg-gray-700 w-full rounded-lg p-6'>
                             <div className='flex flex-row text-white text-xl justify-between items-center mb-6'>
@@ -149,6 +152,7 @@ export default function Location() {
                             ))}
                         </div>
                     </div>
+                    */}
                 </div>
             </main>
 

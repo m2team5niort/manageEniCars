@@ -24,22 +24,31 @@ export default function Publish({ssrDataMySpace}){
         places: 10, 
         travelCarId: "",
         travelDriverId: data.user.id,
-        travelModelId: ""
+        travelModelId: "",
+        locationTravelsId: []
     })
+    const [newTravel, setNewTravel] = useState(0)
 
     async function createTravel() {
-        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId) return;
+        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.locationTravelsId) return;
 
         travel.dateBegin = new Date(travel.dateBegin).toISOString()
         travel.dateEnd = new Date(travel.dateEnd).toISOString()
+        travel.locationTravelsId[0] = trip.arrival.id
+        travel.locationTravelsId[1] = trip.destination
 
-        await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then((res) => {
+        console.log(travel)
+
+        await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
             setTravel(travel)
+            setNewTravel(newTravel+1)
         }).catch((err) => {
             console.log(err)
         });
 
     }
+
+    console.log(trip)
 
     return(
         <div className='flex flex-col space-y-12'>
@@ -91,7 +100,7 @@ export default function Publish({ssrDataMySpace}){
                 </div>
                 {modalDisplay && <ModalDestination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
             </div>
-            <ListTravels travel={travel}/>
+            <ListTravels newTravel={newTravel}/>
         </div>
     )
 }
