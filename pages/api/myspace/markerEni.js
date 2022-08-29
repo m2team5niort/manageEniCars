@@ -1,69 +1,51 @@
+import { API } from 'aws-amplify';
+import { listLocations } from '/graphql/queries';
+
 const markerEni = async (req, res) => {
 
-    const eniInformations = [
-        {
-            id: 0,
-            coordinates: [-1.618474, 47.2255075],
-            title: 'Eni Nantes',
-            description: 'Eni de Nantes',
-            address: '3 Rue Michael Faraday,',
-            zip: '44800 Saint-Herblain',
+    const promise = new Promise((resolve, reject) => {
 
-        },
-        {
-            id: 1,
-            coordinates: [-1.692148, 48.0389],
-            title: 'Eni Rennes',
-            description: 'Eni de Rennes',
-            address: 'ZAC de, La Conterie, 8 Rue Léo Lagrange,',
-            zip: '35131 Chartres-de-Bretagne',
+        async function fetchLocations(){
 
-        },
-        {
-            id: 2,
-            coordinates: [-0.471298, 46.31596],
-            title: 'Eni Niort',
-            description: 'Eni de Niort',
-            address: '19 Av. Léo Lagrange Bâtiment B et C,',
-            zip: '79000 Niort',
-
-        },
-        {
-            id: 3,
-            coordinates: [-4.08379, 47.97731],
-            title: 'Eni Quimper',
-            description: 'Eni de Quimper',
-            address: '2 Rue Georges Perros,',
-            zip: '29000 Quimper',
-
-        },
-    ]
-
-    let geojson = {
-        type: 'FeatureCollection',
-        features: []
-    };
-
-    geojson.features = eniInformations.map(element => {
-        return (
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: element.coordinates
-                },
-                properties: {
-                    title: element.title,
-                    description: element.description
-                }
+            let eniInformations = []
+            let geojson = {
+                type: 'FeatureCollection',
+                features: []
             }
-        )
+
+            await API.graphql({ query: listLocations }).then((res => {
+                eniInformations = res.data.listLocations.items
+                geojson.features = eniInformations.map(element => {
+                    return (
+                        {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: [element.longitude, element.latitude]
+                            },
+                            properties: {
+                                title: element.name,
+                                description: element.name
+                            }
+                        }
+                    )
+                });
+                resolve({eni : eniInformations, markers : geojson}) 
+            }));
+        };
+        fetchLocations()
     });
 
-    return res.status(200).json({
-        status: 200,
-        markers: geojson,
-        eni: eniInformations
+    promise.then((resolve) => {
+        return res.status(200).json({
+            status: 200,
+            markers: resolve.markers,
+            eni: resolve.eni
+        })
+    }).catch(() => {
+        return res.status(500).json({
+            status: 500,
+        })
     })
 }
 

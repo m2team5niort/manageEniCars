@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 import Navbar from "./Navbar";
 import { API } from 'aws-amplify';
-import { listKeys, listCars, listLocations } from '../../graphql/queries'
+import { listKeys, listCars, listLocations, listKeysExtend } from '../../graphql/queries'
 import { createKey as createKeyMutation, deleteKey as deleteKeyMutation, updateKey as updateKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
@@ -29,7 +29,8 @@ export default function Key() {
     }, []);
 
     async function fetchKeys() {
-        const apiData = await API.graphql({ query: listKeys });
+        const apiData = await API.graphql({ query: listKeysExtend });
+        console.log(apiData)
         setKeys(apiData.data.listKeys.items);
     }
 
@@ -115,7 +116,6 @@ export default function Key() {
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
-
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {key.car !== null ? key.car.name : 'Clé sans voiture'} </span>
                                             </td>
@@ -127,7 +127,7 @@ export default function Key() {
                                             </td>
                                         </tr>
                                     ))
-                                }
+                                    }
                             </tbody>
                         </table>
                     </div>

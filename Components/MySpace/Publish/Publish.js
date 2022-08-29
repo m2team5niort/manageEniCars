@@ -14,10 +14,16 @@ export default function Publish({ssrDataMySpace}){
         user: ssrDataMySpace.user
     })
     const [modalDisplay, setModalDisplay] = useState(false)
-    const [trip, setTrip] = useState({
-        arrival: 'Départ',
-        destination: 'Destination'
-    })
+    const [trip, setTrip] = useState([{
+        arrival: {
+            name: 'Départ',
+            id: ''
+        },
+        destination: {
+            name: 'Destination',
+            id: ''
+        }
+    }])
     const [travel, setTravel] = useState({
         dateBegin: "", 
         dateEnd: "", 
@@ -25,17 +31,17 @@ export default function Publish({ssrDataMySpace}){
         travelCarId: "",
         travelDriverId: data.user.id,
         travelModelId: "",
-        locationTravelsId: []
+        locations: []
     })
     const [newTravel, setNewTravel] = useState(0)
 
     async function createTravel() {
-        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.locationTravelsId) return;
+        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.locations) return;
 
         travel.dateBegin = new Date(travel.dateBegin).toISOString()
         travel.dateEnd = new Date(travel.dateEnd).toISOString()
-        travel.locationTravelsId[0] = trip.arrival.id
-        travel.locationTravelsId[1] = trip.destination
+        travel.locations[0] = trip[0].arrival.id
+        travel.locations[1] = trip[0].destination.id
 
         console.log(travel)
 
@@ -65,7 +71,7 @@ export default function Publish({ssrDataMySpace}){
                             <div className="relative">
                                 <LocationMarkerIcon className="h-4 w-4 absolute top-3 left-4 text-gray-700" />
                                 <div onClick={() => setModalDisplay(true)} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 pl-10 pr-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
-                                    {trip.arrival} / {trip.destination}
+                                    {trip[0].arrival.name} / {trip[0].destination.name}
                                 </div>
                             </div>
                             <select onChange={e => setTravel({...travel, travelModelId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">

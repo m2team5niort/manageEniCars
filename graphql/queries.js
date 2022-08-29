@@ -124,9 +124,6 @@ export const getLocation = /* GraphQL */ `
       keys {
         nextToken
       }
-      travels {
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -220,7 +217,6 @@ export const getUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
-      travelPassengersId
     }
   }
 `;
@@ -238,7 +234,6 @@ export const listUsers = /* GraphQL */ `
         isAdmin
         createdAt
         updatedAt
-        travelPassengersId
       }
       nextToken
     }
@@ -255,10 +250,6 @@ export const getTravel = /* GraphQL */ `
         isAdmin
         createdAt
         updatedAt
-        travelPassengersId
-      }
-      passengers {
-        nextToken
       }
       car {
         id
@@ -285,9 +276,10 @@ export const getTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
+      locations
+      passengers
       createdAt
       updatedAt
-      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -306,9 +298,27 @@ export const listTravels = /* GraphQL */ `
         dateBegin
         dateEnd
         places
+        getLocation(id: $id) {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          cars {
+            nextToken
+          }
+          keys {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        passengers
         createdAt
         updatedAt
-        locationTravelsId
         travelDriverId
         travelCarId
         travelModelId

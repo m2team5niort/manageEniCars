@@ -6,8 +6,6 @@ import { TruckIcon, UserCircleIcon } from '@heroicons/react/solid';
 
 export default function ListTravels({newTravel}){
 
-    console.log(newTravel)
-
     const [travels, setTravels] = useState([])
     const [modalHandler, setModalHandler] = useState({
         isDisplayed: false,

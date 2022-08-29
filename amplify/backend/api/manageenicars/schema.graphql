@@ -33,7 +33,6 @@ type Location @model {
   latitude: String!
   cars: [Car] @hasMany
   keys: [Key] @hasMany
-  travels: [Travel] @hasMany
 }
 
 type Key @model {
@@ -52,10 +51,11 @@ type User @model {
 type Travel @model {
   id: ID!
   driver: User @hasOne
-  passengers: [User] @hasMany
   car: Car @hasOne
   model: Model @hasOne
   dateBegin: AWSDateTime!
   dateEnd: AWSDateTime!
   places: Int!
+  locations: [ID!]!
+  passengers: [ID]
 }

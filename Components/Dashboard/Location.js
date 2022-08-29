@@ -10,7 +10,6 @@ const initialFormState = { name: '', city: '', departement: '', zip: '', streetN
 export default function Location() {
 
     const [locations, setLocations] = useState([]);
-    const [locationSearch, setLocationSearch] = useState();
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
         isShow: false,
@@ -26,19 +25,12 @@ export default function Location() {
     async function fetchLocations() {
         const apiData = await API.graphql({ query: listLocations });
         setLocations(apiData.data.listLocations.items);
-        setLocationSearch(apiData.data.listLocations.items[0]);
-    }
-
-    function onChangeSelectLocation(locationId) {
-        let carsLocation = locations.filter(location => location.id === locationId);
-        setLocationSearch(carsLocation[0])
     }
 
     async function createLocation() {
         if (!formData.name || !formData.city) return;
 
         await API.graphql({ query: createLocationMutation, variables: { input: formData } }).then((res) => {
-            console.log(res)
             setLocations([...locations, res.data.createLocation]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
@@ -67,8 +59,6 @@ export default function Location() {
         await API.graphql({ query: deleteLocationMutation, variables: { input: { id } } });
     }
 
-    console.log(locationSearch)
-
     return (
         <>
             {modal.isShow &&
@@ -77,13 +67,13 @@ export default function Location() {
 
             <main id="Content">
                 <div className='flex flex-row w-full p-24 gap-12'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 w-8/12 flex flex-col">
+                    <div className="shadow-md sm:rounded-lg bg-gray-700 w-full flex flex-col">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des lieux </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-amber-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
                         </div>
 
-                        <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                        <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col-1" className="px-6 py-3">
@@ -109,7 +99,7 @@ export default function Location() {
                             <tbody>
                                 {
                                     locations.map((location, index) => (
-                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
@@ -134,25 +124,6 @@ export default function Location() {
                             </tbody>
                         </table>
                     </div>
-                    {/*
-                    <div className='flex flex-col w-4/12'>
-                        <div className='bg-gray-700 w-full rounded-lg p-6'>
-                            <div className='flex flex-row text-white text-xl justify-between items-center mb-6'>
-                                <h1> Liste des voitures par lieu ({locationSearch && locationSearch.cars.items.length})</h1>
-                                <select onChange={(e) => onChangeSelectLocation(JSON.parse(e.target.value))} className='w-4/12 bg-gray-200 border-2 border-gray-200 rounded text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 pl-2 text-sm' name="locations" id="locations-select">
-                                    {locations.map((location) =>
-                                        <option value={JSON.stringify(location.id)}>{location.name}</option>
-                                    )}
-                                </select>
-                            </div>
-                            {locationSearch && locationSearch.cars.items.map((car, index) => (
-                                <div className='p-2 w-full' key={index}>
-                                    <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.name} </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    */}
                 </div>
             </main>
 

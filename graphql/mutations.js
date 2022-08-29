@@ -225,9 +225,6 @@ export const createLocation = /* GraphQL */ `
       keys {
         nextToken
       }
-      travels {
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -253,9 +250,6 @@ export const updateLocation = /* GraphQL */ `
       keys {
         nextToken
       }
-      travels {
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -279,9 +273,6 @@ export const deleteLocation = /* GraphQL */ `
         nextToken
       }
       keys {
-        nextToken
-      }
-      travels {
         nextToken
       }
       createdAt
@@ -421,7 +412,6 @@ export const createUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
-      travelPassengersId
     }
   }
 `;
@@ -437,7 +427,6 @@ export const updateUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
-      travelPassengersId
     }
   }
 `;
@@ -453,7 +442,6 @@ export const deleteUser = /* GraphQL */ `
       isAdmin
       createdAt
       updatedAt
-      travelPassengersId
     }
   }
 `;
@@ -471,10 +459,6 @@ export const createTravel = /* GraphQL */ `
         isAdmin
         createdAt
         updatedAt
-        travelPassengersId
-      }
-      passengers {
-        nextToken
       }
       car {
         id
@@ -501,9 +485,10 @@ export const createTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
+      locations
+      passengers
       createdAt
       updatedAt
-      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -524,10 +509,6 @@ export const updateTravel = /* GraphQL */ `
         isAdmin
         createdAt
         updatedAt
-        travelPassengersId
-      }
-      passengers {
-        nextToken
       }
       car {
         id
@@ -554,9 +535,10 @@ export const updateTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
+      locations
+      passengers
       createdAt
       updatedAt
-      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId
@@ -577,10 +559,6 @@ export const deleteTravel = /* GraphQL */ `
         isAdmin
         createdAt
         updatedAt
-        travelPassengersId
-      }
-      passengers {
-        nextToken
       }
       car {
         id
@@ -607,9 +585,10 @@ export const deleteTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
+      locations
+      passengers
       createdAt
       updatedAt
-      locationTravelsId
       travelDriverId
       travelCarId
       travelModelId

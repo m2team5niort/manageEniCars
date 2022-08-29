@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 import { API } from 'aws-amplify';
-import { listCars, listLocations, listModels } from '../../graphql/queries'
+import { listCars, listLocations, listModels, getCar } from '../../graphql/queries'
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
 import { createKey as createKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
@@ -29,8 +29,13 @@ export default function Car() {
     }, []);
 
     async function fetchCars() {
-        const apiData = await API.graphql({ query: listCars });
-        setCars(apiData.data.listCars.items);
+        await API.graphql({ query: listCars }).then((res) => {
+            res.data.listCars.items.forEach(element => {
+                API.graphql({query: getCar, variables: { id: element.id }}).then((res) => {
+                    setCars(cars => [...cars, res.data.getCar])
+                })
+            });
+        });
     }
 
     async function fetchLocations() {
@@ -138,7 +143,7 @@ export default function Car() {
                             <tbody>
                                 {
                                     cars.map((car, index) => (
-                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
@@ -149,7 +154,13 @@ export default function Car() {
                                                 {car.description}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
+                                                {car.model.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.places} </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.location.name} </span>
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} listObjects={[locations, models]} />

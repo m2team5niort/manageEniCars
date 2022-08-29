@@ -2,20 +2,18 @@ import React, { useEffect } from 'react'
 import { Dialog, Transition, Tab } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import useSWR from 'swr'
-import { clearPrewarmedResources } from 'mapbox-gl'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
+export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
 
     const { data, error } = useSWR('/api/myspace/markerEni', fetcher)
     let [isOpen, setIsOpen] = useState(true)
     let [tab, setTab] = useState(0)
     let [categories, setCategories] = useState({})
-    let [destinations, setDestinations] = useState(['start', 'end'])
 
     function closeModal() {
         setIsOpen(false)
@@ -34,15 +32,17 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
 
     const setChoiceTrip = (name, id) => {
         if (tab === 0) {
-            setTrip(prev => ({ ...prev, arrival: name }))
-            setDestinations(prev => ({ ...prev, start: name }))
+            setTrip([{...trip[0], arrival:{
+                name: name,
+                id: id
+            }}])
         } else {
-            setTrip(prev => ({ ...prev, destination: name }))
-            setDestinations(prev => ({ ...prev, end: name }))
+            setTrip([{...trip[0], destination:{
+                name: name,
+                id: id
+            }}])
         }
     }
-
-    console.log(data)
 
     return (
         <>
@@ -103,8 +103,8 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                                 ))}
                                             </Tab.List>
                                             <div className='w-full flex flex-row mt-6 content-center bg-gray-200 p-2 space-x-4'>
-                                                <input readOnly value={trip.arrival} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
-                                                <input value={trip.destination} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
+                                                <input readOnly value={trip[0].arrival.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
+                                                <input value={trip[0].destination.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
                                             </div>
                                             <Tab.Panels className="mt-6">
                                                 {Object.values(categories).map((posts, idx) => (
@@ -121,18 +121,18 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                                                     <li
                                                                         key={index}
                                                                         className={`relative rounded-md p-3 hover:bg-gray-100 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
-                                                                        onClick={() => setChoiceTrip(post.title, post.id)}
+                                                                        onClick={() => setChoiceTrip(post.name, post.id)}
                                                                     >
                                                                         <h3 className="text-sm font-medium leading-5 text-gray-900">
-                                                                            {post.title}
+                                                                            {post.name}
                                                                         </h3>
 
                                                                         <p className="text-xs font-normal leading-4 text-gray-500">
-                                                                            {post.address}
+                                                                            {post.streetNumber}
                                                                         </p>
 
                                                                         <p className="text-xs font-normal leading-4 text-gray-400">
-                                                                            {post.zip}
+                                                                            {post.zip}, {post.departement}
                                                                         </p>
 
                                                                         <a
@@ -158,7 +158,7 @@ export default function ModalDesctination({ setModalDisplay, setTrip, trip }) {
                                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                         >
-                                            Got it, thanks!
+                                            Valider ma destination
                                         </button>
                                     </div>
                                 </Dialog.Panel>

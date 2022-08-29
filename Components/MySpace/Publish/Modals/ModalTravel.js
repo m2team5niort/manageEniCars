@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { API } from 'aws-amplify';
 import { Fragment, useState, useEffect } from 'react'
-import { getTravel } from '/graphql/queries';
+import { getTravel, getLocation } from '/graphql/queries';
 import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '/graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
@@ -10,6 +10,7 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
 
     let [isOpen, setIsOpen] = useState(true)
     let [travel, setTravel] = useState()
+    let [destinations, setDestinations] = useState([])
 
     function closeModal() {
         setIsOpen(false)
@@ -23,6 +24,11 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
     async function fetchTravel(idTravel){
         await API.graphql({ query: getTravel, variables: { id: idTravel } }).then((res => {
             setTravel(res.data.getTravel)
+            res.data.getTravel.locations.forEach(element => {
+                API.graphql({ query: getLocation, variables: { id: element } }).then((res => {
+                    setDestinations(destinations => [...destinations, res.data.getLocation])
+                }))
+            });
         }));
     }
 
@@ -38,7 +44,7 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
         return new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
     }
 
-    console.log(travel)
+    console.log(travel, destinations)
 
     return (
         <>
@@ -77,25 +83,21 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
                                     </Dialog.Title>
                                     <div className='flex flex-row'>
                                         <div className="flex flex-col justify-between space-y-8 pr-12 border-r-2 border-indigo-300">
-                                            <div className='flex flex-row items-center'>
-                                                <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/>
-                                                <div className='flex flex-col text-xs'>
-                                                    <p className='text-lg font-semibold mb-1'>Eni Nantes,</p>
-                                                    <p>3 Rue Michael Faraday,</p>
-                                                    <p>44800 Saint-Herblain</p>
-                                                    <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
-                                                </div>
-                                            </div>
-                                            <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/>
-                                            <div className='flex flex-row items-center'>
-                                                <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>
-                                                <div className='flex flex-col text-xs'>
-                                                    <p className='text-lg font-semibold mb-1'>Eni Rennes,</p>
-                                                    <p>8 Rue Léo Lagrange,</p>
-                                                    <p>35131 Chartres-de-Bretagne</p>
-                                                    <p className='text-gray-700'>{formatDate(travel.dateEnd)}</p>
-                                                </div>
-                                            </div>
+                                            {destinations.map((elem, index) => {
+                                                return(
+                                                    <>
+                                                        <div className='flex flex-row items-center'>
+                                                            {index === 0 ? <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/> : <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>}
+                                                            <div className='flex flex-col text-xs'>
+                                                                <p className='text-lg font-semibold mb-1'>{elem.name},</p>
+                                                                <p>{elem.streetNumber},</p>
+                                                                <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
+                                                            </div>
+                                                        </div>
+                                                        {index === 0 ? <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/> : ''}
+                                                    </>
+                                                )
+                                            })}
                                         </div>
                                         <div className='mx-auto'>
                                             <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="384" height="216" />
