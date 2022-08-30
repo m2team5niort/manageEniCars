@@ -48,7 +48,7 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
 
     return (
         <>
-        {travel ? 
+        {travel && destinations.length !== 0 ? 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -129,3 +129,12 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
         </>
     )
 }
+
+export async function getServerSideProps({ req, res }) {
+    
+  
+    return {
+      props: {}
+    }
+  
+  }

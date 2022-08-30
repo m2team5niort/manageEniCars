@@ -298,24 +298,7 @@ export const listTravels = /* GraphQL */ `
         dateBegin
         dateEnd
         places
-        getLocation(id: $id) {
-          id
-          name
-          city
-          departement
-          zip
-          streetNumber
-          longitude
-          latitude
-          cars {
-            nextToken
-          }
-          keys {
-            nextToken
-          }
-          createdAt
-          updatedAt
-        }
+        locations
         passengers
         createdAt
         updatedAt

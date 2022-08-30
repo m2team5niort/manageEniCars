@@ -11,8 +11,6 @@ export default function Reservation(){
 
     async function fetchTravels() {
         await API.graphql({ query: listTravels }).then((res => {
-            console.log(res)
-            /*
             res.data.listTravels.items.forEach(element => {
                 API.graphql({ query: getTravel, variables: { id: element.id } }).then((res => {
                     setTravels(travels => [...travels, res.data.getTravel])
@@ -23,7 +21,6 @@ export default function Reservation(){
                     });
                 }))
             })
-            */
         }))
     }
 
@@ -44,48 +41,52 @@ export default function Reservation(){
     return (
         <>
            <h2 className="text-4xl text-indigo-800 font-semibold text-center mb-12">Liste des trajets</h2>
-           {travels.map(travel => {
-                return(
-                    <div className='flex flex-col w-full transform overflow-hidden rounded-2xl bg-white p-8 shadow-2xl'>
-                        <div key={travel.id} className='flex flex-row'>
-                            <div className="flex flex-col space-y-6 justify-between pr-12 border-r-2 border-indigo-300">
-                                {destinations.map((destination, index) => {
-                                    return(
-                                        <>
-                                            <div key={index} className='flex flex-row items-center'>
-                                                {index === 0 ? <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/> : <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>}
-                                                <div className='flex flex-col text-xs'>
-                                                    <p className='text-lg font-semibold mb-1'>{destination.name},</p>
-                                                    <p>{destination.streetNumber},</p>
-                                                    <p className='text-gray-700'>{index === 0 ? formatDate(travel.dateBegin) : formatDate(travel.dateEnd)}</p>
+           {travels && destinations.length !== 0 ?
+            travels.map(travel => {
+                    return(
+                        <div className='flex flex-col w-full transform overflow-hidden rounded-2xl bg-white p-8 shadow-2xl'>
+                            <div key={travel.id} className='flex flex-row'>
+                                <div className="flex flex-col space-y-6 justify-between pr-12 border-r-2 border-indigo-300">
+                                    {destinations.map((destination, index) => {
+                                        return(
+                                            <>
+                                                <div key={index} className='flex flex-row items-center'>
+                                                    {index === 0 ? <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/> : <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>}
+                                                    <div className='flex flex-col text-xs'>
+                                                        <p className='text-lg font-semibold mb-1'>{destination.name},</p>
+                                                        <p>{destination.streetNumber},</p>
+                                                        <p className='text-gray-700'>{index === 0 ? formatDate(travel.dateBegin) : formatDate(travel.dateEnd)}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {index === 0 ? <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/> : ''}
-                                        </>
-                                    )
-                                })}
-                            </div>
-                            <div className='flex flex-row items-center justify-between mx-auto'>
-                                <div className='flex flex-row space-x-6'>
-                                    <div className='flex flex-col'>
-                                        {[ ...Array(travel.places).keys() ].map((index) => {
-                                            return (
-                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
-                                            )
-                                        })}
-                                    </div>
-                                    <div>
-                                        <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
-                                        <p className='text-sm font-light'>{travel.car.name}</p>
-                                    </div>
+                                                {index === 0 ? <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/> : ''}
+                                            </>
+                                        )
+                                    })}
                                 </div>
-                                <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
-                                <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-12'>Rejoindre ce trajet</button>
+                                <div className='flex flex-row items-center justify-between mx-auto'>
+                                    <div className='flex flex-row space-x-6'>
+                                        <div className='flex flex-col'>
+                                            {[ ...Array(travel.places).keys() ].map((index) => {
+                                                return (
+                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                )
+                                            })}
+                                        </div>
+                                        <div>
+                                            <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
+                                            <p className='text-sm font-light'>{travel.car.name}</p>
+                                        </div>
+                                    </div>
+                                    <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
+                                    <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-12'>Rejoindre ce trajet</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })
+                :
+                ''
+            }
         </>
       )
 }
