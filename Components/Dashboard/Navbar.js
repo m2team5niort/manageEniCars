@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { UserCircleIcon } from '@heroicons/react/solid'
-import { LogoutIcon } from '@heroicons/react/outline'
+import { LogoutIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 
 
 // Navbar function
@@ -18,12 +18,8 @@ export default function Navbar({ user }) {
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white text-white"> Dashboard </span>
                     </a>
                     <div className="flex items-center md:order-2">
+                    
                         
-        
-                        <UserCircleIcon className='text-white w-10 h-10'/>
-                        <p className='text-white mr-8 ml-8'> {user.email} </p>
-
-                       
                         
                         <div className="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
                             <div className="py-3 px-4">
@@ -52,6 +48,12 @@ export default function Navbar({ user }) {
                         </button>
                     </div>
                     <div className="flex items-center md:order-2">
+                    <Link href='/myspace'>
+                            <a className='flex items-center '>
+                                <UserCircleIcon className="h-5 w-5 text-white mr-2" />
+                                <span className='text-white text-sm mr-8'> Mon espace </span>
+                            </a>
+                        </Link>
                     <button onClick={() => signOut()} className="flex items-center">
                             <LogoutIcon className="h-5 w-5 text-white mr-2" />
                             <span className='text-white text-sm'>Se déconnecter</span>
