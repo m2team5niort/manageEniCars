@@ -1,6 +1,6 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
-import Keyss from '../../Components/Dashboard/Keyss'
+import Keys from '../../Components/Dashboard/Keys'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 import Navbar from '../../Components/Dashboard/Navbar'
 

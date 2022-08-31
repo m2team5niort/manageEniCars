@@ -26,9 +26,12 @@ const Navbar = () => {
           <li className='p-4'> Contact </li>
         </Link>
       </ul>
+      <Link href='/signup'>
       <button class="bg-white text-[#000300] font-bold py-2 px-4 rounded ml-16">
         Connexion
       </button>
+        </Link>
+      
       <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
       </div>

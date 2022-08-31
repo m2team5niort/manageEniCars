@@ -36,11 +36,7 @@ export async function getServerSideProps({ req, res }) {
   
     } catch (err) {
       console.log(err)
-<<<<<<< HEAD
       res.writeHead(302, { Location: '/signup' })
-=======
-      res.writeHead(302, { Location: '/signup'})
->>>>>>> Brandon_Branch
       res.end()
     }
   
