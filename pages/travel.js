@@ -12,7 +12,7 @@ import EnvironmentTravel from "../Components/FrontPage/EnvironmentTravel";
 export default function Home() {
 
   return (
-    <div>
+    <div className="bg-black">
       <Navbar />
       <TravelHeader />
       <FirstTravel />

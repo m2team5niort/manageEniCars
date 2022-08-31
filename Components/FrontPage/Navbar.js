@@ -14,16 +14,16 @@ const Navbar = () => {
       <h1 className='w-full text-3xl font-bold text-blue-500'> ManageCars </h1>
       <ul className='hidden md:flex'>
       <Link href='/'>
-          <li className='p-4'> Accueil </li>
+          <li className='p-4 cursor-pointer'> Accueil </li>
         </Link>
         <Link href='/listCars'>
-          <li className='p-4'> Voitures </li>
+          <li className='p-4 cursor-pointer'> Voitures </li>
         </Link>
         <Link href='/travel'>
-          <li className='p-4'> Trajets </li>
+          <li className='p-4 cursor-pointer'> Trajets </li>
         </Link>
         <Link href='/contact'>
-          <li className='p-4'> Contact </li>
+          <li className='p-4 cursor-pointer'> Contact </li>
         </Link>
       </ul>
       <Link href='/signup'>

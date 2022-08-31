@@ -17,7 +17,7 @@ import SpecialCar from "../Components/FrontPage/SpecialCar";
 export default function Home() {
 
   return (
-    <div>
+    <div className="bg-black">
       <Navbar />
       <CarHeader />
       <FirstCar />

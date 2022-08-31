@@ -10,7 +10,7 @@ import ContactBody from "../Components/FrontPage/ContactBody";
 export default function Home() {
 
   return (
-    <div>
+    <div className="bg-black">
       <Navbar />
       <ContactHeader />
       <ContactBody />

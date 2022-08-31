@@ -1,10 +1,10 @@
 // Imports Used
 
 import Link from 'next/link'
-import { CogIcon, BellIcon, MoonIcon, SunIcon, InformationCircleIcon } from '@heroicons/react/outline'
+import { UserCircleIcon } from '@heroicons/react/solid'
 
 // Navbar function
-export default function Navbar({ username }) {
+export default function Navbar({ ssrDataDashboard }) {
 
     return (
         <div id="Navbar">
@@ -14,15 +14,11 @@ export default function Navbar({ username }) {
                         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white text-white"> Dashboard </span>
                     </a>
                     <div className="flex items-center md:order-2">
-                        <InformationCircleIcon className='h-6 w-6 mr-16 text-white' />
-                        <SunIcon className='h-6 w-6 mr-8 text-white' />
-                        <MoonIcon className='h-6 w-6 mr-16 text-white' />
-                        <Link href='/dashboard/notifications'>
-                            <BellIcon className='h-6 w-6 mr-8 text-white' />
-                        </Link>
-                        <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
-                        <p className='text-white mr-8 ml-8 '> NALIN Brandon </p>
-                        <CogIcon className='h-6 w-6 text-white' />
+                        
+        
+                        <UserCircleIcon className='text-white w-10 h-10'/>
+                        <p className='text-white mr-4 ml-4'> {ssrDataDashboard.email} </p>
+                        
                         <div className="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
                             <div className="py-3 px-4">
                                 <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
