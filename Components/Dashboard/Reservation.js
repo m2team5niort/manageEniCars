@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 <<<<<<< HEAD
 import { API } from 'aws-amplify';
+import { listCars } from '../../graphql/queries'
 import MyDropdown from './Dropdown';
 
-const initialFormState = { name: '', description: '' }
+let initialFormState = { name: '', description: '', modele: '', places: '' }
 
 export default function Reservation() {
 
@@ -18,9 +19,6 @@ export default function Reservation() {
 
     return (
         <>
-            {modal.isShow &&
-                <Modal modal={modal} setModal={setModal} setFormData={setFormData} formData={formData} />
-            }
 
 
             <main id="Content">
