@@ -1,6 +1,6 @@
 import Map from "./Map"
 import React, { useState } from 'react';
-import { DotsVerticalIcon, CogIcon } from '@heroicons/react/solid'
+import { DotsVerticalIcon, CogIcon, UserCircleIcon } from '@heroicons/react/solid'
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DashboardCard from "./Cards/DashboardCard";
@@ -9,6 +9,7 @@ export default function Dashboard({ ssrDataDashboard }) {
 
     const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
 
+    console.log(dashboardData)
     console.log(dashboardData)
 
     const options = {
@@ -29,25 +30,18 @@ export default function Dashboard({ ssrDataDashboard }) {
         },
     };
 
-    const labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    const labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre'];
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Cette année',
-                data: [33, 53, 85, 41, 44, 65],
+                data: [33, 53, 85, 41, 44, 65, 54, 10, dashboardData.travels.length],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 color: 'white'
-            },
-            {
-                label: 'Année dernière',
-                data: [23, 73, 25, 41, 74, 95],
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                color: 'white'
-            },
+            }
         ],
     };
 
@@ -55,22 +49,22 @@ export default function Dashboard({ ssrDataDashboard }) {
         <div id="Content" className="container-content">
             <div id="Card1" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre de voitures" label="Voitures" color="green-500" data={12}/>
+                    <DashboardCard title="Nombre de voitures" label="Voitures" color="green-500" data={dashboardData.cars.length}/>
                 </div>
             </div>
             <div id="Card2" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre de réservations" label="Réservations" color="yellow-500" data={256} />
+                    <DashboardCard title="Nombre de réservations" label="Réservations" color="yellow-500" data={dashboardData.travels.length} />
                 </div>
             </div>
             <div id="Card3" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre de modèles" label="Modèles" color="orange-500" data={12}/>
+                    <DashboardCard title="Nombre de modèles" label="Modèles" color="orange-500" data={dashboardData.models.length}/>
                 </div>
             </div>
             <div id="Card4" className=" pl-4 pr-4 pb-4">
                 <div className="h-full w-full bg-gray-800 rounded-lg">
-                    <DashboardCard title="Nombre d'utilisateurs" label="Utilisateurs" color="indigo-500" data={300} />
+                    <DashboardCard title="Nombre d'utilisateurs" label="Utilisateurs" color="indigo-500" data={dashboardData.users.length} />
                 </div>
             </div>
 
@@ -85,82 +79,28 @@ export default function Dashboard({ ssrDataDashboard }) {
                 </div>
             </div>
 
-            <div id="Users" className=" p-4">
-                <div className="h-full w-full bg-gray-800 rounded-lg">
+            <div id="Users" className=" p-4 ">
+                <div className="h-full w-full bg-gray-800 rounded-lg overflow-y-auto">
                     <div className="flex flex-col px-4">
                         <div className="flex flex-row px-4 h-16 items-center justify-between">
                             <p className="text-white text-left text-lg font-semi-bold"> Les derniers utilisateurs : </p>
-                            <DotsVerticalIcon className="w-6 text-white " />
                         </div>
-                        <div className=" px-4 items-center justify-between h-72">
-                            <div id="user" className="flex flex-row">
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <img className="w-10 h-10 rounded-full mx-auto" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
+                        <div className=" px-4 items-center justify-between h-72 space-y-6">
+                            {dashboardData.users.map((user, index) => {
+                                return (
+                                    <div id="user" className="flex flex-row items-center space-x-2">
+                                        
+                                        <UserCircleIcon className='text-white w-10 h-10 rounded-full mx-auto'/>
+                                        
+                                        <div className="flex flex-col w-full">
+                                                <h4 className="text-white text-sm"> {user.email} </h4>
+                                                {user.isAdmin ? <span className="mr-auto bg-yellow-500 text-white text-xs font-semi-bold px-2 rounded dark:bg-yellow-200 dark:text-green-900"> Admin </span> : <span className="mr-auto bg-blue-500 text-white text-xs font-semi-bold px-2 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateur </span> }
+                                        </div>
                                 </div>
-                                <div className="flex flex-col  h-16 w-full">
-                                    <div className="flex flex-row h-8">
-                                        <h1 className="p-2 text-white"> NALIN Brandon </h1>
-                                    </div>
-                                    <div className="flex flex-row h-8">
-                                        <h6 className="pl-2 text-gray-500 "> Lorem Ipsum Dolor </h6>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <span className=" mx-auto bg-yellow-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Admin </span>
-                                </div>
-                            </div>
-                            <div id="user" className="flex flex-row">
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <img className="w-10 h-10 rounded-full mx-auto" src="https://www.timexpress.ae/wp-content/uploads/2016/11/circle-man.png" alt="user photo" />
-                                </div>
-                                <div className="flex flex-col  h-16 w-full">
-                                    <div className="flex flex-row h-8">
-                                        <h1 className="p-2 text-white"> DUPRES Michel </h1>
-                                    </div>
-                                    <div className="flex flex-row h-8">
-                                        <h6 className="pl-2 text-gray-500 "> Lorem Ipsum Dolor </h6>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <span className=" mx-auto bg-green-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateur </span>
-                                </div>
-                            </div>
-                            <div id="user" className="flex flex-row">
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <img className="w-10 h-10 rounded-full mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo-CP7ChC_RjSlZcIC59_FH4KBl41Enn74Zw&usqp=CAU" alt="user photo" />
-                                </div>
-                                <div className="flex flex-col  h-16 w-full">
-                                    <div className="flex flex-row h-8">
-                                        <h1 className="p-2 text-white"> MARTES Julie </h1>
-                                    </div>
-                                    <div className="flex flex-row h-8">
-                                        <h6 className="pl-2 text-gray-500 "> Lorem Ipsum Dolor </h6>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <span className=" mx-auto bg-green-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Utilisateur </span>
-                                </div>
-                            </div>
-                            <div id="user" className="flex flex-row">
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <img className="w-10 h-10 rounded-full mx-auto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oC0cLNyFt4XMtPNe35Tct-8iicsxnDi--fghnv05pczTghd04zc3wR9ATttVVHswLX4&usqp=CAU" alt="user photo" />
-                                </div>
-                                <div className="flex flex-col  h-16 w-full">
-                                    <div className="flex flex-row h-8">
-                                        <h1 className="p-2 text-white"> GERARD Jordan </h1>
-                                    </div>
-                                    <div className="flex flex-row h-8">
-                                        <h6 className="pl-2 text-gray-500 "> Lorem Ipsum Dolor </h6>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col  h-16 w-24 justify-center">
-                                    <span className=" mx-auto bg-blue-500 text-white text-sm font-semi-bold  px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Visiteur </span>
-                                </div>
-                            </div>
-
-
+                                )
+                            })}
+                            
                         </div>
-
                     </div>
                 </div>
             </div>
