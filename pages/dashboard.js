@@ -15,10 +15,9 @@ function dashboard({ ssrDataDashboard }) {
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>
-      <Navbar ssrDataDashboard={ssrDataDashboard.user}/>
+      <Navbar user={ssrDataDashboard.user}/>
       <Sidebar ssrDataDashboard={ssrDataDashboard}/>
       <Dashboard ssrDataDashboard={ssrDataDashboard} />
-      <DashboardCard ssrDataDashboard={ssrDataDashboard} />
     </div>
   )
 }

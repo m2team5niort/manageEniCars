@@ -9,7 +9,7 @@ import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon, CogIcon } from '@her
 
 const initialFormState = { name: '', description: '' }
 
-export default function Model({ username }) {
+export default function Model() {
 
     const [models, setModels] = useState([]);
     const [formData, setFormData] = useState(initialFormState);

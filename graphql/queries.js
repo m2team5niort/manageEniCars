@@ -202,6 +202,28 @@ export const getKey = /* GraphQL */ `
     }
   }
 `;
+export const listKeysExtend = /* GraphQL */ `
+  query listKeysExtend(
+    $filter: ModelKeyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listKeysExtend(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        createdAt
+        updatedAt
+        car{
+          name
+        }
+        location{
+          name
+        }
+      }
+      nextToken
+    }
+  }
+`;
 export const listKeys = /* GraphQL */ `
   query ListKeys(
     $filter: ModelKeyFilterInput
