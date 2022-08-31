@@ -1,5 +1,9 @@
 /* ---- Home Page ---- */
 
+.header{
+  height: 100vh;
+}
+
 .lorem-ipsum {
   padding: 1em;
   margin: 1em;

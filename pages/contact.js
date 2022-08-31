@@ -2,11 +2,9 @@
 import Script from "next/script"
 import Link from 'next/link';
 import Navbar from "../Components/FrontPage/Navbar";
-import Hero from "../Components/FrontPage/Hero";
-import Analytics from "../Components/FrontPage/Analytics";
-import Newsletter from "../Components/FrontPage/Newsletter";
-import Cards from "../Components/FrontPage/Cards";
+import ContactHeader from "../Components/FrontPage/ContactHeader";
 import Footer from "../Components/FrontPage/Footer";
+import ContactBody from "../Components/FrontPage/ContactBody";
 
 // Home function
 export default function Home() {
@@ -14,10 +12,8 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <Hero />
-      <Analytics />
-      <Newsletter />
-      <Cards />
+      <ContactHeader />
+      <ContactBody />
       <Footer />
     </div>
   );
