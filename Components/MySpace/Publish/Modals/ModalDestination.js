@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Dialog, Transition, Tab } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import useSWR from 'swr'
+import { getAdressModal } from '../../../../pages/api/dashboard/getAdress'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -14,10 +15,35 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
     let [isOpen, setIsOpen] = useState(true)
     let [tab, setTab] = useState(0)
     let [categories, setCategories] = useState({})
+    let [arrival, setArrival] = useState({
+        streetNumber: '',
+        isShow: false,
+        adressSelect: false
+    })
 
     function closeModal() {
         setIsOpen(false)
         setModalDisplay(false)
+    }
+
+    // This function call the function getAdress() and return an array of adresses by search ing in formData.streetNumber.
+    // When response comes, the function setAdresses() to objects data and to set modal isShow to true, to display the selected adresses
+    const getAdressModal = async () => {
+
+        const response = await fetch('http://localhost:3000/api/dashboard/getAdress/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                adress: formData.streetNumber,
+            })
+
+        })
+
+        const data = await response.json()
+        setAdresses({ ...adresses, objects: data, isShow: true })
+
     }
 
     useEffect(() => {
@@ -107,48 +133,75 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                 <input value={trip[0].destination.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
                                             </div>
                                             <Tab.Panels className="mt-6">
-                                                {Object.values(categories).map((posts, idx) => (
-                                                    <Tab.Panel
-                                                        key={idx}
-                                                        className={classNames(
-                                                            'rounded-xl bg-white p-3',
-                                                            'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                                                        )}
-                                                    >
-                                                        <ul>
-                                                            {posts.map((post, index) => (
-                                                                post.selection === false ?
-                                                                    <li
-                                                                        key={index}
-                                                                        className={`relative rounded-md p-3 hover:bg-gray-100 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
-                                                                        onClick={() => setChoiceTrip(post.name, post.id)}
-                                                                    >
-                                                                        <h3 className="text-sm font-medium leading-5 text-gray-900">
-                                                                            {post.name}
-                                                                        </h3>
-
-                                                                        <p className="text-xs font-normal leading-4 text-gray-500">
-                                                                            {post.streetNumber}
-                                                                        </p>
-
-                                                                        <p className="text-xs font-normal leading-4 text-gray-400">
-                                                                            {post.zip}, {post.departement}
-                                                                        </p>
-
-                                                                        <a
-                                                                            href="#"
-                                                                            className={classNames(
-                                                                                'absolute inset-0 rounded-md',
-                                                                                'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                                                            )}
-                                                                        />
-                                                                    </li>
-                                                                    :
+                                                {Object.values(categories).map((posts, idx) => {
+                                                    return (
+                                                        <Tab.Panel
+                                                            key={idx}
+                                                            className={classNames(
+                                                                'rounded-xl bg-white p-3',
+                                                                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                                            )}
+                                                        >
+                                                            
+                                                                {idx === 1 ? 
+                                                                <div className='flex flex-col space-y-4 mb-8'>
+                                                                    <p className='text-sm'>Rentrez une adresse personnalisé</p>
+                                                                        <div className="relative">
+                                                                            <input 
+                                                                                className={`bg-gray-100 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500`}
+                                                                                onChange={e => setArrival({ ...formData, 'streetNumber': e.target.value, adressSelect: false })}
+                                                                            />
+                                                                        </div>
+                                                                        {adress.isShow && !adress.streetNumber ?
+                                                                            <ul className="-mt-6 mb-6 bg-gray-100 p-4 absolute w-full">
+                                                                                {adresses.objects.map(adress => (
+                                                                                    <li onClick={() => handleAdressChange(adress)} className="hover:bg-gray-200 p-2 transition cursor-pointer">{adress.properties.label}</li>
+                                                                                ))}
+                                                                            </ul>
+                                                                            :
+                                                                            <></>
+                                                                        }
+                                                                    <p className='text-center'>Ou choisissez une destination prédéfini</p>
+                                                                </div>
+                                                                    : 
                                                                     ''
-                                                            ))}
-                                                        </ul>
-                                                    </Tab.Panel>
-                                                ))}
+                                                                }
+                                                                
+                                                            <ul>
+                                                                {posts.map((post, index) => (
+                                                                    post.selection === false ?
+                                                                        <li
+                                                                            key={index}
+                                                                            className={`relative rounded-md p-3 hover:bg-gray-100 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
+                                                                            onClick={() => setChoiceTrip(post.name, post.id)}
+                                                                        >
+                                                                            <h3 className="text-sm font-medium leading-5 text-gray-900">
+                                                                                {post.name}
+                                                                            </h3>
+
+                                                                            <p className="text-xs font-normal leading-4 text-gray-500">
+                                                                                {post.streetNumber}
+                                                                            </p>
+
+                                                                            <p className="text-xs font-normal leading-4 text-gray-400">
+                                                                                {post.zip}, {post.departement}
+                                                                            </p>
+
+                                                                            <a
+                                                                                href="#"
+                                                                                className={classNames(
+                                                                                    'absolute inset-0 rounded-md',
+                                                                                    'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
+                                                                                )}
+                                                                            />
+                                                                        </li>
+                                                                        :
+                                                                        ''
+                                                                ))}
+                                                            </ul>
+                                                        </Tab.Panel>
+                                                    )
+                                                })}
                                             </Tab.Panels>
                                         </Tab.Group>
                                     </div>

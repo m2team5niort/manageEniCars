@@ -12,6 +12,7 @@ type Car @model {
   places: Int!
   key: Key @hasOne
   location: Location @hasOne
+  available: Boolean
 }
 
 type Model @model {
@@ -34,6 +35,7 @@ type Location @model {
   latitude: String!
   cars: [Car] @hasMany
   keys: [Key] @hasMany
+  isReferenced: Boolean
 }
 
 type Key @model {
@@ -57,6 +59,7 @@ type Travel @model {
   dateBegin: AWSDateTime
   dateEnd: AWSDateTime
   places: Int
-  locations: [ID!]!
+  departure: Location! @hasOne
+  arrival: Location! @hasOne
   passengers: [ID]
 }
