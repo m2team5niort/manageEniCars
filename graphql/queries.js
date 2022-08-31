@@ -622,3 +622,112 @@ export const listTravels = /* GraphQL */ `
     }
   }
 `;
+export const getIncident = /* GraphQL */ `
+  query GetIncident($id: ID!) {
+    getIncident(id: $id) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const listIncidents = /* GraphQL */ `
+  query ListIncidents(
+    $filter: ModelIncidentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIncidents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        criticality
+        date
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        responsible {
+          id
+          name
+          email
+          isAdmin
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        incidentCarId
+        incidentResponsibleId
+      }
+      nextToken
+    }
+  }
+`;
