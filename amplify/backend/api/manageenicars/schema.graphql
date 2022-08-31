@@ -63,3 +63,21 @@ type Travel @model {
   arrival: Location! @hasOne
   passengers: [ID]
 }
+<<<<<<< HEAD
+=======
+
+type Incident @model {
+  id: ID!
+  name : String!
+  criticality: CriticalityStatus!
+  date: AWSDateTime!
+  car: Car! @hasOne
+  responsible: User! @hasOne
+}
+
+enum CriticalityStatus {
+    minor
+    major
+    critical
+}
+>>>>>>> main
