@@ -5,7 +5,7 @@ import { API } from 'aws-amplify';
 import { listCars } from '../../graphql/queries'
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
-import { BellIcon, ExclamationIcon, ClockIcon, ArchiveIcon, StarIcon, DotsVerticalIcon, TrashIcon, TrashIcon } from '@heroicons/react/solid'
+import { BellIcon, ExclamationIcon, ClockIcon, ArchiveIcon, StarIcon, DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 
 export default function Notification() {
 
