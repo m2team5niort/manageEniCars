@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
+import Navbar from "./Navbar";
 import { API } from 'aws-amplify';
 import { listCars } from '../../graphql/queries'
 import MyDropdown from './Dropdown';
 
-
 let initialFormState = { name: '', description: '', modele: '', places: '' }
 
-export default function Reservation({ username }) {
+export default function User({ username }) {
 
     return (
         <>

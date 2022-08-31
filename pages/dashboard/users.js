@@ -1,17 +1,16 @@
 import { withSSRContext } from 'aws-amplify'
 import React from 'react'
-import Sidebar from '../../Components/Dashboard/Sidebar'
+import User from '../../Components/Dashboard/User'
 import Navbar from '../../Components/Dashboard/Navbar'
-import Reservation from '../../Components/Dashboard/Reservation'
+import Sidebar from '../../Components/Dashboard/Sidebar'
 
-
-function reservations({ username }) {
+function users({ username }) {
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>
       <Navbar />
       <Sidebar />
-      <Reservation username={username} />
+      <User username={username} />
     </div>
   )
 }
@@ -33,4 +32,4 @@ export async function getServerSideProps({ req, res }) {
 }
 
 
-export default reservations
+export default users
