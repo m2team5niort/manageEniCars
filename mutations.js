@@ -1153,3 +1153,210 @@ export const deleteTravel = /* GraphQL */ `
     }
   }
 `;
+export const createIncident = /* GraphQL */ `
+  mutation CreateIncident(
+    $input: CreateIncidentInput!
+    $condition: ModelIncidentConditionInput
+  ) {
+    createIncident(input: $input, condition: $condition) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const updateIncident = /* GraphQL */ `
+  mutation UpdateIncident(
+    $input: UpdateIncidentInput!
+    $condition: ModelIncidentConditionInput
+  ) {
+    updateIncident(input: $input, condition: $condition) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const deleteIncident = /* GraphQL */ `
+  mutation DeleteIncident(
+    $input: DeleteIncidentInput!
+    $condition: ModelIncidentConditionInput
+  ) {
+    deleteIncident(input: $input, condition: $condition) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;

@@ -10,7 +10,6 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
 
     let [isOpen, setIsOpen] = useState(true)
     let [travel, setTravel] = useState()
-    let [destinations, setDestinations] = useState([])
 
     function closeModal() {
         setIsOpen(false)
@@ -24,11 +23,6 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
     async function fetchTravel(idTravel){
         await API.graphql({ query: getTravel, variables: { id: idTravel } }).then((res => {
             setTravel(res.data.getTravel)
-            res.data.getTravel.locations.forEach(element => {
-                API.graphql({ query: getLocation, variables: { id: element } }).then((res => {
-                    setDestinations(destinations => [...destinations, res.data.getLocation])
-                }))
-            });
         }));
     }
 
@@ -44,11 +38,11 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
         return new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
     }
 
-    console.log(travel, destinations)
+    console.log(travel)
 
     return (
         <>
-        {travel && destinations.length !== 0 ? 
+        {travel && travel.travelDepartureId && travel.travelArrivalId ? 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -82,22 +76,24 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
                                         Récapitulatif de mon trajet
                                     </Dialog.Title>
                                     <div className='flex flex-row'>
-                                        <div className="flex flex-col justify-between space-y-8 pr-12 border-r-2 border-indigo-300">
-                                            {destinations.map((elem, index) => {
-                                                return(
-                                                    <>
-                                                        <div className='flex flex-row items-center'>
-                                                            {index === 0 ? <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/> : <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>}
-                                                            <div className='flex flex-col text-xs'>
-                                                                <p className='text-lg font-semibold mb-1'>{elem.name},</p>
-                                                                <p>{elem.streetNumber},</p>
-                                                                <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
-                                                            </div>
-                                                        </div>
-                                                        {index === 0 ? <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/> : ''}
-                                                    </>
-                                                )
-                                            })}
+                                        <div className="flex flex-col justify-between space-y-4 pr-12 border-r-2 border-indigo-300">
+                                            <div className='flex flex-row items-center'>
+                                                <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                                <div className='flex flex-col text-xs'>
+                                                    <p className='text-lg font-semibold mb-1'>{travel.departure.name},</p>
+                                                    <p>{travel.departure.streetNumber},</p>
+                                                    <p className='text-gray-700'>{formatDate(travel.dateBegin)}</p>
+                                                </div>
+                                            </div>
+                                            <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/>
+                                            <div className='flex flex-row items-center'>
+                                                <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                                <div className='flex flex-col text-xs'>
+                                                    <p className='text-lg font-semibold mb-1'>{travel.arrival.name},</p>
+                                                    <p>{travel.arrival.streetNumber},</p>
+                                                    <p className='text-gray-700'>{formatDate(travel.dateEnd)}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className='mx-auto'>
                                             <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="384" height="216" />
@@ -129,12 +125,3 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
         </>
     )
 }
-
-export async function getServerSideProps({ req, res }) {
-    
-  
-    return {
-      props: {}
-    }
-  
-  }

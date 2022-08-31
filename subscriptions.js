@@ -1099,3 +1099,201 @@ export const onDeleteTravel = /* GraphQL */ `
     }
   }
 `;
+export const onCreateIncident = /* GraphQL */ `
+  subscription OnCreateIncident($filter: ModelSubscriptionIncidentFilterInput) {
+    onCreateIncident(filter: $filter) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const onUpdateIncident = /* GraphQL */ `
+  subscription OnUpdateIncident($filter: ModelSubscriptionIncidentFilterInput) {
+    onUpdateIncident(filter: $filter) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const onDeleteIncident = /* GraphQL */ `
+  subscription OnDeleteIncident($filter: ModelSubscriptionIncidentFilterInput) {
+    onDeleteIncident(filter: $filter) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;

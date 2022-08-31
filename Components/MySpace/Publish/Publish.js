@@ -4,7 +4,7 @@ import MapTravel from '../MapTravel'
 import ModalDestination from './Modals/ModalDestination'
 import ListTravels from './ListTravels'
 import { API } from 'aws-amplify';
-import { createTravel as createTravelMutation, deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '../../../graphql/mutations';
+import { createTravel as createTravelMutation, createLocation as createLoctionMutation } from '../../../graphql/mutations';
 
 export default function Publish({ssrDataMySpace}){
 
@@ -21,7 +21,8 @@ export default function Publish({ssrDataMySpace}){
         },
         destination: {
             name: 'Destination',
-            id: ''
+            id: '',
+            object: {}
         }
     }])
     const [travel, setTravel] = useState({
@@ -31,22 +32,43 @@ export default function Publish({ssrDataMySpace}){
         travelCarId: "",
         travelDriverId: data.user.id,
         travelModelId: "",
+        travelDepartureId: "",
+        travelArrivalId: ""
     })
     const [newTravel, setNewTravel] = useState(0)
 
-    async function createTravel() {
-        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId) return;
+    console.log(trip)
 
-        await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
-            setTravel(travel)
-            setNewTravel(newTravel+1)
-        }).catch((err) => {
-            console.log(err)
-        });
+    async function createTravel() {
+
+        travel.travelDepartureId = trip[0].arrival.id
+
+        if(Object.keys(trip[0].destination.object).length !== 0 && trip[0].destination.object.constructor === Object){
+            await API.graphql({ query: createLoctionMutation, variables: {input: trip[0].destination.object}}).then((res) => {
+
+                travel.travelArrivalId = res.data.createLocation.id
+                if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
+
+                API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
+                    setTravel(travel)
+                    setNewTravel(newTravel+1)
+                }).catch((err) => {
+                    console.log(err)
+                });
+            })
+        }else{
+            travel.travelArrivalId = trip[0].destination.id
+            if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
+
+            API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
+                setTravel(travel)
+                setNewTravel(newTravel+1)
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
 
     }
-
-    console.log(trip)
 
     return(
         <div className='flex flex-col space-y-12'>
