@@ -202,6 +202,28 @@ export const getKey = /* GraphQL */ `
     }
   }
 `;
+export const listKeysExtend = /* GraphQL */ `
+  query listKeysExtend(
+    $filter: ModelKeyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listKeysExtend(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        createdAt
+        updatedAt
+        car{
+          name
+        }
+        location{
+          name
+        }
+      }
+      nextToken
+    }
+  }
+`;
 export const listKeys = /* GraphQL */ `
   query ListKeys(
     $filter: ModelKeyFilterInput
@@ -296,6 +318,7 @@ export const getTravel = /* GraphQL */ `
     }
   }
 `;
+
 export const listTravels = /* GraphQL */ `
   query ListTravels(
     $filter: ModelTravelFilterInput
@@ -313,6 +336,12 @@ export const listTravels = /* GraphQL */ `
         travelDriverId
         travelCarId
         travelModelId
+        car{
+          name
+        }
+        driver {
+          email
+        }
       }
       nextToken
     }

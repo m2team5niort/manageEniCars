@@ -4,7 +4,8 @@ import React from 'react'
 import Sidebar from '../Components/Dashboard/Sidebar'
 import Dashboard from '../Components/Dashboard/Dashboard'
 import Navbar from '../Components/Dashboard/Navbar'
-import { listCars, listModels, getUser, listTravels } from '../graphql/queries'
+import { listCars, listModels, getUser, listTravels, listUsers } from '../graphql/queries'
+import DashboardCard from '../Components/Dashboard/Cards/DashboardCard'
 
 // Dashboard function
 
@@ -14,7 +15,7 @@ function dashboard({ ssrDataDashboard }) {
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>
-      <Navbar ssrDataDashboard={ssrDataDashboard.user}/>
+      <Navbar user={ssrDataDashboard.user}/>
       <Sidebar ssrDataDashboard={ssrDataDashboard}/>
       <Dashboard ssrDataDashboard={ssrDataDashboard} />
     </div>
@@ -31,6 +32,7 @@ export async function getServerSideProps({ req, res }) {
     const apiDataCars = await API.graphql({ query: listCars });
     const apiDataModels = await API.graphql({ query: listModels });
     const apiDataTravels = await API.graphql({ query: listTravels});
+    const apiDataUsers = await API.graphql({ query: listUsers});
     const apiDataUser = await API.graphql({ query: getUser, variables: { id } });
 
     console.log(apiDataUser)
@@ -46,6 +48,7 @@ export async function getServerSideProps({ req, res }) {
           cars: apiDataCars.data.listCars.items,
           models: apiDataModels.data.listModels.items,
           travels: apiDataTravels.data.listTravels.items,
+          users: apiDataUsers.data.listUsers.items,
           user: apiDataUser.data.getUser
         }
       }

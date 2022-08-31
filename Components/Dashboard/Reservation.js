@@ -14,10 +14,10 @@ export default function Reservation({ username }) {
 
             <main  id="Content">
                 <div className='h-full w-full  p-24'>
-                <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                <div className="shadow-md sm:rounded-lg bg-gray-700 overflow-x-auto">
                     <div className='flex justify-between px-6 py-4'>
-                        <h1 className='text-white '> Liste des utilisateurs </h1>
-                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-teal-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un utilisateur </button>
+                        <h1 className='text-white '> Liste des réservation </h1>
+                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-teal-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter une réservation </button>
                     </div>
                                 
                                 <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
@@ -26,17 +26,29 @@ export default function Reservation({ username }) {
                                             <th scope="col-1" className="px-6 py-3">
                                                 #
                                             </th>
-                                            <th scope="col-3" className="px-6 py-3">
-                                                Nom
-                                            </th>
-                                            <th scope="col-4" className="px-6 py-3">
-                                                Description
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Conducteur
                                             </th>
                                             <th scope="col-2" className="px-6 py-3">
-                                                Modèle
+                                                Voiture
+                                            </th>
+                                            <th scope="col-2" className="px-6 py-3">
+                                                Date de départ
+                                            </th>
+                                            <th scope="col-2" className="px-6 py-3">
+                                                Date d'arrivée
                                             </th>
                                             <th scope="col-1" className="px-6 py-3">
                                                 Nb Places
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Lieu de départ
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Lieu d'arrivée
+                                            </th>
+                                            <th scope="col-1" className="px-6 py-3">
+                                                Nb de passagers
                                             </th>
                                             <th scope="col-1" className="px-6 py-3 text-center">
                                                 Actions
@@ -49,6 +61,18 @@ export default function Reservation({ username }) {
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 
                                             </th>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                
+                                            </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 
                                             </td>

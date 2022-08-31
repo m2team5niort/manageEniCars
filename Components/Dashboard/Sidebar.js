@@ -82,16 +82,8 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-                        <Link href='/myspace'>
-                            <a>
-                                <ShoppingCartIcon className="h-5 w-5" />
-                                <span>User space</span>
-                            </a>
-                        </Link>
-                        <button onClick={() => signOut()}>
-                            <LogoutIcon className="h-5 w-5" />
-                            <span>Se déconnecter</span>
-                        </button>
+
+                       
                     </div>
                 </div>
             </div>

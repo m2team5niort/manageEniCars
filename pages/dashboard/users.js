@@ -1,32 +1,40 @@
-import { withSSRContext } from 'aws-amplify'
+import { API, withSSRContext } from 'aws-amplify'
 import React from 'react'
 import User from '../../Components/Dashboard/User'
 import Navbar from '../../Components/Dashboard/Navbar'
 import Sidebar from '../../Components/Dashboard/Sidebar'
+import { getUser } from '../../graphql/queries'
 
-function users({ username }) {
+function users({ user }) {
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>
-      <Navbar />
+      <Navbar user={user}/>
       <Sidebar />
-      <User username={username} />
+      <User/>
     </div>
   )
 }
 
 export async function getServerSideProps({ req, res }) {
   const { Auth } = withSSRContext({ req })
-  try {
-    const user = await Auth.currentAuthenticatedUser()
-    return {
-      props: {
-        username: user.username,
-      }
+try {
+  const user = await Auth.currentAuthenticatedUser();
+
+  let id = user.username
+  const apiDataUser = await API.graphql({ query: getUser, variables: { id } });
+
+  return {
+
+    props: {
+      user: apiDataUser.data.getUser
     }
+
+  }
   } catch (err) {
-    res.writeHead(302, { Location: '/signup' })
-    res.end()
+      console.log(err)
+      res.writeHead(302, { Location: '/signup' })
+      res.end()
   }
   return { props: {} }
 }
