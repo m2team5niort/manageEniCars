@@ -1,5 +1,6 @@
 import React from 'react';
 import Typed from 'react-typed';
+import Link from 'next/link'
 
 const Hero = () => {
   return (
@@ -24,7 +25,10 @@ const Hero = () => {
           />
         </div>
         <p className='md:text-2xl text-xl font-bold text-gray-500'> Créer, réserver des trajets seul ou avec vos collègues afin de gagner du temps, de l'argent et sauver la planète. </p>
+        <Link href='/myspace'>
         <button className='bg-blue-800 w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-white'> C'est partit ! </button>
+        </Link>
+        
       </div>
     </div>
   );

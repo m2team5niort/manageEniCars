@@ -36,6 +36,8 @@ export async function getServerSideProps({ req, res }) {
   
     } catch (err) {
       console.log(err)
+      res.writeHead(302, { Location: '/signup'})
+      res.end()
     }
   
     return {

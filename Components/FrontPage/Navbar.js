@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Link from 'next/link'
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -12,10 +13,18 @@ const Navbar = () => {
     <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
       <h1 className='w-full text-3xl font-bold text-blue-500'> ManageCars </h1>
       <ul className='hidden md:flex'>
-        <li className='p-4'> Accueil </li>
-        <li className='p-4'> Voitures </li>
-        <li className='p-4'> Trajets </li>
-        <li className='p-4'> Contact </li>
+      <Link href='/'>
+          <li className='p-4'> Accueil </li>
+        </Link>
+        <Link href='/listCars'>
+          <li className='p-4'> Voitures </li>
+        </Link>
+        <Link href='/travel'>
+          <li className='p-4'> Trajets </li>
+        </Link>
+        <Link href='/contact'>
+          <li className='p-4'> Contact </li>
+        </Link>
       </ul>
       <button class="bg-white text-[#000300] font-bold py-2 px-4 rounded ml-16">
         Connexion

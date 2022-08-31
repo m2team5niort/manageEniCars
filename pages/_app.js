@@ -4,6 +4,7 @@ import '../styles/global.css';
 import '../styles/dashboard.css';
 import '../styles/myspace.css';
 import '../styles/homepage.css';
+import '../styles/frontpage.css';
 import Amplify from 'aws-amplify';
 import config from '../aws-exports';
 Amplify.configure({
