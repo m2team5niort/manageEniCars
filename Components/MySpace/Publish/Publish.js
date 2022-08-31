@@ -27,23 +27,15 @@ export default function Publish({ssrDataMySpace}){
     const [travel, setTravel] = useState({
         dateBegin: "", 
         dateEnd: "", 
-        places: 10, 
+        places: 0, 
         travelCarId: "",
         travelDriverId: data.user.id,
         travelModelId: "",
-        locations: []
     })
     const [newTravel, setNewTravel] = useState(0)
 
     async function createTravel() {
-        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.locations) return;
-
-        travel.dateBegin = new Date(travel.dateBegin).toISOString()
-        travel.dateEnd = new Date(travel.dateEnd).toISOString()
-        travel.locations[0] = trip[0].arrival.id
-        travel.locations[1] = trip[0].destination.id
-
-        console.log(travel)
+        if (!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId) return;
 
         await API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
             setTravel(travel)
@@ -62,10 +54,10 @@ export default function Publish({ssrDataMySpace}){
                 <div className="bg-white shadow-lg p-8 rounded-xl w-full">
                     <div className='flex flex-row space-x-6'>
                         <div className='flex flex-col space-y-6 w-4/12'>
-                            <input onChange={e => setTravel({...travel, dateBegin: e.target.value})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold`}
+                            <input onChange={e => setTravel({...travel, dateBegin: new Date(e.target.value).toISOString()})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold`}
                                 type='datetime-local'
                             />
-                            <input onChange={e => setTravel({...travel, dateEnd: e.target.value})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold`}
+                            <input onChange={e => setTravel({...travel, dateEnd: new Date(e.target.value).toISOString()})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold`}
                                 type='datetime-local'
                             />
                             <div className="relative">

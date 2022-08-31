@@ -21,9 +21,6 @@ export const getCar = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        locationKeysId
-        keyLocationId
-        keyCarId
       }
       location {
         id
@@ -40,7 +37,6 @@ export const getCar = /* GraphQL */ `
       createdAt
       updatedAt
       modelCarsId
-      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -62,7 +58,6 @@ export const listCars = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -119,10 +114,32 @@ export const getLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        nextToken
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       keys {
-        nextToken
+        id
+        createdAt
+        updatedAt
+      }
+      travel {
+        id
+        dateBegin
+        dateEnd
+        places
+        createdAt
+        updatedAt
+        travelDriverId
+        travelCarId
+        travelModelId
       }
       createdAt
       updatedAt
@@ -176,16 +193,12 @@ export const getKey = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
-      locationKeysId
-      keyLocationId
-      keyCarId
     }
   }
 `;
@@ -200,9 +213,6 @@ export const listKeys = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        locationKeysId
-        keyLocationId
-        keyCarId
       }
       nextToken
     }
@@ -259,7 +269,6 @@ export const getTravel = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -276,8 +285,9 @@ export const getTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
-      locations
-      passengers
+      locations {
+        nextToken
+      }
       createdAt
       updatedAt
       travelDriverId
@@ -298,8 +308,6 @@ export const listTravels = /* GraphQL */ `
         dateBegin
         dateEnd
         places
-        locations
-        passengers
         createdAt
         updatedAt
         travelDriverId

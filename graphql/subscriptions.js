@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateCar = /* GraphQL */ `
-  subscription OnCreateCar {
-    onCreateCar {
+  subscription OnCreateCar($filter: ModelSubscriptionCarFilterInput) {
+    onCreateCar(filter: $filter) {
       id
       name
       description
@@ -21,9 +21,6 @@ export const onCreateCar = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        locationKeysId
-        keyLocationId
-        keyCarId
       }
       location {
         id
@@ -40,7 +37,6 @@ export const onCreateCar = /* GraphQL */ `
       createdAt
       updatedAt
       modelCarsId
-      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -48,8 +44,8 @@ export const onCreateCar = /* GraphQL */ `
   }
 `;
 export const onUpdateCar = /* GraphQL */ `
-  subscription OnUpdateCar {
-    onUpdateCar {
+  subscription OnUpdateCar($filter: ModelSubscriptionCarFilterInput) {
+    onUpdateCar(filter: $filter) {
       id
       name
       description
@@ -67,9 +63,6 @@ export const onUpdateCar = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        locationKeysId
-        keyLocationId
-        keyCarId
       }
       location {
         id
@@ -86,7 +79,6 @@ export const onUpdateCar = /* GraphQL */ `
       createdAt
       updatedAt
       modelCarsId
-      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -94,8 +86,8 @@ export const onUpdateCar = /* GraphQL */ `
   }
 `;
 export const onDeleteCar = /* GraphQL */ `
-  subscription OnDeleteCar {
-    onDeleteCar {
+  subscription OnDeleteCar($filter: ModelSubscriptionCarFilterInput) {
+    onDeleteCar(filter: $filter) {
       id
       name
       description
@@ -113,9 +105,6 @@ export const onDeleteCar = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        locationKeysId
-        keyLocationId
-        keyCarId
       }
       location {
         id
@@ -132,7 +121,6 @@ export const onDeleteCar = /* GraphQL */ `
       createdAt
       updatedAt
       modelCarsId
-      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -140,8 +128,8 @@ export const onDeleteCar = /* GraphQL */ `
   }
 `;
 export const onCreateModel = /* GraphQL */ `
-  subscription OnCreateModel {
-    onCreateModel {
+  subscription OnCreateModel($filter: ModelSubscriptionModelFilterInput) {
+    onCreateModel(filter: $filter) {
       id
       name
       brand
@@ -156,8 +144,8 @@ export const onCreateModel = /* GraphQL */ `
   }
 `;
 export const onUpdateModel = /* GraphQL */ `
-  subscription OnUpdateModel {
-    onUpdateModel {
+  subscription OnUpdateModel($filter: ModelSubscriptionModelFilterInput) {
+    onUpdateModel(filter: $filter) {
       id
       name
       brand
@@ -172,8 +160,8 @@ export const onUpdateModel = /* GraphQL */ `
   }
 `;
 export const onDeleteModel = /* GraphQL */ `
-  subscription OnDeleteModel {
-    onDeleteModel {
+  subscription OnDeleteModel($filter: ModelSubscriptionModelFilterInput) {
+    onDeleteModel(filter: $filter) {
       id
       name
       brand
@@ -188,8 +176,8 @@ export const onDeleteModel = /* GraphQL */ `
   }
 `;
 export const onCreateLocation = /* GraphQL */ `
-  subscription OnCreateLocation {
-    onCreateLocation {
+  subscription OnCreateLocation($filter: ModelSubscriptionLocationFilterInput) {
+    onCreateLocation(filter: $filter) {
       id
       name
       city
@@ -199,10 +187,32 @@ export const onCreateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        nextToken
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       keys {
-        nextToken
+        id
+        createdAt
+        updatedAt
+      }
+      travel {
+        id
+        dateBegin
+        dateEnd
+        places
+        createdAt
+        updatedAt
+        travelDriverId
+        travelCarId
+        travelModelId
       }
       createdAt
       updatedAt
@@ -210,8 +220,8 @@ export const onCreateLocation = /* GraphQL */ `
   }
 `;
 export const onUpdateLocation = /* GraphQL */ `
-  subscription OnUpdateLocation {
-    onUpdateLocation {
+  subscription OnUpdateLocation($filter: ModelSubscriptionLocationFilterInput) {
+    onUpdateLocation(filter: $filter) {
       id
       name
       city
@@ -221,10 +231,32 @@ export const onUpdateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        nextToken
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       keys {
-        nextToken
+        id
+        createdAt
+        updatedAt
+      }
+      travel {
+        id
+        dateBegin
+        dateEnd
+        places
+        createdAt
+        updatedAt
+        travelDriverId
+        travelCarId
+        travelModelId
       }
       createdAt
       updatedAt
@@ -232,8 +264,8 @@ export const onUpdateLocation = /* GraphQL */ `
   }
 `;
 export const onDeleteLocation = /* GraphQL */ `
-  subscription OnDeleteLocation {
-    onDeleteLocation {
+  subscription OnDeleteLocation($filter: ModelSubscriptionLocationFilterInput) {
+    onDeleteLocation(filter: $filter) {
       id
       name
       city
@@ -243,10 +275,32 @@ export const onDeleteLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        nextToken
+        id
+        name
+        description
+        places
+        createdAt
+        updatedAt
+        modelCarsId
+        carModelId
+        carKeyId
+        carLocationId
       }
       keys {
-        nextToken
+        id
+        createdAt
+        updatedAt
+      }
+      travel {
+        id
+        dateBegin
+        dateEnd
+        places
+        createdAt
+        updatedAt
+        travelDriverId
+        travelCarId
+        travelModelId
       }
       createdAt
       updatedAt
@@ -254,8 +308,8 @@ export const onDeleteLocation = /* GraphQL */ `
   }
 `;
 export const onCreateKey = /* GraphQL */ `
-  subscription OnCreateKey {
-    onCreateKey {
+  subscription OnCreateKey($filter: ModelSubscriptionKeyFilterInput) {
+    onCreateKey(filter: $filter) {
       id
       location {
         id
@@ -277,22 +331,18 @@ export const onCreateKey = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
-      locationKeysId
-      keyLocationId
-      keyCarId
     }
   }
 `;
 export const onUpdateKey = /* GraphQL */ `
-  subscription OnUpdateKey {
-    onUpdateKey {
+  subscription OnUpdateKey($filter: ModelSubscriptionKeyFilterInput) {
+    onUpdateKey(filter: $filter) {
       id
       location {
         id
@@ -314,22 +364,18 @@ export const onUpdateKey = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
-      locationKeysId
-      keyLocationId
-      keyCarId
     }
   }
 `;
 export const onDeleteKey = /* GraphQL */ `
-  subscription OnDeleteKey {
-    onDeleteKey {
+  subscription OnDeleteKey($filter: ModelSubscriptionKeyFilterInput) {
+    onDeleteKey(filter: $filter) {
       id
       location {
         id
@@ -351,22 +397,18 @@ export const onDeleteKey = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
-      locationKeysId
-      keyLocationId
-      keyCarId
     }
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
       id
       name
       email
@@ -377,8 +419,8 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
       id
       name
       email
@@ -389,8 +431,8 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
       id
       name
       email
@@ -401,8 +443,8 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateTravel = /* GraphQL */ `
-  subscription OnCreateTravel {
-    onCreateTravel {
+  subscription OnCreateTravel($filter: ModelSubscriptionTravelFilterInput) {
+    onCreateTravel(filter: $filter) {
       id
       driver {
         id
@@ -420,7 +462,6 @@ export const onCreateTravel = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -437,8 +478,9 @@ export const onCreateTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
-      locations
-      passengers
+      locations {
+        nextToken
+      }
       createdAt
       updatedAt
       travelDriverId
@@ -448,8 +490,8 @@ export const onCreateTravel = /* GraphQL */ `
   }
 `;
 export const onUpdateTravel = /* GraphQL */ `
-  subscription OnUpdateTravel {
-    onUpdateTravel {
+  subscription OnUpdateTravel($filter: ModelSubscriptionTravelFilterInput) {
+    onUpdateTravel(filter: $filter) {
       id
       driver {
         id
@@ -467,7 +509,6 @@ export const onUpdateTravel = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -484,8 +525,9 @@ export const onUpdateTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
-      locations
-      passengers
+      locations {
+        nextToken
+      }
       createdAt
       updatedAt
       travelDriverId
@@ -495,8 +537,8 @@ export const onUpdateTravel = /* GraphQL */ `
   }
 `;
 export const onDeleteTravel = /* GraphQL */ `
-  subscription OnDeleteTravel {
-    onDeleteTravel {
+  subscription OnDeleteTravel($filter: ModelSubscriptionTravelFilterInput) {
+    onDeleteTravel(filter: $filter) {
       id
       driver {
         id
@@ -514,7 +556,6 @@ export const onDeleteTravel = /* GraphQL */ `
         createdAt
         updatedAt
         modelCarsId
-        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -531,8 +572,9 @@ export const onDeleteTravel = /* GraphQL */ `
       dateBegin
       dateEnd
       places
-      locations
-      passengers
+      locations {
+        nextToken
+      }
       createdAt
       updatedAt
       travelDriverId
