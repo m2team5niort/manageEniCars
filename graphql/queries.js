@@ -296,6 +296,35 @@ export const getTravel = /* GraphQL */ `
     }
   }
 `;
+
+export const listTravelsDashboard = /* GraphQL */ `
+  query listTravelsDashboard(
+    $filter: ModelTravelFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTravelsDashboard(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        dateBegin
+        dateEnd
+        places
+        createdAt
+        updatedAt
+        travelDriverId
+        travelCarId
+        travelModelId
+        car{
+          name
+        }
+        driver {
+          email
+        }
+      }
+    }
+  }
+`;
+
 export const listTravels = /* GraphQL */ `
   query ListTravels(
     $filter: ModelTravelFilterInput

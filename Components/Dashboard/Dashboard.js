@@ -1,16 +1,25 @@
 import Map from "./Map"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DotsVerticalIcon, CogIcon, UserCircleIcon } from '@heroicons/react/solid'
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DashboardCard from "./Cards/DashboardCard";
+import {listTravelsDashboard} from '../../graphql/queries'
+import { API } from 'aws-amplify'
 
 export default function Dashboard({ ssrDataDashboard }) {
 
     const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
 
-    console.log(dashboardData)
-    console.log(dashboardData)
+    useEffect(() => {
+        fetchTravelsDashboard()
+    }, [])
+
+    const fetchTravelsDashboard = async () => {
+        const data = await API.graphql({ query: listTravelsDashboard }).then((res) => {
+            console.log(res)
+        })
+    }
 
     const options = {
         responsive: true,
@@ -105,7 +114,7 @@ export default function Dashboard({ ssrDataDashboard }) {
                 </div>
             </div>
             <div id="Reservations" className=" p-4">
-                <div className="h-full w-full bg-gray-800 rounded-lg">
+                <div className="h-full w-full bg-gray-800 rounded-lg overflow-y-auto">
                     <div className="flex flex-col px-4">
                         <div className="flex flex-row px-4 h-16 items-center justify-between">
                             <p className="text-white text-left text-lg font-semi-bold"> Les dernières réservations : </p>
@@ -117,91 +126,34 @@ export default function Dashboard({ ssrDataDashboard }) {
                                     <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
-                                                #
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
                                                 Départ
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                                 Arrivée
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                Conducteur
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Actions
+                                                Nombre de places
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="bg-transparent dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-4  dark:text-white whitespace-nowrap">
-                                                Apple MacBook Pro 17"
-                                            </th>
+                                    {dashboardData.travels.map((travels, index) => {
+                                        return (
+                                            <tr className="bg-transparent dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            
                                             <td className="px-6 py-4">
-                                                Sliver
+                                                {travels.dateBegin}
                                             </td>
                                             <td className="px-6 py-4">
-                                                Laptop
+                                                {travels.dateEnd}
                                             </td>
                                             <td className="px-6 py-4">
-                                                $2999
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <CogIcon className="text-white h-6 w-6" />
+                                                {travels.places}
                                             </td>
                                         </tr>
-                                        <tr className="bg-transparent  dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-4  dark:text-white whitespace-nowrap">
-                                                Microsoft Surface Pro
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                White
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                Laptop PC
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                $1999
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <CogIcon className="text-white h-6 w-6" />
-                                            </td>
-                                        </tr>
-                                        <tr className="bg-transparent dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-4  dark:text-white whitespace-nowrap">
-                                                Magic Mouse 2
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                Black
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                Accessories
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                $99
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <CogIcon className="text-white h-6 w-6" />
-                                            </td>
-                                        </tr>
-                                        <tr className="bg-transparent dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-4  dark:text-white whitespace-nowrap">
-                                                Magic Mouse 2
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                Black
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                Accessories
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                $99
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <CogIcon className="text-white h-6 w-6" />
-                                            </td>
-                                        </tr>
+                                        )
+                                    })}
+                                        
                                     </tbody>
                                 </table>
                             </div>
