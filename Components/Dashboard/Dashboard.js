@@ -4,7 +4,7 @@ import { DotsVerticalIcon, CogIcon, UserCircleIcon } from '@heroicons/react/soli
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DashboardCard from "./Cards/DashboardCard";
-import {listTravelsDashboard} from '../../graphql/queries'
+import { listTravels } from '../../graphql/queries'
 import { API } from 'aws-amplify'
 
 export default function Dashboard({ ssrDataDashboard }) {
@@ -16,7 +16,7 @@ export default function Dashboard({ ssrDataDashboard }) {
     }, [])
 
     const fetchTravelsDashboard = async () => {
-        const data = await API.graphql({ query: listTravelsDashboard }).then((res) => {
+        const data = await API.graphql({ query: listTravels }).then((res) => {
             console.log(res)
         })
     }
