@@ -53,6 +53,10 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                 locationOption: {
                     value: modal.object.location.name,
                 },
+                carCheckbox: {
+                    type: 'checkbox',
+                    value: modal.object.isAdmin
+                },
                 button: function () {
                     return updateCar(modal.object)
                 }
@@ -157,6 +161,13 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                                     <option disabled={modalObj.locationOption.disabled} value={JSON.stringify(location.id)}>{location.name}</option>
                                 )}
                             </select>
+                            <input type="checkbox" 
+                                onChange={e => setFormData({...formData, 'isAdmin': e.target.checked })}
+                                placeholder={modalObj.carCheckbox.placeholder}
+                                defaultChecked={modalObj.carCheckbox.value ? 'checked' : null}
+                                readOnly={modalObj.carCheckbox.readOnly}
+                                disabled
+                            />
                         </div>
 
                         <div className="flex items-center justify-center p-6 space-x-2 rounded-b">

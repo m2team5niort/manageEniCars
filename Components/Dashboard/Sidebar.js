@@ -82,8 +82,12 @@ export default function Sidebar() {
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
-
-                       
+                        <Link href='/dashboard/incidents'>
+                            <a>
+                                <ShoppingCartIcon className="h-5 w-5" />
+                                <span>Gestion incidents</span>
+                            </a>
+                        </Link>
                     </div>
                 </div>
             </div>
