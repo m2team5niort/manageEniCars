@@ -13,14 +13,47 @@ export const onCreateCar = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       places
       key {
         id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         createdAt
         updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
       }
       location {
         id
@@ -31,12 +64,21 @@ export const onCreateCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
+      available
       createdAt
       updatedAt
       modelCarsId
+      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -55,14 +97,47 @@ export const onUpdateCar = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       places
       key {
         id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         createdAt
         updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
       }
       location {
         id
@@ -73,12 +148,21 @@ export const onUpdateCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
+      available
       createdAt
       updatedAt
       modelCarsId
+      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -97,14 +181,47 @@ export const onDeleteCar = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       places
       key {
         id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         createdAt
         updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
       }
       location {
         id
@@ -115,12 +232,21 @@ export const onDeleteCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
+      available
       createdAt
       updatedAt
       modelCarsId
+      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -136,6 +262,20 @@ export const onCreateModel = /* GraphQL */ `
       image
       description
       cars {
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         nextToken
       }
       createdAt
@@ -152,6 +292,20 @@ export const onUpdateModel = /* GraphQL */ `
       image
       description
       cars {
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         nextToken
       }
       createdAt
@@ -168,6 +322,20 @@ export const onDeleteModel = /* GraphQL */ `
       image
       description
       cars {
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         nextToken
       }
       createdAt
@@ -187,33 +355,34 @@ export const onCreateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        id
-        name
-        description
-        places
-        createdAt
-        updatedAt
-        modelCarsId
-        carModelId
-        carKeyId
-        carLocationId
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
       }
       keys {
-        id
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
       }
-      travel {
-        id
-        dateBegin
-        dateEnd
-        places
-        createdAt
-        updatedAt
-        travelDriverId
-        travelCarId
-        travelModelId
-      }
+      isReferenced
       createdAt
       updatedAt
     }
@@ -231,33 +400,34 @@ export const onUpdateLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        id
-        name
-        description
-        places
-        createdAt
-        updatedAt
-        modelCarsId
-        carModelId
-        carKeyId
-        carLocationId
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
       }
       keys {
-        id
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
       }
-      travel {
-        id
-        dateBegin
-        dateEnd
-        places
-        createdAt
-        updatedAt
-        travelDriverId
-        travelCarId
-        travelModelId
-      }
+      isReferenced
       createdAt
       updatedAt
     }
@@ -275,33 +445,34 @@ export const onDeleteLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        id
-        name
-        description
-        places
-        createdAt
-        updatedAt
-        modelCarsId
-        carModelId
-        carKeyId
-        carLocationId
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
       }
       keys {
-        id
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
       }
-      travel {
-        id
-        dateBegin
-        dateEnd
-        places
-        createdAt
-        updatedAt
-        travelDriverId
-        travelCarId
-        travelModelId
-      }
+      isReferenced
       createdAt
       updatedAt
     }
@@ -320,6 +491,13 @@ export const onCreateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
@@ -327,16 +505,51 @@ export const onCreateKey = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
+      keyLocationId
+      keyCarId
     }
   }
 `;
@@ -353,6 +566,13 @@ export const onUpdateKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
@@ -360,16 +580,51 @@ export const onUpdateKey = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
+      keyLocationId
+      keyCarId
     }
   }
 `;
@@ -386,6 +641,13 @@ export const onDeleteKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
@@ -393,16 +655,51 @@ export const onDeleteKey = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
+      locationKeysId
+      keyLocationId
+      keyCarId
     }
   }
 `;
@@ -458,10 +755,42 @@ export const onCreateTravel = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -472,20 +801,61 @@ export const onCreateTravel = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       dateBegin
       dateEnd
       places
-      locations {
-        nextToken
+      departure {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
       }
+      arrival {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
+      }
+      passengers
       createdAt
       updatedAt
       travelDriverId
       travelCarId
       travelModelId
+      travelDepartureId
+      travelArrivalId
     }
   }
 `;
@@ -505,10 +875,42 @@ export const onUpdateTravel = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -519,20 +921,61 @@ export const onUpdateTravel = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       dateBegin
       dateEnd
       places
-      locations {
-        nextToken
+      departure {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
       }
+      arrival {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
+      }
+      passengers
       createdAt
       updatedAt
       travelDriverId
       travelCarId
       travelModelId
+      travelDepartureId
+      travelArrivalId
     }
   }
 `;
@@ -552,10 +995,42 @@ export const onDeleteTravel = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -566,20 +1041,61 @@ export const onDeleteTravel = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       dateBegin
       dateEnd
       places
-      locations {
-        nextToken
+      departure {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
       }
+      arrival {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
+      }
+      passengers
       createdAt
       updatedAt
       travelDriverId
       travelCarId
       travelModelId
+      travelDepartureId
+      travelArrivalId
     }
   }
 `;

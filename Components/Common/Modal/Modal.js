@@ -2,6 +2,7 @@ import ModalCar from "./ModalCar";
 import ModalModel from "./ModalModel";
 import ModalLocation from "./ModalLocation";
 import ModalKey from "./ModalKey";
+import ModalUser from "./ModalUser";
 
 export default function Modal({ setFormData, formData, createObject, updateObject, setModal, modal }) {
 
@@ -15,7 +16,8 @@ export default function Modal({ setFormData, formData, createObject, updateObjec
                 return <ModalLocation setFormData={setFormData} formData={formData} createLocation={createObject} updateLocation={updateObject} setModal={setModal} modal={modal} />
             case 'key':
                 return <ModalKey setFormData={setFormData} formData={formData} createKey={createObject} updateKey={updateObject} setModal={setModal} modal={modal} />
-
+            case 'user':
+                return <ModalUser setFormData={setFormData} formData={formData} createUser={createObject} updateUser={updateObject} setModal={setModal} modal={modal} /> 
         }
     }
 
