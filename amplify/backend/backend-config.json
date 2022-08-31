@@ -43,7 +43,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-08-19T23:41:16.565Z",
+              "apiKeyExpirationDate": "2023-08-31T16:30:18.190Z",
               "description": "api key"
             }
           },
@@ -52,12 +52,5 @@
       }
     }
   },
-  "function": {
-    "manageenicars211ec78b": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    }
-  }
+  "function": {}
 }

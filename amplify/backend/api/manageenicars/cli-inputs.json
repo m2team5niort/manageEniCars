@@ -1,16 +1,13 @@
 {
   "version": 1,
   "serviceConfiguration": {
+    "apiName": "manageenicars",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365,
-      "apiKeyExpirationDate": "2023-08-19T23:41:16.565Z",
+      "apiKeyExpirationDate": "2023-08-31T16:30:18.190Z",
       "keyDescription": "api key"
-    },
-    "conflictResolution": {},
-    "apiName": "manageenicars",
-    "gqlSchemaPath": "C:\\Users\\Antony\\Desktop\\Eni_cars\\manageEniCars\\amplify\\backend\\api\\manageenicars\\schema.graphql",
-    "additionalAuthTypes": []
+    }
   }
 }
