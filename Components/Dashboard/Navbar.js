@@ -48,13 +48,18 @@ export default function Navbar({ user }) {
                         </button>
                     </div>
                     <div className="flex items-center md:order-2">
+                    
+                    
                     <Link href='/myspace'>
-                            <a className='flex items-center  '>
-                                <UserCircleIcon className="h-5 w-5 text-blue-500 mr-2 " />
-                                <span className='text-blue-500 text-sm mr-8'> Mon espace </span>
+                        <button className='rounded bg-blue-500 text-white py-2'>
+                        <a className='flex items-center '>
+                                <UserCircleIcon className="h-5 w-5 text-blue-500 " />
+                                <span className=' text-sm mr-4'> Mon espace </span>
                             </a>
+                        </button>
+                            
                         </Link>
-                    <button onClick={() => signOut()} className="flex items-center">
+                    <button onClick={() => signOut()} className="flex items-center ml-4">
                             <LogoutIcon className="h-5 w-5 text-white mr-2" />
                             <span className='text-white text-sm'>Se déconnecter</span>
                         </button>
