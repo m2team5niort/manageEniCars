@@ -49,7 +49,7 @@ export default function MySpace({ssrDataMySpace}) {
                                 <Publish ssrDataMySpace={ssrDataMySpace}/>
                             </Tab.Panel>
                             <Tab.Panel>
-                                <Reservation />
+                                <Reservation user={ssrDataMySpace.user}/>
                             </Tab.Panel>
                         </Tab.Panels>
                     </Tab.Group>

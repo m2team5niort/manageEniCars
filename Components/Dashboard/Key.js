@@ -76,8 +76,6 @@ export default function Key() {
         await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } });
     }
 
-    console.log(keys)
-
     return (
         <>
             {modal.isShow &&
@@ -85,7 +83,7 @@ export default function Key() {
             }
 
             <main id="Content">
-                <div className='h-full w-full  p-24'>
+                <div className='h-full w-full p-24'>
                     <div className="shadow-md sm:rounded-lg bg-gray-700 ">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des clés </h1>

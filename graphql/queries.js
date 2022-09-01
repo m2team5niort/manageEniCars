@@ -218,6 +218,9 @@ export const getLocation = /* GraphQL */ `
           carModelId
           carKeyId
           carLocationId
+          model {
+            name
+          }
         }
         nextToken
       }
