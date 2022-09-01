@@ -1,6 +1,6 @@
 // Imports used
 import Link from 'next/link'
-import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon, TagIcon, LocationMarkerIcon, TruckIcon } from '@heroicons/react/outline'
+import { HomeIcon, UserIcon, KeyIcon, ShoppingCartIcon, XIcon, LogoutIcon, TagIcon, LocationMarkerIcon, TruckIcon, BookOpenIcon, ExclamationCircleIcon } from '@heroicons/react/outline'
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router'
 
@@ -78,13 +78,13 @@ export default function Sidebar() {
                         </Link>
                         <Link href='/dashboard/reservations'>
                             <a>
-                                <ShoppingCartIcon className="h-5 w-5" />
+                                <BookOpenIcon className="h-5 w-5" />
                                 <span>Gestion réservations</span>
                             </a>
                         </Link>
                         <Link href='/dashboard/incidents'>
                             <a>
-                                <ShoppingCartIcon className="h-5 w-5" />
+                                <ExclamationCircleIcon className="h-5 w-5" />
                                 <span>Gestion incidents</span>
                             </a>
                         </Link>

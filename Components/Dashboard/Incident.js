@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 import { API } from 'aws-amplify';
-import { listUsers, getUser } from '../../graphql/queries'
-import { createUser as createUserMutation, deleteUser as deleteUserMutation, updateUser as updateUserMutation } from '../../graphql/mutations';
+import { listIncidents, getIncident } from '../../graphql/queries'
+import { createIncident as createIncidentMutation, deleteUser as deleteIncidentMutation, updateIncident as updateIncidentMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
 
-let initialFormState = { name: '', email: '', isAdmin: false};
+let initialFormState = { name: '', criticality: '', car: '', date: '', responsible: '' };
 
 
 export default function Incident({ user }) {
 
-    const [users, setUsers] = useState([]);
+    const [incidents, setIncidents] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
         isShow: false,
         type: '',
-        page: 'user',
+        page: 'incident',
         object: {},
         listObjects: []
     });
 
     useEffect(() => {
-        fetchUsers();
+        fetchIncidents();
     }, []);
 
-    async function fetchUsers() {
-        await API.graphql({ query: listUsers }).then((res) => {
-            res.data.listUsers.items.forEach(element => {
-                API.graphql({query: getUser, variables: { id: element.id }}).then((res) => {
-                    setUsers(users => [...users, res.data.getUser])
+    async function fetchIncidents() {
+        await API.graphql({ query: listIncidents }).then((res) => {
+            res.data.listIncidents.items.forEach(element => {
+                API.graphql({query: getIncident, variables: { id: element.id }}).then((res) => {
+                    setIncidents(incidents => [...incidents, res.data.getIncident])
                 })
             });
         });
     }
 
-    async function createUser() {
+    async function createIncident() {
 
-        await API.graphql({ query: createUserMutation, variables: { input: formData } }).then((res) => {
-            setUsers([...users, res.data.createUser]);
+        await API.graphql({ query: createIncidentMutation, variables: { input: formData } }).then((res) => {
+            setIncidents([...incidents, res.data.createIncident]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
         }).catch((err) => {
@@ -47,12 +47,12 @@ export default function Incident({ user }) {
 
     }
 
-    async function updateUser({ id }) {
+    async function updateIncident({ id }) {
         formData.id = id
 
-        await API.graphql({ query: updateUserMutation, variables: { input: formData } }).then((res) => {
-            let index = users.findIndex((obj => obj.id === id));
-            users[index] = res.data.updateUser
+        await API.graphql({ query: updateIncidentMutation, variables: { input: formData } }).then((res) => {
+            let index = incidents.findIndex((obj => obj.id === id));
+            incidents[index] = res.data.updateIncident
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
         }).catch((err) => {
@@ -61,10 +61,10 @@ export default function Incident({ user }) {
 
     }
 
-    async function deleteUser({ id }) {
-        const newUsersArray = users.filter(user => user.id !== id);
-        setUsers(newUsersArray);
-        await API.graphql({ query: deleteUserMutation, variables: { input: { id } } });
+    async function deleteIncident({ id }) {
+        const newIncidentsArray = incidents.filter(incident => incident.id !== id);
+        setUsers(newIncidentsArray);
+        await API.graphql({ query: deleteIncidentMutation, variables: { input: { id } } });
     }
 
     console.log(formData)
@@ -72,7 +72,7 @@ export default function Incident({ user }) {
     return (
         <>
             {modal.isShow &&
-                <Modal modal={modal} setModal={setModal} updateObject={updateUser} createObject={createUser} setFormData={setFormData} formData={formData} />
+                <Modal modal={modal} setModal={setModal} updateObject={updateIncident} createObject={createIncident} setFormData={setFormData} formData={formData} />
             }
             <main  id="Content">
                 <div className='h-full w-full  p-24'>
@@ -110,28 +110,28 @@ export default function Incident({ user }) {
                                     </thead>
                                     <tbody>
                                     {
-                                        users.map((user, index) => (
-                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        incidents.map((incident, index) => (
+                                        <tr key={incident} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                            {index + 1}
+                                                {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {user.name} </span>
+                                                {incident.name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            {user.email}
+                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {incident.criticality} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            {user.isAdmin ? 'Admin' : 'Utilisateur'}
+                                                {incident.car}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            {user.isAdmin ? 'Admin' : 'Utilisateur'}
+                                                {incident.date}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            {user.isAdmin ? 'Admin' : 'Utilisateur'}
+                                                {incident.responsible}
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
-                                            <MyDropdown object={user} deleteObject={deleteUser} modal={modal} setModal={setModal} listObjects={[]}/>
+                                            <MyDropdown object={incident} deleteObject={deleteIncident} modal={modal} setModal={setModal} listObjects={[]}/>
                                             </td>
                                         </tr>
                                     ))}
