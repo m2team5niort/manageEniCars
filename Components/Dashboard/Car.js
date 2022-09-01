@@ -11,6 +11,7 @@ let initialFormState = { name: '', description: '', places: '', carLocationId: "
 export default function Car() {
 
     const [locations, setLocations] = useState([])
+    const [keys, setKeys] = useState([])
     const [models, setModels] = useState([])
     const [cars, setCars] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
@@ -55,7 +56,7 @@ export default function Car() {
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
         }).catch((err) => {
-            console.log(err)
+            console.log("ici", err)
         });
 
     }

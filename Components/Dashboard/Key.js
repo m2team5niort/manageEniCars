@@ -29,7 +29,7 @@ export default function Key() {
     }, []);
 
     async function fetchKeys() {
-        const apiData = await API.graphql({ query: listKeysExtend });
+        const apiData = await API.graphql({ query: listKeys });
         console.log(apiData)
         setKeys(apiData.data.listKeys.items);
     }

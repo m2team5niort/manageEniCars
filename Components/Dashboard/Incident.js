@@ -6,7 +6,7 @@ import { createIncident as createIncidentMutation, deleteUser as deleteIncidentM
 import MyDropdown from './Dropdown';
 
 
-let initialFormState = { name: '', criticality: '', car: '', date: '', responsible: '' };
+let initialFormState = { name: '', criticality: '', date: '', incidentCarId: "", places: '', responsible: '' };
 
 
 export default function Incident({ user }) {
@@ -27,11 +27,7 @@ export default function Incident({ user }) {
 
     async function fetchIncidents() {
         await API.graphql({ query: listIncidents }).then((res) => {
-            res.data.listIncidents.items.forEach(element => {
-                API.graphql({query: getIncident, variables: { id: element.id }}).then((res) => {
-                    setIncidents(incidents => [...incidents, res.data.getIncident])
-                })
-            });
+            console.log(res)
         });
     }
 

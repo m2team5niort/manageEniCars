@@ -13,14 +13,47 @@ export const getCar = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       places
       key {
         id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         createdAt
         updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
       }
       location {
         id
@@ -31,12 +64,21 @@ export const getCar = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
+      available
       createdAt
       updatedAt
       modelCarsId
+      locationCarsId
       carModelId
       carKeyId
       carLocationId
@@ -54,10 +96,42 @@ export const listCars = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -75,6 +149,20 @@ export const getModel = /* GraphQL */ `
       image
       description
       cars {
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         nextToken
       }
       createdAt
@@ -95,6 +183,9 @@ export const listModels = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -114,33 +205,34 @@ export const getLocation = /* GraphQL */ `
       longitude
       latitude
       cars {
-        id
-        name
-        description
-        places
-        createdAt
-        updatedAt
-        modelCarsId
-        carModelId
-        carKeyId
-        carLocationId
+        items {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        nextToken
       }
       keys {
-        id
-        createdAt
-        updatedAt
+        items {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        nextToken
       }
-      travel {
-        id
-        dateBegin
-        dateEnd
-        places
-        createdAt
-        updatedAt
-        travelDriverId
-        travelCarId
-        travelModelId
-      }
+      isReferenced
       createdAt
       updatedAt
     }
@@ -162,6 +254,13 @@ export const listLocations = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
@@ -182,6 +281,13 @@ export const getKey = /* GraphQL */ `
         streetNumber
         longitude
         latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
         createdAt
         updatedAt
       }
@@ -189,38 +295,51 @@ export const getKey = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
       }
       createdAt
       updatedAt
-    }
-  }
-`;
-export const listKeysExtend = /* GraphQL */ `
-  query listKeysExtend(
-    $filter: ModelKeyFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listKeysExtend(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        createdAt
-        updatedAt
-        car{
-          name
-        }
-        location{
-          name
-        }
-      }
-      nextToken
+      locationKeysId
+      keyLocationId
+      keyCarId
     }
   }
 `;
@@ -233,13 +352,63 @@ export const listKeys = /* GraphQL */ `
     listKeys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
         createdAt
         updatedAt
+        locationKeysId
+        keyLocationId
+        keyCarId
       }
       nextToken
     }
   }
 `;
+
+export const listKeysExtend = /* GraphQL */ `
+  query listKeysExtend(
+    $filter: ModelKeyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listKeysExtend(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        car{
+          name
+        }
+        location{
+          name
+        }
+      }
+    }
+  }
+`;
+
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -287,10 +456,42 @@ export const getTravel = /* GraphQL */ `
         id
         name
         description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
         createdAt
         updatedAt
         modelCarsId
+        locationCarsId
         carModelId
         carKeyId
         carLocationId
@@ -301,24 +502,64 @@ export const getTravel = /* GraphQL */ `
         brand
         image
         description
+        cars {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       dateBegin
       dateEnd
       places
-      locations {
-        nextToken
+      departure {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
       }
+      arrival {
+        id
+        name
+        city
+        departement
+        zip
+        streetNumber
+        longitude
+        latitude
+        cars {
+          nextToken
+        }
+        keys {
+          nextToken
+        }
+        isReferenced
+        createdAt
+        updatedAt
+      }
+      passengers
       createdAt
       updatedAt
       travelDriverId
       travelCarId
       travelModelId
+      travelDepartureId
+      travelArrivalId
     }
   }
 `;
-
 export const listTravels = /* GraphQL */ `
   query ListTravels(
     $filter: ModelTravelFilterInput
@@ -328,23 +569,185 @@ export const listTravels = /* GraphQL */ `
     listTravels(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        driver {
+          id
+          name
+          email
+          isAdmin
+          createdAt
+          updatedAt
+        }
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
         dateBegin
         dateEnd
         places
+        departure {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        arrival {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        passengers
         createdAt
         updatedAt
         travelDriverId
         travelCarId
         travelModelId
-        car{
-          name
-        }
-        driver {
-          email
-        }
+        travelDepartureId
+        travelArrivalId
       }
       nextToken
     }
   }
 `;
-
+export const getIncident = /* GraphQL */ `
+  query GetIncident($id: ID!) {
+    getIncident(id: $id) {
+      id
+      name
+      criticality
+      date
+      car {
+        id
+        name
+        description
+        model {
+          id
+          name
+          brand
+          image
+          description
+          createdAt
+          updatedAt
+        }
+        places
+        key {
+          id
+          createdAt
+          updatedAt
+          locationKeysId
+          keyLocationId
+          keyCarId
+        }
+        location {
+          id
+          name
+          city
+          departement
+          zip
+          streetNumber
+          longitude
+          latitude
+          isReferenced
+          createdAt
+          updatedAt
+        }
+        available
+        createdAt
+        updatedAt
+        modelCarsId
+        locationCarsId
+        carModelId
+        carKeyId
+        carLocationId
+      }
+      responsible {
+        id
+        name
+        email
+        isAdmin
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      incidentCarId
+      incidentResponsibleId
+    }
+  }
+`;
+export const listIncidents = /* GraphQL */ `
+  query ListIncidents(
+    $filter: ModelIncidentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIncidents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        criticality
+        date
+        car {
+          id
+          name
+          description
+          places
+          available
+          createdAt
+          updatedAt
+          modelCarsId
+          locationCarsId
+          carModelId
+          carKeyId
+          carLocationId
+        }
+        responsible {
+          id
+          name
+          email
+          isAdmin
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        incidentCarId
+        incidentResponsibleId
+      }
+      nextToken
+    }
+  }
+`;

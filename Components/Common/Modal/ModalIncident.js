@@ -4,7 +4,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
 
     let modalObj = {}
 
-    console.log("coucou", modal.object.isAdmin)
+    console.log("coucou", modal.object.name)
     switch (modal.type) {
         case 'add':
             modalObj = {
@@ -17,7 +17,8 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     value: '--Choisir le model associé--'
                 },
                 carInput: {
-                    type: 'checkbox',
+                    type: 'text',
+                    placeholder: 'Voiture de l\'incident'
                 },
                 dateInput: {
                     type: 'text',
@@ -136,25 +137,20 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                                 defaultValue={modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
                             />
-                            <select onChange={(e) => setFormData({ ...formData, carModelId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="locations" id="locations-select">
-                                <option selected="true" disabled="disabled">{modalObj.criticalityOption.value}</option>
-                                {modal.listObjects[1].map((criticality) =>
-                                    <option disabled={modalObj.modelOption.disabled} value={JSON.stringify(criticality.id)}>{criticality.name}</option>
-                                )}
-                            </select>
+                            
                             <input 
                                 onChange={e => setFormData({...formData, 'car': e.target.checked })}
                                 placeholder={modalObj.carInput.placeholder}
                                 defaultChecked={modalObj.carInput.value ? 'checked' : null}
                                 readOnly={modalObj.carInput.readOnly}
                             />
-                            <input type="checkbox"
+                            <input 
                                 onChange={e => setFormData({...formData, 'date': e.target.checked })}
                                 placeholder={modalObj.dateInput.placeholder}
                                 defaultChecked={modalObj.dateInput.value ? 'checked' : null}
                                 readOnly={modalObj.dateInput.readOnly}
                             />
-                            <input type="checkbox"
+                            <input 
                                 onChange={e => setFormData({...formData, 'responsible': e.target.checked })}
                                 placeholder={modalObj.responsibleInput.placeholder}
                                 defaultChecked={modalObj.responsibleInput.value ? 'checked' : null}
