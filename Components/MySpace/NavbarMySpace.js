@@ -18,9 +18,11 @@ export default function NavbarMySpace() {
         <div id='Navbar'>
             <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 dark:text-white text-blue-500 w-full ">
                 <div className="flex flex-wrap justify-between items-center px-12">
-                    <a href="https://flowbite.com" className="flex items-center">
+                <Link href='/dashboard'>
+                    <a href="" className="flex items-center">
                         <span className="self-center text-xl font-semibold whitespace-nowrap"> ManageCars </span>
                     </a>
+                    </Link>
                     <div className="flex items-center md:order-2 space-x-6">
                         <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
                         <p className='mr-8 ml-8 '> NALIN Brandon </p>
