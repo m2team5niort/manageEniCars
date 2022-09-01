@@ -3,7 +3,7 @@ import { router } from "next/router"
 import { CogIcon, BellIcon, InformationCircleIcon, PlusCircleIcon, LogoutIcon } from '@heroicons/react/outline'
 import { Auth } from 'aws-amplify';
 
-export default function NavbarMySpace() {
+export default function NavbarMySpace({user}) {
 
     async function signOut() {
         try {
@@ -22,8 +22,7 @@ export default function NavbarMySpace() {
                         <span className="self-center text-xl font-semibold whitespace-nowrap"> ManageCars </span>
                     </a>
                     <div className="flex items-center md:order-2 space-x-6">
-                        <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
-                        <p className='mr-8 ml-8 '> NALIN Brandon </p>
+                        <p className='mr-8 ml-8 '> {user.email} </p>
                         <button onClick={() => signOut()}>
                             <LogoutIcon className='h-6 w-6' />
                         </button>
