@@ -85,7 +85,8 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
             setArrival({ ...arrival, objects: [], isShow: false })
             setAdressPersonnalized({
                 ...adressPersonnalized,
-                adressObject
+                adressObject,
+                streetNumber: ''
             })
             setAdressSelect(true)
             setChoiceTrip(adress.properties.label, 'tbd', adressObject)
@@ -94,20 +95,19 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
 
     const setChoiceTrip = (name, id, adressObject = {}) => {
         if (tab === 0) {
-            setTrip([{...trip[0], arrival:{
+            setTrip([{...trip[0], departure:{
                 name: name,
-                id: id
+                id: id,
+                object: adressObject
             }}])
         } else {
-            setTrip([{...trip[0], destination:{
+            setTrip([{...trip[0], arrival:{
                 name: name,
                 id: id,
                 object: adressObject
             }}])
         }
     }
-
-    console.log(trip)
 
     return (
         <>
@@ -147,6 +147,7 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                         <Tab.Group
                                             onChange={(index) => {
                                                 setTab(index)
+                                                setAdressPersonnalized({...adressPersonnalized, streetNumber: ''})
                                             }}
                                         >
                                             <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
@@ -168,8 +169,8 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                 ))}
                                             </Tab.List>
                                             <div className='w-full flex flex-row mt-6 content-center bg-gray-200 p-2 space-x-4'>
+                                                <input readOnly value={trip[0].departure.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
                                                 <input readOnly value={trip[0].arrival.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
-                                                <input value={trip[0].destination.name} type='text' className={'px-6 py-2 w-6/12 bg-gray-100 rounded-md'} />
                                             </div>
                                             <Tab.Panels className="mt-6">
                                                 {Object.values(categories).map((posts, idx) => {
@@ -181,8 +182,6 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
                                                             )}
                                                         >
-                                                            
-                                                                {idx === 1 ? 
                                                                 <div className='flex flex-col mb-6 space-y-4'>
                                                                     <p className='text-sm'>Rentrez une adresse personnalisé</p>
                                                                         <div>
@@ -203,12 +202,9 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                                         }
                                                                     <p className='text-center'>Ou choisissez une destination prédéfini</p>
                                                                 </div>
-                                                                    : 
-                                                                    ''
-                                                                }
-                                                                
-                                                            <ul>
+                                                            <ul className='space-y-2'>
                                                                 {posts.map((post, index) => (
+
                                                                     post.selection === false ?
                                                                         <li
                                                                             key={index}
