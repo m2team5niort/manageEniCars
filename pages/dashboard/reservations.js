@@ -11,7 +11,7 @@ function reservations({ user }) {
     <div className={`container-dashboard mx-auto bg-gray-900`}>
       <Navbar user={user}/>
       <Sidebar />
-      <Reservation />
+      <Reservation user={user}/>
     </div>
   )
 }

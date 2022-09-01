@@ -76,8 +76,6 @@ export default function Key() {
         await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } });
     }
 
-    console.log(keys)
-
     return (
         <>
             {modal.isShow &&

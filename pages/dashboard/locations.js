@@ -1,6 +1,6 @@
 import { API, withSSRContext } from 'aws-amplify'
 import React from 'react'
-import Location from '../../Components/Dashboard/Location'
+import Location from '../../Components/Dashboard/Location/Location'
 import Navbar from '../../Components/Dashboard/Navbar'
 import Sidebar from '../../Components/Dashboard/Sidebar'
 import { getUser } from '../../graphql/queries'

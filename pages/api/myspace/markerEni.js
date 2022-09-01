@@ -1,4 +1,4 @@
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { listLocations } from '/graphql/queries';
 
 const markerEni = async (req, res) => {
@@ -13,7 +13,7 @@ const markerEni = async (req, res) => {
                 features: []
             }
 
-            await API.graphql({ query: listLocations }).then((res => {
+            await API.graphql(graphqlOperation(listLocations, { filter: { isReferenced: { eq: true } } })).then((res => {
                 eniInformations = res.data.listLocations.items
                 geojson.features = eniInformations.map(element => {
                     return (

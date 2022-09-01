@@ -13,6 +13,7 @@ type Car @model {
   key: Key @hasOne
   location: Location @hasOne
   available: Boolean
+  numberPlate: String!
 }
 
 type Model @model {
@@ -62,19 +63,14 @@ type Travel @model {
   departure: Location! @hasOne
   arrival: Location! @hasOne
   passengers: [ID]
+  state: String!
 }
 
 type Incident @model {
   id: ID!
   name : String!
-  criticality: CriticalityStatus!
+  criticality: String!
   date: AWSDateTime!
   car: Car! @hasOne
   responsible: User! @hasOne
-}
-
-enum CriticalityStatus {
-    minor
-    major
-    critical
 }

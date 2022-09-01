@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { API } from 'aws-amplify';
 import { Fragment, useState, useEffect } from 'react'
-import { getTravel, getLocation } from '/graphql/queries';
+import { getTravel } from '/graphql/queries';
 import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '/graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
@@ -103,11 +103,22 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
                                                     <p className='text-sm font-light'>{travel.car.name}</p>
                                                 </div>
                                                 <div className='flex flex-row'>
-                                                    {[ ...Array(travel.places).keys() ].map((index) => {
-                                                        return (
+                                                    {travel.passengers ? 
+                                                        <>
+                                                        {travel.passengers.map(elem => (<UserCircleIcon key={elem.id} className='w-8 h-8 text-indigo-600' />))}
+                                                        {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
+                                                            return (
                                                                 <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
-                                                        )
-                                                    })}
+                                                            )
+                                                        })}
+                                                        </>
+                                                    :
+                                                        [ ...Array(travel.places).keys() ].map((index) => {
+                                                            return (
+                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                            )
+                                                        })
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

@@ -4,7 +4,7 @@ import MapTravel from '../MapTravel'
 import ModalDestination from './Modals/ModalDestination'
 import ListTravels from './ListTravels'
 import { API } from 'aws-amplify';
-import { createTravel as createTravelMutation, createLocation as createLoctionMutation } from '../../../graphql/mutations';
+import { createTravel as createTravelMutation, createLocation as createLocationMutation } from '../../../graphql/mutations';
 
 export default function Publish({ssrDataMySpace}){
 
@@ -15,11 +15,12 @@ export default function Publish({ssrDataMySpace}){
     })
     const [modalDisplay, setModalDisplay] = useState(false)
     const [trip, setTrip] = useState([{
-        arrival: {
+        departure: {
             name: 'Départ',
-            id: ''
+            id: '',
+            object: {}
         },
-        destination: {
+        arrival: {
             name: 'Destination',
             id: '',
             object: {}
@@ -33,40 +34,40 @@ export default function Publish({ssrDataMySpace}){
         travelDriverId: data.user.id,
         travelModelId: "",
         travelDepartureId: "",
-        travelArrivalId: ""
+        travelArrivalId: "",
+        passengers: []
     })
     const [newTravel, setNewTravel] = useState(0)
 
-    console.log(trip)
-
     async function createTravel() {
 
-        travel.travelDepartureId = trip[0].arrival.id
+        let travelDeparture;
+        let travelArrival;
 
-        if(Object.keys(trip[0].destination.object).length !== 0 && trip[0].destination.object.constructor === Object){
-            await API.graphql({ query: createLoctionMutation, variables: {input: trip[0].destination.object}}).then((res) => {
-
-                travel.travelArrivalId = res.data.createLocation.id
-                if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
-
-                API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
-                    setTravel(travel)
-                    setNewTravel(newTravel+1)
-                }).catch((err) => {
-                    console.log(err)
-                });
-            })
+        if(trip[0].departure.id === 'tbd'){
+            travelDeparture = await API.graphql({ query: createLocationMutation, variables: {input: trip[0].departure.object}})
+            travel.travelDepartureId = travelDeparture.data.createLocation.id
         }else{
-            travel.travelArrivalId = trip[0].destination.id
-            if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
-
-            API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
-                setTravel(travel)
-                setNewTravel(newTravel+1)
-            }).catch((err) => {
-                console.log(err)
-            });
+            travel.travelDepartureId = trip[0].departure.id
         }
+        
+        if (trip[0].arrival.id === 'tbd'){
+            travelArrival = await API.graphql({ query: createLocationMutation, variables: {input: trip[0].arrival.object}})
+            travel.travelArrivalId = travelArrival.data.createLocation.id
+        }else{
+            travel.travelArrivalId = trip[0].arrival.id
+        }
+
+        if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
+
+        console.log(travel)
+
+        API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
+            setTravel(travel)
+            setNewTravel(newTravel+1)
+        }).catch((err) => {
+            console.log(err)
+        });
 
     }
 
@@ -85,7 +86,7 @@ export default function Publish({ssrDataMySpace}){
                             <div className="relative">
                                 <LocationMarkerIcon className="h-4 w-4 absolute top-3 left-4 text-gray-700" />
                                 <div onClick={() => setModalDisplay(true)} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 pl-10 pr-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
-                                    {trip[0].arrival.name} / {trip[0].destination.name}
+                                    {trip[0].departure.name} / {trip[0].arrival.name}
                                 </div>
                             </div>
                             <select onChange={e => setTravel({...travel, travelModelId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
