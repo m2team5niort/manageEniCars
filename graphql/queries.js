@@ -41,6 +41,7 @@ export const getCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -75,6 +76,7 @@ export const getCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -128,6 +130,7 @@ export const listCars = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -155,6 +158,7 @@ export const getModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -211,6 +215,7 @@ export const getLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -218,9 +223,6 @@ export const getLocation = /* GraphQL */ `
           carModelId
           carKeyId
           carLocationId
-          model {
-            name
-          }
         }
         nextToken
       }
@@ -330,6 +332,7 @@ export const getKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -374,6 +377,7 @@ export const listKeys = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -392,26 +396,6 @@ export const listKeys = /* GraphQL */ `
     }
   }
 `;
-
-export const listKeysExtend = /* GraphQL */ `
-  query listKeysExtend(
-    $filter: ModelKeyFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listKeysExtend(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        car{
-          name
-        }
-        location{
-          name
-        }
-      }
-    }
-  }
-`;
-
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -491,6 +475,7 @@ export const getTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -553,6 +538,7 @@ export const getTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -586,6 +572,7 @@ export const listTravels = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -633,6 +620,7 @@ export const listTravels = /* GraphQL */ `
           updatedAt
         }
         passengers
+        state
         createdAt
         updatedAt
         travelDriverId
@@ -688,6 +676,7 @@ export const getIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -729,6 +718,7 @@ export const listIncidents = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
