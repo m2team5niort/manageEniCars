@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { LocationMarkerIcon } from '@heroicons/react/solid'
 import MapTravel from '../MapTravel'
 import ModalDestination from './Modals/ModalDestination'
+import ModalSelectCar from './Modals/ModalSelectCar'
 import ListTravels from './ListTravels'
 import { API } from 'aws-amplify';
 import { createTravel as createTravelMutation, createLocation as createLocationMutation } from '../../../graphql/mutations';
@@ -13,7 +14,10 @@ export default function Publish({ssrDataMySpace}){
         models: ssrDataMySpace.models,
         user: ssrDataMySpace.user
     })
-    const [modalDisplay, setModalDisplay] = useState(false)
+    const [modalDisplay, setModalDisplay] = useState({
+        destination: false,
+        car: false
+    })
     const [trip, setTrip] = useState([{
         departure: {
             name: 'Départ',
@@ -60,8 +64,6 @@ export default function Publish({ssrDataMySpace}){
 
         if ((!travel.dateBegin && !travel.dateEnd && !travel.places && !travel.travelCarId && !travel.travelDriverId && !travel.travelModelId && !travel.travelDepartureId && !travel.travelArrivalId) && (travel.travelDepartureId !== travel.travelArrivalId)) return;
 
-        console.log(travel)
-
         API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
             setTravel(travel)
             setNewTravel(newTravel+1)
@@ -85,33 +87,17 @@ export default function Publish({ssrDataMySpace}){
                             />
                             <div className="relative">
                                 <LocationMarkerIcon className="h-4 w-4 absolute top-3 left-4 text-gray-700" />
-                                <div onClick={() => setModalDisplay(true)} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 pl-10 pr-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
+                                <div onClick={() => setModalDisplay({...modalDisplay, destination: true})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 pl-10 pr-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
                                     {trip[0].departure.name} / {trip[0].arrival.name}
                                 </div>
                             </div>
-                            <select onChange={e => setTravel({...travel, travelModelId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
-                                {data.models.map((elem => {
-                                        return (
-                                            <option value={JSON.stringify(elem.id)} key={elem.id}>{elem.name}</option>
-                                        )
-                                    }
-                                ))}
-                            </select>
-                            <select onChange={e => setTravel({...travel, travelCarId: JSON.parse(e.target.value)})} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold">
-                                {data.cars.map((elem => {
-                                        return (
-                                            <option value={JSON.stringify(elem.id)} key={elem.id}>{elem.name}</option>
-                                        )
-                                    }
-                                ))}
-                            </select>
-                            <input onChange={e => setTravel({...travel, places: e.target.value})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold`}
-                                type='number'
-                                defaultValue={'0'}
-                                placeholder='Passager'
-                                min={0}
-                                max={4}
-                            />
+                            <div className="relative">
+                                {trip[0].departure.id !== '' && trip[0].arrival.id !== '' && 
+                                    <div onClick={() => setModalDisplay({...modalDisplay, car: true})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
+                                        Je choisi ma voiture
+                                    </div>
+                                }
+                            </div>
                             <button onClick={() => createTravel()} className='bg-blue-500 text-white px-5 py-3 rounded-lg hover:bg-cyan-500 transition'>Publier mon trajet</button>
                         </div>
                         <div className=" w-8/12">
@@ -119,7 +105,8 @@ export default function Publish({ssrDataMySpace}){
                         </div>
                     </div>
                 </div>
-                {modalDisplay && <ModalDestination setModalDisplay={setModalDisplay} setTrip={setTrip} trip={trip} />}
+                {modalDisplay.destination && <ModalDestination setModalDisplay={setModalDisplay} modalDisplay={modalDisplay} setTrip={setTrip} trip={trip} />}
+                {modalDisplay.car && <ModalSelectCar setModalDisplay={setModalDisplay} modalDisplay={modalDisplay} trip={trip[0].departure} />}
             </div>
             <ListTravels newTravel={newTravel}/>
         </div>

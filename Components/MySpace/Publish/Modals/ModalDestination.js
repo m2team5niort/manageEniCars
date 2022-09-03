@@ -12,9 +12,9 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
 
     const { data, error } = useSWR('/api/myspace/markerEni', fetcher)
-    let [isOpen, setIsOpen] = useState(true)
-    let [tab, setTab] = useState(0)
-    let [categories, setCategories] = useState({})
+    const [isOpen, setIsOpen] = useState(true)
+    const [tab, setTab] = useState(0)
+    const [categories, setCategories] = useState({})
     const [arrival, setArrival] = useState({
         objects: [],
         isShow: ''

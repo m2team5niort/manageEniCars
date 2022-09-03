@@ -4,6 +4,7 @@ import { listTravels } from '/graphql/queries'
 import { updateTravel as updateTravelMutation } from '../../../graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon, CheckCircleIcon, WifiIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
+import Tooltip from '../../Common/Tooltip/Tooltip';
 
 export default function Reservation({user}){
 
@@ -117,31 +118,40 @@ export default function Reservation({user}){
                                         </div>
                                     </div>
                                     <div className='flex flex-col justify-center w-7/12'>
-                                        <div className='flex flex-row items-center'>
-                                            <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
-                                            <div className='flex flex-row space-x-4'>
-                                                <div className='flex flex-row'>
+                                        <div className='flex flex-row items-center justify-between mr-2'>
+                                            <div className='flex flex-col'>
+                                                <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
+                                                <div className='flex flex-row ml-12'>
+                                                    <Tooltip message={'Conducteur: ' + travel.driver.name}>
+                                                        <UserCircleIcon className='w-8 h-8 text-indigo-600' />
+                                                    </Tooltip>
+                                                    <span className='border border-indigo-200 mx-2'></span>
                                                     {travel.passengers ? 
                                                         <>
-                                                        {travel.passengers.map((elem, index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
+                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: ' + elem}><UserCircleIcon key={elem} className='w-8 h-8 text-indigo-600' /></Tooltip>))}
                                                         {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
                                                             return (
-                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                <Tooltip message='Place libre'>
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                </Tooltip>
                                                             )
                                                         })}
                                                         </>
                                                     :
                                                         [ ...Array(travel.places).keys() ].map((index) => {
                                                             return (
-                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                <Tooltip message='Place libre'>
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                </Tooltip>
                                                             )
                                                         })
                                                     }
                                                 </div>
-                                                <div>
-                                                    <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
-                                                    <p className='text-sm font-light'>{travel.car.name}</p>
-                                                </div>
+                                            </div>
+                                            <div className='flex flex-col'>
+                                                <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500 select-none shadow-sm"> {travel.car.numberPlate} </span>
+                                                <h3 className='text-lg font-semibold'>{travel.model.brand},</h3>
+                                                <p className='text-sm font-light'>{travel.car.name}</p>
                                             </div>
                                         </div>
                                         {handleStateButtonJoinTravel(travel)}

@@ -6,7 +6,7 @@ import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateC
 import { createKey as createKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
-let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "" }
+let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "", numberPlate: "" }
 
 export default function Car() {
 
@@ -31,11 +31,7 @@ export default function Car() {
 
     async function fetchCars() {
         await API.graphql({ query: listCars }).then((res) => {
-            res.data.listCars.items.forEach(element => {
-                API.graphql({query: getCar, variables: { id: element.id }}).then((res) => {
-                    setCars(cars => [...cars, res.data.getCar])
-                })
-            });
+            setCars(res.data.listCars.items) 
         });
     }
 
@@ -56,7 +52,7 @@ export default function Car() {
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
         }).catch((err) => {
-            console.log("ici", err)
+            console.log(err)
         });
 
     }
@@ -99,8 +95,6 @@ export default function Car() {
         await API.graphql({ query: deleteCarMutation, variables: { input: { id } } });
     }
 
-    console.log(cars)
-
     return (
         <>
             {modal.isShow &&
@@ -111,18 +105,21 @@ export default function Car() {
                 <div className='h-full w-full  p-24'>
                     <div className="shadow-md sm:rounded-lg bg-gray-700 overflow-y-auto">
                         <div className='flex justify-between px-6 py-4'>
-                            <h1 className='text-white '> Liste des voitures </h1>
+                            <h1 className='text-white'> Liste des voitures </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [locations, models] })} className="bg-green-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une voiture </button>
                         </div>
 
-                        <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                            <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                        <table className=" w-full text-sm text-left text-gray-500 ">
+                            <thead className="text-xs text-white uppercase bg-transparent">
                                 <tr>
                                     <th scope="col-1" className="px-6 py-3">
                                         #
                                     </th>
                                     <th scope="col-3" className="px-6 py-3">
                                         Nom
+                                    </th>
+                                    <th scope="col-3" className="px-6 py-3">
+                                        Plaque d'immatriculation
                                     </th>
                                     <th scope="col-4" className="px-6 py-3">
                                         Description
@@ -147,12 +144,15 @@ export default function Car() {
                             <tbody>
                                 {
                                     cars.map((car, index) => (
-                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 text-gray-400 font-semibold hover:bg-gray-200">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.name} </span>
+                                                <span className="text-md font-semi-bold mr-2"> {car.name} </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500"> {car.numberPlate} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {car.description}

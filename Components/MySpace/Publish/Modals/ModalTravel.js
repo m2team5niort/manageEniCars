@@ -5,15 +5,17 @@ import { getTravel } from '/graphql/queries';
 import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '/graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
+import BadgeStateTravel from '../../../Common/Badge/BadgeStateTravel';
+import Tooltip from '../../../Common/Tooltip/Tooltip';
 
-export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
+export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
 
     let [isOpen, setIsOpen] = useState(true)
     let [travel, setTravel] = useState()
 
     function closeModal() {
         setIsOpen(false)
-        setModalHandler({...modalHandler, isDisplayed: false})
+        setModalDisplay({...modalDisplay, car: false})
     }
 
     useEffect(() => {
@@ -28,7 +30,7 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
 
     async function deleteTravel({ id }) {
         await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } }).then(() => {
-                setModalHandler({...modalHandler, isRefreshed: true})
+            setModalDisplay({...modalDisplay, isRefreshed: true})
                 closeModal()
             }
         );
@@ -37,8 +39,6 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
     }
-
-    console.log(travel)
 
     return (
         <>
@@ -73,7 +73,13 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
                                         as="h3"
                                         className="text-xl font-medium leading-6 text-gray-900 mb-8"
                                     >
-                                        Récapitulatif de mon trajet
+                                        <div className='flex flex-row justify-between items-center'>
+                                            Récapitulatif de mon trajet
+                                            <div className='flex flex-row space-x-6 items-center'>
+                                                <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500 select-none"> {travel.car.numberPlate} </span>
+                                                <BadgeStateTravel state={travel.state}/>
+                                            </div>
+                                        </div>
                                     </Dialog.Title>
                                     <div className='flex flex-row'>
                                         <div className="flex flex-col justify-between space-y-4 pr-12 border-r-2 border-indigo-300">
@@ -98,32 +104,40 @@ export default function ModalTravel({modalHandler, setModalHandler, idTravel}) {
                                         <div className='mx-auto'>
                                             <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="384" height="216" />
                                             <div className='flex flex-row justify-between items-center'>
-                                                <div className='ml-12'>
-                                                    <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
-                                                    <p className='text-sm font-light'>{travel.car.name}</p>
-                                                </div>
-                                                <div className='flex flex-row'>
+                                                <div className='flex flex-row ml-12'>
+                                                    <Tooltip message={'Conducteur: ' + travel.driver.name}>
+                                                        <UserCircleIcon className='w-8 h-8 text-indigo-900' />
+                                                    </Tooltip>
+                                                    <span className='border border-indigo-200 mx-2'></span>
                                                     {travel.passengers ? 
                                                         <>
-                                                        {travel.passengers.map(elem => (<UserCircleIcon key={elem.id} className='w-8 h-8 text-indigo-600' />))}
+                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: ' + elem}><UserCircleIcon key={elem} className='w-8 h-8 text-indigo-600' /></Tooltip>))}
                                                         {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
                                                             return (
-                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                <Tooltip message='Place libre'>
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                </Tooltip>
                                                             )
                                                         })}
                                                         </>
                                                     :
                                                         [ ...Array(travel.places).keys() ].map((index) => {
                                                             return (
-                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                <Tooltip message='Place libre'>
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                </Tooltip>
                                                             )
                                                         })
                                                     }
                                                 </div>
+                                                <div>
+                                                    <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
+                                                    <p className='text-sm font-light'>{travel.car.name}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                        <button onClick={() => deleteTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-12'>Supprimer</button>
+                                        <button onClick={() => deleteTravel(travel)} className='px-4 py-2 text-sm bg-indigo-800 rounded-md text-white mt-12'>Supprimer</button>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

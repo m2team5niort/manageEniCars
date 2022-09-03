@@ -12,6 +12,10 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     type: 'text',
                     placeholder: 'Nom de la voiture'
                 },
+                numberPlateInput: {
+                    type: 'text',
+                    placeholder: 'XX-XXX-XX'
+                },
                 descriptionInput: {
                     type: 'text',
                     placeholder: 'Description de la voiture'
@@ -36,6 +40,11 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     type: 'text',
                     placeholder: 'Nom de la voiture',
                     value: modal.object.name
+                },
+                numberPlateInput: {
+                    type: 'text',
+                    placeholder: 'XX-XXX-XX',
+                    value: modal.object.numberPlate
                 },
                 descriptionInput: {
                     type: 'text',
@@ -71,6 +80,12 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     value: modal.object.name,
                     readOnly: 'readOnly',
                 },
+                numberPlateInput: {
+                    type: 'text',
+                    placeholder: 'XX-XXX-XX',
+                    value: modal.object.numberPlate,
+                    readOnly: 'readOnly',
+                },
                 descriptionInput: {
                     type: 'text',
                     placeholder: 'Description de la voiture',
@@ -103,6 +118,7 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
             setFormData({
                 ...formData,
                 name: modalObj.nameInput.value,
+                numberPlate: modalObj.numberPlateInput.value,
                 description: modalObj.descriptionInput.value,
                 places: modalObj.placesInput.value,
                 carLocationId: modal.object.location.id,
@@ -112,6 +128,33 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
             })
         }
     }, [])
+
+    const handleNumberPlate = (e, numberPlateOld) => {
+        let numberPlate = e.target.value.toUpperCase()
+
+        let oldNumberPlateLength = numberPlateOld.length
+        let newNumberPlateLength = numberPlate.length
+
+        if(newNumberPlateLength > oldNumberPlateLength){
+            if(numberPlate.length === 2){
+                numberPlate += '-'
+            }
+            if(numberPlate.length === 6){
+                numberPlate += '-'
+            }
+        }else{
+            if(numberPlate.length === 3){
+                numberPlate = numberPlate.slice(0, -1);
+            }
+            if(numberPlate.length === 7){
+                numberPlate = numberPlate.slice(0, -1);
+            }
+        }
+
+        setFormData({ ...formData, 'numberPlate': numberPlate })
+    }
+
+    console.log(modal)
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full mt-12">
@@ -134,6 +177,15 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                                 placeholder={modalObj.nameInput.placeholder}
                                 defaultValue={modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
+                            />
+                            <input
+                                maxLength={9}
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                onChange={e => handleNumberPlate(e, formData.numberPlate)}
+                                placeholder={modalObj.numberPlateInput.placeholder}
+                                value={formData.numberPlate}
+                                defaultValue={modalObj.numberPlateInput.value}
+                                readOnly={modalObj.numberPlateInput.readOnly}
                             />
                             <input
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
