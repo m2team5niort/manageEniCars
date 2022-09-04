@@ -44,6 +44,7 @@ export const createCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -78,6 +79,7 @@ export const createCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -131,6 +133,7 @@ export const updateCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -165,6 +168,7 @@ export const updateCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -218,6 +222,7 @@ export const deleteCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -252,6 +257,7 @@ export const deleteCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -280,6 +286,7 @@ export const createModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -313,6 +320,7 @@ export const updateModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -346,6 +354,7 @@ export const deleteModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -382,6 +391,7 @@ export const createLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -430,6 +440,7 @@ export const updateLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -478,6 +489,7 @@ export const deleteLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -567,6 +579,7 @@ export const createKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -645,6 +658,7 @@ export const updateKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -723,6 +737,7 @@ export const deleteKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -835,6 +850,7 @@ export const createTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -897,6 +913,7 @@ export const createTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -958,6 +975,7 @@ export const updateTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1020,6 +1038,7 @@ export const updateTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -1081,6 +1100,7 @@ export const deleteTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1143,6 +1163,7 @@ export const deleteTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -1199,6 +1220,7 @@ export const createIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1268,6 +1290,7 @@ export const updateIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1337,6 +1360,7 @@ export const deleteIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId

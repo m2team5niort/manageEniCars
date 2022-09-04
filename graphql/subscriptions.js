@@ -41,6 +41,7 @@ export const onCreateCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -75,6 +76,7 @@ export const onCreateCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -125,6 +127,7 @@ export const onUpdateCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -159,6 +162,7 @@ export const onUpdateCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -209,6 +213,7 @@ export const onDeleteCar = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -243,6 +248,7 @@ export const onDeleteCar = /* GraphQL */ `
         updatedAt
       }
       available
+      numberPlate
       createdAt
       updatedAt
       modelCarsId
@@ -268,6 +274,7 @@ export const onCreateModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -298,6 +305,7 @@ export const onUpdateModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -328,6 +336,7 @@ export const onDeleteModel = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -361,6 +370,7 @@ export const onCreateLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -406,6 +416,7 @@ export const onUpdateLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -451,6 +462,7 @@ export const onDeleteLocation = /* GraphQL */ `
           description
           places
           available
+          numberPlate
           createdAt
           updatedAt
           modelCarsId
@@ -537,6 +549,7 @@ export const onCreateKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -612,6 +625,7 @@ export const onUpdateKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -687,6 +701,7 @@ export const onDeleteKey = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -787,6 +802,7 @@ export const onCreateTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -849,6 +865,7 @@ export const onCreateTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -907,6 +924,7 @@ export const onUpdateTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -969,6 +987,7 @@ export const onUpdateTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -1027,6 +1046,7 @@ export const onDeleteTravel = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1089,6 +1109,7 @@ export const onDeleteTravel = /* GraphQL */ `
         updatedAt
       }
       passengers
+      state
       createdAt
       updatedAt
       travelDriverId
@@ -1142,6 +1163,7 @@ export const onCreateIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1208,6 +1230,7 @@ export const onUpdateIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId
@@ -1274,6 +1297,7 @@ export const onDeleteIncident = /* GraphQL */ `
           updatedAt
         }
         available
+        numberPlate
         createdAt
         updatedAt
         modelCarsId

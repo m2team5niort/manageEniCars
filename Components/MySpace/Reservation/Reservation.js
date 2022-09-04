@@ -1,20 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { API } from 'aws-amplify';
-import { listTravels, getTravel, getLocation } from '/graphql/queries'
+import { listTravels } from '/graphql/queries'
+import { updateTravel as updateTravelMutation } from '../../../graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon, CheckCircleIcon, WifiIcon } from '@heroicons/react/solid';
 import Image from 'next/image'
 
-export default function Reservation(){
+export default function Reservation({user}){
+
+    console.log(user)
 
     const [travels, setTravels] = useState([])
 
     async function fetchTravels() {
         await API.graphql({ query: listTravels }).then((res => {
-            res.data.listTravels.items.forEach(element => {
-                API.graphql({ query: getTravel, variables: { id: element.id } }).then((res => {
-                    setTravels(travels => [...travels, res.data.getTravel])
-                }))
-            })
+            setTravels(res.data.listTravels.items)
         }))
     }
 
@@ -26,8 +25,65 @@ export default function Reservation(){
         return new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
     }
 
-    const handleJoinTravel = (travel) => {
-        console.log('join it', travel.id)
+    const handleJoinTravel = async (travel) => {
+        const state = updateTravel(travel)
+    }
+
+    async function updateTravel(travel, userId = null){
+
+        let travelDuplication = {...travel}
+        if(travelDuplication.passengers === null){
+            travelDuplication.passengers = []
+        }
+
+        if(!userId){
+            travelDuplication.passengers.push(user.id)
+        }else{
+            console.log(travelDuplication.passengers)
+            let index = travelDuplication.passengers.findIndex( (user) => user === userId );
+            travelDuplication.passengers.splice(index, 1);
+            console.log(travelDuplication.passengers)
+        }
+
+        travelDuplication.travelDriverId = travel.driver.id
+        travelDuplication.travelCarId = travel.car.id
+        travelDuplication.travelModelId = travel.model.id
+        travelDuplication.travelDepartureId = travel.departure.id
+        travelDuplication.travelArrivalId = travel.arrival.id
+
+        delete travelDuplication.driver;
+        delete travelDuplication.car;
+        delete travelDuplication.model;
+        delete travelDuplication.departure;
+        delete travelDuplication.arrival;
+        delete travelDuplication.createdAt;
+        delete travelDuplication.updatedAt;
+
+        await API.graphql({ query: updateTravelMutation, variables: { input: travelDuplication } }).then(() => {
+            fetchTravels()
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    } 
+
+    const handleStateButtonJoinTravel = (travel) => {
+        let result;
+        if(travel.passengers){
+            if(travel.passengers.includes(user.id)){
+                result = <button onClick={() => updateTravel(travel, user.id)} className='px-6 py-2 bg-red-500 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-red-600 transition duration-150 ease-in'>Quitter le trajet</button>
+            }
+            else if(travel.passengers.length === travel.places){
+                result = <button className='px-6 py-2 bg-gray-500 rounded-md text-sm text-white mt-4 w-6/12 mx-auto cursor-not-allowed'>Trajet plein</button>
+            }
+            else{
+                result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-indigo-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
+            }   
+        }else{
+            result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-indigo-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
+        }
+
+        return result
     }
 
     console.log(travels)
@@ -39,9 +95,9 @@ export default function Reservation(){
                 {travels ?
                 travels.map(travel => {
                         return(
-                            <div className='flex flex-col w-full transform overflow-hidden rounded-2xl bg-white p-8 shadow-2xl'>
-                                <div key={travel.id} className='flex flex-row justify-between'>
-                                    <div className="flex flex-col justify-between space-y-4 pr-12 border-r-2 border-indigo-300">
+                            <div key={travel.id} className='flex flex-col w-full transform overflow-hidden rounded-2xl bg-white p-8 shadow-xl'>
+                                <div className='flex flex-row justify-between'>
+                                    <div className="flex flex-col justify-between space-y-4 pr-12 border-r-2 border-indigo-300 w-5/12">
                                         <div className='flex flex-row items-center'>
                                             <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/>
                                             <div className='flex flex-col text-xs'>
@@ -60,16 +116,27 @@ export default function Reservation(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex flex-col justify-center'>
+                                    <div className='flex flex-col justify-center w-7/12'>
                                         <div className='flex flex-row items-center'>
                                             <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
                                             <div className='flex flex-row space-x-4'>
-                                                <div className='flex flex-col'>
-                                                    {[ ...Array(travel.places).keys() ].map((index) => {
-                                                        return (
-                                                            <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
-                                                        )
-                                                    })}
+                                                <div className='flex flex-row'>
+                                                    {travel.passengers ? 
+                                                        <>
+                                                        {travel.passengers.map((elem, index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
+                                                        {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
+                                                            return (
+                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                            )
+                                                        })}
+                                                        </>
+                                                    :
+                                                        [ ...Array(travel.places).keys() ].map((index) => {
+                                                            return (
+                                                                <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                            )
+                                                        })
+                                                    }
                                                 </div>
                                                 <div>
                                                     <h3 className='text-lg font-semibold'>{travel.model.brand}</h3>
@@ -77,7 +144,7 @@ export default function Reservation(){
                                                 </div>
                                             </div>
                                         </div>
-                                        <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-white mt-4 w-full'>Rejoindre ce trajet</button>
+                                        {handleStateButtonJoinTravel(travel)}
                                     </div>
                                 </div>
                             </div>

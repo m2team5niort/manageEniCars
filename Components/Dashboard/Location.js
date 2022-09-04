@@ -66,8 +66,8 @@ export default function Location() {
             }
 
             <main id="Content">
-                <div className='flex flex-row w-full p-24 gap-12'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 w-full flex flex-col">
+                <div className='flex flex-row w-full p-24 gap-12 max-h-full'>
+                    <div className="shadow-md sm:rounded-lg bg-gray-700 w-full flex flex-col overflow-x-auto overflow-y-auto">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des lieux </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-amber-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>

@@ -24,6 +24,8 @@ export default function ListTravels({newTravel}){
         }));
     }
 
+    console.log(travels)
+
     return(
         <>
             {travels &&
@@ -38,11 +40,22 @@ export default function ListTravels({newTravel}){
                                         <p className='text-xs'>Au: {new Date(travel.dateEnd).toLocaleString()}</p>
                                     </div>
                                     <div className='flex flex-row'>
-                                        {[ ...Array(travel.places).keys() ].map((index) => {
-                                            return (
+                                        {travel.passengers ? 
+                                            <>
+                                            {travel.passengers.map((elem, index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
+                                            {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
+                                                return (
                                                     <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
-                                            )
-                                        })}
+                                                )
+                                            })}
+                                            </>
+                                        :
+                                            [ ...Array(travel.places).keys() ].map((index) => {
+                                                return (
+                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                             )

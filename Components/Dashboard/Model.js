@@ -71,7 +71,7 @@ export default function Model() {
 
             <main id="Content">
                 <div className='h-full w-full  p-24'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                    <div className="shadow-md sm:rounded-lg bg-gray-700 overflow-y-auto">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des modèles </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un modèle </button>
