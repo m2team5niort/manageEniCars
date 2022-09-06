@@ -29,7 +29,7 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
             break;
         case 'update':
             modalObj = {
-                title: 'Ajouter un modèle',
+                title: 'Modifier un modèle',
                 nameInput: {
                     type: 'text',
                     placeholder: 'Nom du modèle',
@@ -57,7 +57,7 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
             break;
         case 'details':
             modalObj = {
-                title: 'Ajouter un modèle',
+                title: 'Détails du modèle',
                 nameInput: {
                     type: 'text',
                     placeholder: 'Nom du modèle',

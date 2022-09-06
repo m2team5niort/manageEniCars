@@ -48,6 +48,7 @@ export default function Incident({ user }) {
     async function createIncident() {
 
         await API.graphql({ query: createIncidentMutation, variables: { input: formData } }).then((res) => {
+            console.log(res.data.createIncident)
             updateCar(formData.incidentCarId, 'add')
             setIncidents([...incidents, res.data.createIncident]);
             setFormData(initialFormState);
@@ -155,7 +156,7 @@ export default function Incident({ user }) {
                                             {new Date(incident.date).toLocaleString()}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            {incident.responsible.email}
+                                            {incident.responsible.name}
                                         </td>
                                         <td className="px-6 py-4 relative text-center">
                                             <MyDropdown object={incident} deleteObject={deleteIncident} modal={modal} setModal={setModal} listObjects={[cars,users]}/>

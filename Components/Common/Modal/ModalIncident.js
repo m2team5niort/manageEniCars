@@ -51,7 +51,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     value: modal.object.date
                 },
                 responsibleOption: {
-                    value: modal.object.responsible.email,
+                    value: modal.object.responsible.name,
                 },
                 button: function () {
                     return updateIncident(modal.object)
@@ -84,7 +84,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     readOnly: 'readOnly',
                 },
                 responsibleOption: {
-                    value: modal.object.responsible.email,
+                    value: modal.object.responsible.name,
                     disabled: 'disabled',
                 },
                 className: 'cursor-not-allowed'
@@ -146,14 +146,14 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({...formData, date: new Date(e.target.value).toISOString() })}
                                 placeholder={modalObj.dateInput.placeholder}
-                                defaultValue={modalObj.dateInput.value}
+                                defaultValue={new Date(modalObj.dateInput.value).toLocaleString()}
                                 readOnly={modalObj.dateInput.readOnly}
                                 type={modalObj.dateInput.type}
                             />
                             <select onChange={(e) => setFormData({ ...formData, incidentResponsibleId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="locations" id="locations-select">
                                 <option selected="true" disabled="disabled">{modalObj.responsibleOption.value}</option>
                                 {modal.listObjects[1].map((user) =>
-                                    <option disabled={modalObj.responsibleOption.disabled} value={JSON.stringify(user.id)}>{user.email}</option>
+                                    <option disabled={modalObj.responsibleOption.disabled} value={JSON.stringify(user.id)}>{user.name}</option>
                                 )}
                             </select>
                         </div>

@@ -5,7 +5,7 @@ import { listLocations } from '../../../graphql/queries'
 import { createLocation as createLocationMutation, deleteLocation as deleteLocationMutation, updateLocation as updateLocationMutation } from '../../../graphql/mutations';
 import MyDropdown from '../Dropdown';
 
-const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '' }
+const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '', isReferenced: true }
 
 export default function ListLocation(){
 
