@@ -128,8 +128,8 @@ export default function Reservation({user}){
                                                     <span className='border border-indigo-200 mx-2'></span>
                                                     {travel.passengers ? 
                                                         <>
-                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: ' + elem}><UserCircleIcon key={elem} className='w-8 h-8 text-indigo-600' /></Tooltip>))}
-                                                        {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
+                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: '} userId={elem}><UserCircleIcon key={elem} className='w-8 h-8 text-indigo-600' /></Tooltip>))}
+                                                        {[ ...Array(travel.places - travel.passengers.length - 1).keys() ].map((index) => {
                                                             return (
                                                                 <Tooltip message='Place libre'>
                                                                     <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />

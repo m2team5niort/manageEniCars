@@ -8,7 +8,7 @@ function myspace({ssrDataMySpace}) {
     return (
         <>
             <div className={`container-myspace mx-auto`}>
-                <NavbarMySpace />
+                <NavbarMySpace user={ssrDataMySpace.user}/>
                 <MySpace ssrDataMySpace={ssrDataMySpace}/>
             </div>
         </>

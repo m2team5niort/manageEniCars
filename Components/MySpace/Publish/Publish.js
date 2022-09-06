@@ -39,6 +39,7 @@ export default function Publish({ssrDataMySpace}){
         travelModelId: "",
         travelDepartureId: "",
         travelArrivalId: "",
+        state: "En attente",
         passengers: []
     })
     const [newTravel, setNewTravel] = useState(0)
@@ -94,7 +95,7 @@ export default function Publish({ssrDataMySpace}){
                             <div className="relative">
                                 {trip[0].departure.id !== '' && trip[0].arrival.id !== '' && 
                                     <div onClick={() => setModalDisplay({...modalDisplay, car: true})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
-                                        Je choisi ma voiture
+                                        {travel.travelCarId ? 'Voiture ok' : 'Choisir sa voiture'}
                                     </div>
                                 }
                             </div>
@@ -106,7 +107,7 @@ export default function Publish({ssrDataMySpace}){
                     </div>
                 </div>
                 {modalDisplay.destination && <ModalDestination setModalDisplay={setModalDisplay} modalDisplay={modalDisplay} setTrip={setTrip} trip={trip} />}
-                {modalDisplay.car && <ModalSelectCar setModalDisplay={setModalDisplay} modalDisplay={modalDisplay} trip={trip[0].departure} />}
+                {modalDisplay.car && <ModalSelectCar setModalDisplay={setModalDisplay} modalDisplay={modalDisplay} trip={trip[0].departure} setTravel={setTravel} travel={travel} />}
             </div>
             <ListTravels newTravel={newTravel}/>
         </div>

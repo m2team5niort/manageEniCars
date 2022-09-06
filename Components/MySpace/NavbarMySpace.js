@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { router } from "next/router"
-import { CogIcon, BellIcon, InformationCircleIcon, PlusCircleIcon, LogoutIcon } from '@heroicons/react/outline'
+import { LogoutIcon } from '@heroicons/react/outline'
+import { UserCircleIcon } from '@heroicons/react/solid'
 import { Auth } from 'aws-amplify';
 
-export default function NavbarMySpace() {
+export default function NavbarMySpace({user}) {
 
     async function signOut() {
         try {
@@ -24,8 +25,10 @@ export default function NavbarMySpace() {
                     </a>
                     </Link>
                     <div className="flex items-center md:order-2 space-x-6">
-                        <img className="w-10 h-10 rounded-full" src="https://buffer.com/library/content/images/2020/05/Ash-Read.png" alt="user photo" />
-                        <p className='mr-8 ml-8 '> NALIN Brandon </p>
+                        <div className='flex flex-row items-center'>
+                            <UserCircleIcon className='h-10 w-10 text-indigo-600' />
+                            <p className='mr-8 ml-2 text-black'> {user.name} </p>
+                        </div>
                         <button onClick={() => signOut()}>
                             <LogoutIcon className='h-6 w-6' />
                         </button>

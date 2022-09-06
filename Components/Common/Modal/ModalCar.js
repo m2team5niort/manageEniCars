@@ -62,10 +62,6 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                 locationOption: {
                     value: modal.object.location.name,
                 },
-                carCheckbox: {
-                    type: 'checkbox',
-                    value: modal.object.isAdmin
-                },
                 button: function () {
                     return updateCar(modal.object)
                 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
 import Navbar from "./Navbar";
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { listKeys, listCars, listLocations, listKeysExtend } from '../../graphql/queries'
 import { createKey as createKeyMutation, deleteKey as deleteKeyMutation, updateKey as updateKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
@@ -30,7 +30,6 @@ export default function Key() {
 
     async function fetchKeys() {
         const apiData = await API.graphql({ query: listKeys });
-        console.log(apiData)
         setKeys(apiData.data.listKeys.items);
     }
 
@@ -40,7 +39,7 @@ export default function Key() {
     }
 
     async function fetchLocations() {
-        const apiData = await API.graphql({ query: listLocations });
+        const apiData = await API.graphql(graphqlOperation(listLocations, { filter: { isReferenced: { eq: true } } }))
         setLocations(apiData.data.listLocations.items);
     }
 
@@ -76,6 +75,8 @@ export default function Key() {
         await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } });
     }
 
+    console.log(modal.object)
+
     return (
         <>
             {modal.isShow &&
@@ -83,15 +84,15 @@ export default function Key() {
             }
 
             <main id="Content">
-                <div className='h-full w-full  p-24 overflow-y-auto'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+                <div className='px-8'>
+                    <div className="shadow-md sm:rounded-lg bg-gray-50 ">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-white '> Liste des clés </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, locations] })} className="bg-green-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une clé </button>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, locations] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une clé </button>
                         </div>
 
-                        <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                            <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                        <table className=" w-full text-sm text-left text-dark">
+                            <thead className="text-xs text-dark uppercase bg-transparent">
                                 <tr>
                                     <th scope="col-1" className="px-6 py-3">
                                         #
@@ -110,15 +111,15 @@ export default function Key() {
                             <tbody>
                                 {
                                     keys.map((key, index) => (
-                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold hover:bg-gray-50">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {key.car !== null ? key.car.name : 'Clé sans voiture'} </span>
+                                                {key.car !== null ? key.car.name : 'Clé sans voiture'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {key.location !== null ? key.location.name : 'Clé sans lieu'}
+                                            {key.location !== null ? key.location.name : 'Clé sans lieu'}
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={key} listObjects={[cars, locations]} deleteObject={deleteKey} modal={modal} setModal={setModal} />

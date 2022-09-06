@@ -9,13 +9,12 @@ function classNames(...classes) {
 export default function Location() {
 
     return (
-        <>
             <main id="Content">
-                <div className='h-full w-full p-24'>
+                <div className='px-8'>
                     <div className="w-full sm:px-0 space-y-6">
                         <Tab.Group>
                             <Tab.List className="flex w-full max-w-lg space-x-1 rounded-xl bg-blue-900/20 p-1">
-                                <div className='w-full max-w-lg flex space-x-2 bg-indigo-800 p-2 rounded-md'>
+                                <div className='w-full max-w-lg flex space-x-2 bg-blue-500 p-2 rounded-md'>
                                     <Tab
                                         className={({ selected }) =>
                                             classNames(
@@ -56,6 +55,5 @@ export default function Location() {
                     </div>
                 </div>
             </main>
-        </>
     )
 }

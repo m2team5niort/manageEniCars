@@ -10,7 +10,7 @@ function models({ user }) {
   console.log(user)
 
   return (
-    <div className={`container-dashboard mx-auto bg-gray-900`}>
+    <div className={`container-crud mx-auto bg-gray-900`}>
         <Navbar user={user} />
         <Sidebar />
         <Model />

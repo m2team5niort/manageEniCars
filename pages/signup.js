@@ -36,7 +36,10 @@ function signup() {
 
   return (
     getUserSign ? (
-      <h1>Redirection</h1>
+      <div className='flex flex-col bg-gray-900 h-screen justify-center items-center space-y-6'>
+        <img className='w-20 rounded-2xl mx-auto animate-pulse' src="https://www.eni-service.fr/wordpress/wp-content/uploads/2019/01/logo_ENI_pt.svg" />
+        <h1 className='text-white text-2xl'>Redirection en cours...</h1>
+      </div>
     )
       :
       (
@@ -48,7 +51,7 @@ function signup() {
                 setUserSign(user)
               )}
             </Authenticator>
-            <img src='https://images.hdqwalls.com/wallpapers/porsche-taycan-turbo-sportdesign-4k-d4.jpg' />
+            <img src='https://images.caradisiac.com/logos-ref/modele/modele--renault-megane-4/S0-modele--renault-megane-4.jpg' />
           </div>
         </div>
       )

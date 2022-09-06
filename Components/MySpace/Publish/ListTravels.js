@@ -8,7 +8,7 @@ import BadgeStateTravel from '../../Common/Badge/BadgeStateTravel';
 export default function ListTravels({newTravel}){
 
     const [travels, setTravels] = useState([])
-    const [modalHandler, setModalHandler] = useState({
+    const [modalDisplay, setModalDisplay] = useState({
         isDisplayed: false,
         travelId: '',
         isRefreshed: false
@@ -16,7 +16,7 @@ export default function ListTravels({newTravel}){
 
     useEffect(() => {
         fetchTravels();
-    }, [newTravel, modalHandler.isRefreshed]);
+    }, [newTravel, modalDisplay.isRefreshed]);
 
     
     async function fetchTravels() {
@@ -32,7 +32,7 @@ export default function ListTravels({newTravel}){
                    <h2 className="text-4xl text-indigo-800 font-semibold text-center">Liste de mes trajets à venir</h2>
                     {travels.map((travel => {
                             return (
-                                <div key={travel.id} onClick={() => setModalHandler({...modalHandler, isDisplayed: !modalHandler.isDisplayed, travelId: travel.id, isRefreshed: false})} className='flex flex-row items-center justify-between bg-white shadow-md hover:shadow-xl ease-in duration-200 p-8 rounded-md cursor-pointer space-x-6 w-8/12 mx-auto'>
+                                <div key={travel.id} onClick={() => setModalDisplay({...modalDisplay, isDisplayed: !modalDisplay.isDisplayed, travelId: travel.id, isRefreshed: false})} className='flex flex-row items-center justify-between bg-white shadow-md hover:shadow-xl ease-in duration-200 p-8 rounded-md cursor-pointer space-x-6 w-10/12 mx-auto'>
                                     <TruckIcon className='w-10 h-10 bg-indigo-800 text-white p-2 rounded-full'/>
                                     <div className='flex flex-col'>
                                         <p className='text-xs'>Du: {new Date(travel.dateBegin).toLocaleString()}</p>
@@ -44,14 +44,14 @@ export default function ListTravels({newTravel}){
                                         {travel.passengers ? 
                                             <>
                                             {travel.passengers.map((elem, index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
-                                            {[ ...Array(travel.places - travel.passengers.length).keys() ].map((index) => {
+                                            {[ ...Array(travel.places - travel.passengers.length - 1).keys() ].map((index) => {
                                                 return (
                                                     <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
                                                 )
                                             })}
                                             </>
                                         :
-                                            [ ...Array(travel.places).keys() ].map((index) => {
+                                            [ ...Array(travel.places - 1).keys() ].map((index) => {
                                                 return (
                                                     <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
                                                 )
@@ -63,8 +63,8 @@ export default function ListTravels({newTravel}){
                             )
                         }
                     ))}
-                    { modalHandler.isDisplayed && 
-                        <ModalTravel modalHandler={modalHandler} setModalHandler={setModalHandler} idTravel={modalHandler.travelId} /> 
+                    { modalDisplay.isDisplayed && 
+                        <ModalTravel modalDisplay={modalDisplay} setModalDisplay={setModalDisplay} idTravel={modalDisplay.travelId} /> 
                     }
                 </>
             }        

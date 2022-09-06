@@ -14,17 +14,22 @@
         "Sidebar Content Content Content Content";
 }
 
-#Navbar {
-    grid-area: Navbar;
+/* Content CRUD */
+.container-crud {  display: grid;
+    grid-template-columns: 0.35fr 1.65fr;
+    grid-template-rows: 0.3fr 1.7fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Sidebar Navbar"
+      "Sidebar Content";
 }
 
-#Sidebar {
-    grid-area: Sidebar;
-}
+#Navbar { grid-area: Navbar; }
+  
+#Sidebar { grid-area: Sidebar; }
 
-#Content {
-    grid-area: Content;
-}
+Content { grid-area: Content; }
 
 /* Content */
 .container-content {
@@ -104,7 +109,7 @@
     margin-left: 1rem;
     align-items: center;
     position: relative;
-    height: 4rem;
+    height: 3.5rem;
     gap: 1rem;
 }
 

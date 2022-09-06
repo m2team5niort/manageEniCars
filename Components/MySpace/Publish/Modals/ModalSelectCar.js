@@ -4,7 +4,7 @@ import { Fragment, useState, useEffect } from 'react'
 import { getLocation, getCarsFilteredByPlaces } from '../../../../graphql/queries'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 
-export default function ModalSelectCar({modalDisplay, setModalDisplay, trip}) {
+export default function ModalSelectCar({modalDisplay, setModalDisplay, trip, setTravel, travel}) {
 
     const selectPlace = [
         { nbrPlace: 'Tout' },
@@ -53,7 +53,29 @@ export default function ModalSelectCar({modalDisplay, setModalDisplay, trip}) {
         }
     }
 
-    console.log(cars)
+    const carListed = (car) => {
+        let result;
+        if(car.available){
+            result = (
+                <div onClick={() => setTravel({...travel, travelCarId: car.id, travelModelId: car.carModelId, places: car.places}, closeModal() )} key={car.id} className='p-4 bg-gray-50 rounded-lg flex flex-col w-3/12 space-y-1 cursor-pointer hover:bg-gray-100 transition duration-150 ease-in'>
+                    <h3 className='font-semibold text-sm'>{car.name}</h3>
+                    <p className='font-normal text-xs'>{car.description}</p>
+                    <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500 shadow-sm"> {car.numberPlate} </span>
+                </div>
+            )
+        }else{
+            result = (
+                <div key={car.id} className='p-4 bg-gray-50 rounded-lg flex flex-col w-3/12 space-y-1 cursor-not-allowed opacity-60 relative'>
+                    <div className='bg-yellow-300 text-dark px-2 py-1 rounded-md absolute -top-3 text-xs text-center left-1/2 transform -translate-x-1/2'>Indisponible</div>
+                    <h3 className='font-semibold text-sm'>{car.name}</h3>
+                    <p className='font-normal text-xs'>{car.description}</p>
+                    <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-gray-200"> {car.numberPlate} </span>
+                </div>
+            )
+        }
+
+        return result;
+    }
 
     return (
         <>
@@ -145,16 +167,16 @@ export default function ModalSelectCar({modalDisplay, setModalDisplay, trip}) {
                                 cars.map(car => {
                                     return(
                                         <>
-                                            <div className='p-4 bg-gray-50 rounded-lg flex flex-col w-3/12 space-y-1 cursor-pointer hover:bg-gray-100 transition duration-150 ease-in'>
-                                                <h3 className='font-semibold text-sm'>{car.name}</h3>
-                                                <p className='font-normal text-xs'>{car.description}</p>
-                                                <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500 shadow-sm"> {car.numberPlate} </span>
-                                            </div>
+                                            {carListed(car)}
                                         </>
                                     )
                                 })
                             : 
-                            <div>Aucune voiture répondent à vos critères</div>}
+                            <div className='flex flex-col justify-center space-y-4 items-center'>
+                                <p>Aucune voiture répondent à vos critères</p>
+                                <button onClick={() => handleSelected({nbrPlace: 'Tout'})} className='bg-gray-300 text-white py-1 w-48 rounded-md text-sm'>Réinitialiser le filtre</button>
+                            </div>
+                            }
                             </div>
                         </div>
 

@@ -75,15 +75,14 @@ export default function User({ user }) {
                 <Modal modal={modal} setModal={setModal} updateObject={updateUser} createObject={createUser} setFormData={setFormData} formData={formData} />
             }
             <main  id="Content">
-                <div className='h-full w-full  p-24'>
-                <div className="shadow-md sm:rounded-lg bg-gray-700 ">
-                    <div className='flex justify-between px-6 py-4'>
-                        <h1 className='text-white '> Liste des utilisateurs </h1>
-                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-teal-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un utilisateur </button>
-                    </div>
-                                
-                                <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                                    <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                <div className='px-8'>
+                    <div className="shadow-md sm:rounded-lg bg-gray-50">
+                        <div className='flex justify-between px-6 py-4'>
+                            <h1 className='text-dark'> Liste des utilisateurs </h1>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un utilisateur </button>
+                        </div>    
+                                <table className=" w-full text-sm text-left text-dark">
+                                    <thead className="text-xs text-dark uppercase bg-gray-50">
                                         <tr>
                                             <th scope="col-1" className="px-6 py-3">
                                                 #
@@ -105,18 +104,18 @@ export default function User({ user }) {
                                     <tbody>
                                     {
                                         users.map((user, index) => (
-                                        <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr key={index} className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold hover:bg-gray-50">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                             {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {user.name} </span>
+                                                {user.name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                             {user.email}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            {user.isAdmin ? 'Admin' : 'Utilisateur'}
+                                            <span className={`${user.isAdmin ? 'bg-green-500' : 'bg-yellow-500'} text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded`}>{user.isAdmin ? 'Admin' : 'Utilisateur'}</span>
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                             <MyDropdown object={user} deleteObject={deleteUser} modal={modal} setModal={setModal} listObjects={[]}/>
@@ -126,7 +125,7 @@ export default function User({ user }) {
                                     </tbody>
                                 </table>
                             </div>
-                </div>
+                    </div>
             </main>
 
 
