@@ -46,7 +46,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     value: modal.object.car.name,
                 },
                 dateInput: {
-                    type: 'text',
+                    type: 'datetime-local',
                     placeholder: 'Date de l\'incident',
                     value: modal.object.date
                 },
@@ -78,7 +78,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     disabled: 'disabled',
                 },
                 dateInput: {
-                    type: 'text',
+                    type: 'datetime-local',
                     placeholder: 'Date de l\'incident',
                     value: modal.object.date,
                     readOnly: 'readOnly',

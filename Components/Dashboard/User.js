@@ -50,6 +50,8 @@ export default function User({ user }) {
     async function updateUser({ id }) {
         formData.id = id
 
+        console.log(formData)
+
         await API.graphql({ query: updateUserMutation, variables: { input: formData } }).then((res) => {
             let index = users.findIndex((obj => obj.id === id));
             users[index] = res.data.updateUser
@@ -66,9 +68,7 @@ export default function User({ user }) {
         setUsers(newUsersArray);
         await API.graphql({ query: deleteUserMutation, variables: { input: { id } } });
     }
-
-    console.log(formData)
-
+    
     return (
         <>
             {modal.isShow &&

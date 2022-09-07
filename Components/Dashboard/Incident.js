@@ -96,6 +96,8 @@ export default function Incident({ user }) {
         }).catch((err) => console.log(err))
     }
 
+    console.log(incidents)
+
     return (
         <>
             {modal.isShow &&

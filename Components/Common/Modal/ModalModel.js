@@ -16,10 +16,6 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                     type: 'text',
                     placeholder: 'Description du modèle'
                 },
-                imageInput: {
-                    type: 'text',
-                    placeholder: 'Image du modèle'
-                },
                 brandInput: {
                     type: 'text',
                     placeholder: 'Marque du modèle'
@@ -39,11 +35,6 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                     type: 'text',
                     placeholder: 'Description du modèle',
                     value: modal.object.description
-                },
-                imageInput: {
-                    type: 'text',
-                    placeholder: 'Image du modèle',
-                    value: modal.object.image
                 },
                 brandInput: {
                     type: 'text',
@@ -70,12 +61,6 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                     value: modal.object.description,
                     readOnly: 'readOnly',
                 },
-                imageInput: {
-                    type: 'text',
-                    placeholder: 'Image du modèle',
-                    value: modal.object.image,
-                    readOnly: 'readOnly',
-                },
                 brandInput: {
                     type: 'text',
                     placeholder: 'Marque du modèle',
@@ -96,7 +81,6 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                 ...formData,
                 name: modalObj.nameInput.value,
                 description: modalObj.descriptionInput.value,
-                image: modalObj.imageInput.value,
                 brand: modalObj.brandInput.value
             })
         }
@@ -131,13 +115,6 @@ export default function ModalModel({ setFormData, formData, createModel, setModa
                                 placeholder={modalObj.descriptionInput.placeholder}
                                 defaultValue={modalObj.descriptionInput.value}
                                 readOnly={modalObj.descriptionInput.readOnly}
-                            />
-                            <input
-                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                onChange={e => setFormData({ ...formData, 'image': e.target.value })}
-                                placeholder={modalObj.imageInput.placeholder}
-                                defaultValue={modalObj.imageInput.value}
-                                readOnly={modalObj.imageInput.readOnly}
                             />
                             <input
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}

@@ -4,7 +4,6 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
 
     let modalObj = {}
 
-    console.log("coucou", modal.object.isAdmin)
     switch (modal.type) {
         case 'add':
             modalObj = {
@@ -80,7 +79,8 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
             setFormData({
                 ...formData,
                 name: modalObj.nameInput.value,
-                email: modalObj.emailInput.value
+                email: modalObj.emailInput.value,
+                isAdmin: modalObj.adminCheckbox.value
             })
         }
     }, [])

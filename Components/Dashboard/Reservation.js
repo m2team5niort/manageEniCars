@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal/Modal';
-import { API } from 'aws-amplify';
-import { listTravels } from '../../graphql/queries'
+import { API, graphqlOperation } from 'aws-amplify';
+import { listCars, listLocations, listTravels, listUsers } from '../../graphql/queries'
+import { createTravel as createTravelMutation, updateTravel as updateTravelMutation, deleteTravel as deleteTravelMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 
 
-let initialFormState = { name: '', description: '', modele: '', places: '' }
+let initialFormState = {state: "", travelArrivalId: "", travelDepartureId: "", dateBegin: "", dateEnd: "", places: 0, travelCarId: "", travelDriverId: "", travelModelId: "", passengers: ""}
 
-export default function Reservation({ username }) {
+export default function Reservation() {
 
     const [travels, setTravels] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [cars, setCars] = useState([]);
+    const [locations, setLocations] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
         isShow: false,
@@ -21,6 +25,9 @@ export default function Reservation({ username }) {
 
     useEffect(() => {
         fetchTravels();
+        fetchUsers();
+        fetchCars();
+        fetchLocations();
     }, []);
 
     async function fetchTravels() {
@@ -29,14 +36,68 @@ export default function Reservation({ username }) {
         });
     }
 
+    async function fetchUsers() {
+        await API.graphql({ query: listUsers }).then((res) => {
+            setUsers(res.data.listUsers.items)
+        });
+    }
+
+    async function fetchCars() {
+        await API.graphql({ query: listCars }).then((res) => {
+            setCars(res.data.listCars.items)
+        });
+    }
+
+    async function fetchLocations() {
+        const apiData = await API.graphql(graphqlOperation(listLocations, { filter: { isReferenced: { eq: true } } }))
+        setLocations(apiData.data.listLocations.items);
+    }
+
+    async function createTravel() {
+        if (!formData.state || !formData.travelArrivalId || !formData.travelDepartureId || !formData.dateBegin || !formData.dateEnd || !formData.places || !formData.travelCarId || !formData.travelDriverId || !formData.travelModelId || !formData.passengers) return;
+
+        await API.graphql({ query: createTravelMutation, variables: { input: formData } }).then((res) => {
+            setTravels([...travels, res.data.createTravel])
+            setFormData(initialFormState);
+            setModal({ ...modal, isShow: false });
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
+
+    async function updateTravel({ id }) {
+        formData.id = id
+
+        await API.graphql({ query: updateTravelMutation, variables: { input: formData } }).then((res) => {
+            let index = travels.findIndex((obj => obj.id === id));
+            travels[index] = res.data.updateTravel
+            setFormData(initialFormState);
+            setModal({ ...modal, isShow: false })
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
+
+    async function deleteTravel({ id }) {
+        const newTravelsArray = travels.filter(travel => travel.id !== id);
+        setTravels(newTravelsArray);
+        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } });
+    }
+
     return (
         <>
+            {modal.isShow &&
+                <Modal modal={modal} setModal={setModal} updateObject={updateTravel} createObject={createTravel} setFormData={setFormData} formData={formData} />
+            }
+
             <main id="Content">
                 <div className='px-8 w-full'>
                     <div className="shadow-md bg-gray-50 rounded-lg">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-dark'> Liste des réservation </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter une réservation </button>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [users, cars, locations] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter une réservation </button>
                         </div>       
                         <table className="text-sm text-left text-dark dark:text-gray-400 bg-gray-50">
                             <thead className="text-xs text-dark uppercase">
@@ -105,7 +166,7 @@ export default function Reservation({ username }) {
                                             {travel.passengers.length}
                                         </td>
                                         <td className="px-6 py-4 relative text-center">
-                                            <MyDropdown  />
+                                        <MyDropdown object={travel} deleteObject={deleteTravel} modal={modal} setModal={setModal} listObjects={[users, cars, locations]} />
                                         </td>
                                 </tr>
                                 )
