@@ -48,7 +48,7 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
         }
     }, [adressPersonnalized.streetNumber])
 
-    // This function call the function getAdress() and return an array of adresses by search ing in formData.streetNumber.
+    // This function call the function getAdress() and return an array of adresses by searching in formData.streetNumber.
     // When response comes, the function setAdresses() to objects data and to set modal isShow to true, to display the selected adresses
     const getAdressModal = async () => {
 
@@ -178,8 +178,7 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                         <Tab.Panel
                                                             key={idx}
                                                             className={classNames(
-                                                                'rounded-xl bg-white p-3',
-                                                                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                                                'rounded-xl bg-white p-3 focus:outline-none',
                                                             )}
                                                         >
                                                                 <div className='flex flex-col mb-6 space-y-4'>
@@ -206,9 +205,9 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                                 {posts.map((post, index) => (
 
                                                                     post.selection === false ?
-                                                                        <li
+                                                                        <button
                                                                             key={index}
-                                                                            className={`z-10 relative rounded-md p-3 hover:bg-gray-100 bg-gray-50 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
+                                                                            className={`text-left w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 z-10 relative rounded-md p-3 hover:bg-gray-100 bg-gray-50 ${post.selection === true ? `border-2 border-${post.type}-400 hover:bg-white` : ''}`}
                                                                             onClick={() => setChoiceTrip(post.name, post.id)}
                                                                         >
                                                                             <h3 className="text-sm font-medium leading-5 text-gray-900">
@@ -223,14 +222,7 @@ export default function ModalDestination({ setModalDisplay, setTrip, trip }) {
                                                                                 {post.zip}, {post.departement}
                                                                             </p>
 
-                                                                            <a
-                                                                                href="#"
-                                                                                className={classNames(
-                                                                                    'absolute inset-0 rounded-md',
-                                                                                    'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                                                                )}
-                                                                            />
-                                                                        </li>
+                                                                        </button>
                                                                         :
                                                                         ''
                                                                 ))}

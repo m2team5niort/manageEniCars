@@ -119,9 +119,9 @@ export default function Reservation({user}){
                                     </div>
                                     <div className='flex flex-col justify-center w-7/12'>
                                         <div className='flex flex-row items-center justify-between mr-2'>
-                                            <div className='flex flex-col'>
-                                                <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="288" height="162" />
-                                                <div className='flex flex-row ml-12'>
+                                            <div className='flex flex-col ml-12'>
+                                                <img src={travel.car.image} className="object-cover w-64" />
+                                                <div className='flex flex-row'>
                                                     <Tooltip message={'Conducteur: ' + travel.driver.name}>
                                                         <UserCircleIcon className='w-8 h-8 text-indigo-600' />
                                                     </Tooltip>

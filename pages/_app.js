@@ -14,7 +14,7 @@ Amplify.configure({
 
 // MyApp funtion
 function MyApp({ Component, pageProps }) {
-
+  
   return (
     <>
       <Head>

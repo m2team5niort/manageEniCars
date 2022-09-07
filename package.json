@@ -8,7 +8,7 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.15.8",
+    "@aws-amplify/ui-react": "^2.20.0",
     "@emotion/styled": "^10.3.0",
     "@headlessui/react": "^1.6.0",
     "@heroicons/react": "^1.0.6",

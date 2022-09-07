@@ -1,0 +1,14 @@
+{
+  "resourceName": "manageEniCars",
+  "policyUUID": "03a032a0",
+  "bucketName": "manageenicarsd87b5a0952c44ecdbe8dcf08d137be9e",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

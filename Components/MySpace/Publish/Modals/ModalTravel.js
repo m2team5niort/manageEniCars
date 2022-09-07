@@ -4,7 +4,6 @@ import { Fragment, useState, useEffect } from 'react'
 import { getTravel } from '/graphql/queries';
 import { deleteTravel as deleteTravelMutation, updateTravel as updateTravelMutation } from '/graphql/mutations';
 import { FlagIcon, OfficeBuildingIcon, SwitchVerticalIcon, UserCircleIcon } from '@heroicons/react/solid';
-import Image from 'next/image'
 import BadgeStateTravel from '../../../Common/Badge/BadgeStateTravel';
 import Tooltip from '../../../Common/Tooltip/Tooltip';
 
@@ -40,9 +39,11 @@ export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
         return new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' })
     }
 
+    console.log(travel)
+
     return (
         <>
-        {travel && travel.travelDepartureId && travel.travelArrivalId ? 
+        {travel ? 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -102,9 +103,11 @@ export default function ModalTravel({modalDisplay, setModalDisplay, idTravel}) {
                                             </div>
                                         </div>
                                         <div className='mx-auto'>
-                                            <Image src="/assets/images/dashboard/citroen_c3.png" alt="me" width="384" height="216" />
+                                            {travel.car.image && 
+                                                <img src={travel.car.image} className="w-72 object-cover"/>
+                                            }
                                             <div className='flex flex-row justify-between items-center'>
-                                                <div className='flex flex-row ml-12'>
+                                                <div className='flex flex-row ml-4'>
                                                     <Tooltip message={'Conducteur: ' + travel.driver.name}>
                                                         <UserCircleIcon className='w-8 h-8 text-indigo-900' />
                                                     </Tooltip>

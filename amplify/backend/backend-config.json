@@ -52,5 +52,12 @@
       }
     }
   },
-  "function": {}
+  "function": {},
+  "storage": {
+    "manageEniCars": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
 }

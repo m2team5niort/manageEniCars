@@ -5,8 +5,11 @@ import { listCars, listLocations, listModels, getCar } from '../../graphql/queri
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
 import { createKey as createKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
+import { Storage } from "@aws-amplify/storage"
+import { AmplifyS3Image } from '@aws-amplify/ui-react/legacy';
+import { v4 as uuidv4 } from 'uuid';
 
-let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "", numberPlate: "" }
+let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "", numberPlate: "", image: "" }
 
 export default function Car() {
 
@@ -62,10 +65,11 @@ export default function Car() {
 
         formData.locationCarsId = formData.carLocationId;
         formData.modelCarsId = formData.carModelId;
+        formData.available = true
 
         await API.graphql({ query: createCarMutation, variables: { input: formData } }).then((res) => {
+            handleStorageFile(res.data.createCar, formData.image, 'create')
             createKey(res.data.createCar.id, formData.carLocationId)
-            setCars([...cars, res.data.createCar]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
         }).catch((err) => {
@@ -79,8 +83,13 @@ export default function Car() {
         formData.id = id
 
         await API.graphql({ query: updateCarMutation, variables: { input: formData } }).then((res) => {
-            let index = cars.findIndex((obj => obj.id === id));
-            cars[index] = res.data.updateCar
+            if(formData.image.name && formData.image.type){
+                handleStorageFile(res.data.updateCar, formData.image, 'update')
+            }
+            const updatedCars = [...cars];
+            let index = cars.findIndex((obj => obj.id === res.data.updateCar.id));
+            updatedCars[index] = res.data.updateCar
+            setCars(updatedCars)
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
         }).catch((err) => {
@@ -95,6 +104,32 @@ export default function Car() {
         await API.graphql({ query: deleteCarMutation, variables: { input: { id } } });
     }
 
+    const handleStorageFile = async(car, image, state) => {
+        let formData = {carModelId: car.carModelId, id: car.id, image: ''}
+
+        let uniqFileName = uuidv4();
+
+        await Storage.list(`images/cars/${car.id}`).then(listImagesRes => {
+            let imageToDelete = state === 'create' ? '' : listImagesRes[0].key
+            Storage.remove(imageToDelete).then(() => {
+                Storage.put(`images/cars/${car.id}/${uniqFileName}.${image.name.split('.').pop()}`, image, {contentType: image.type}).then((res) => {
+                    formData.image = process.env.CLOUDFRONT_URL+res.key
+                }).then(() => {
+                    API.graphql({ query: updateCarMutation, variables: {input: formData}}).then(res => {
+                        if(state === 'update'){
+                            const updatedCars = [...cars];
+                            let index = cars.findIndex((obj => obj.id === res.data.updateCar.id));
+                            updatedCars[index] = res.data.updateCar
+                            setCars(updatedCars)
+                        }else{
+                            setCars([...cars, res.data.updateCar])
+                        }
+                    });
+                })
+            });
+        })
+    }
+    
     return (
         <>
             {modal.isShow &&
@@ -103,7 +138,7 @@ export default function Car() {
 
             <main id='Content'>
                 <div className='px-8'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-50 overflow-y-auto">
+                    <div className="shadow-md sm:rounded-lg bg-gray-50">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-dark'> Liste des voitures </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [locations, models] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter une voiture </button>
@@ -129,6 +164,9 @@ export default function Car() {
                                     </th>
                                     <th scope="col-1" className="px-6 py-3">
                                         Disponible
+                                    </th>
+                                    <th scope="col-1" className="px-6 py-3">
+                                        Image
                                     </th>
                                     <th scope="col-1" className="px-6 py-3 text-center">
                                         Actions
@@ -157,6 +195,11 @@ export default function Car() {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className={`text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded ${car.available ? 'bg-green-500' : 'bg-red-500'}`}>{car.available ? 'Disponible' : 'Non disponible'}</span>
                                             </td>
+                                            {car.image &&
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <img className='object-fit h-24 rounded-md' src={car.image} alt="" />
+                                                </td>
+                                            }
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={car} deleteObject={deleteCar} modal={modal} setModal={setModal} listObjects={[locations, models]} />
                                             </td>
@@ -168,7 +211,6 @@ export default function Car() {
                     </div>
                 </div>
             </main>
-
 
 
         </>

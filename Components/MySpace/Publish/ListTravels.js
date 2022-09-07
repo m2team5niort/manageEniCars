@@ -43,7 +43,7 @@ export default function ListTravels({newTravel}){
                                         <span className='border border-indigo-200 mx-2'></span>
                                         {travel.passengers ? 
                                             <>
-                                            {travel.passengers.map((elem, index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
+                                            {travel.passengers.map((index) => (<UserCircleIcon key={index} className='w-8 h-8 text-indigo-600' />))}
                                             {[ ...Array(travel.places - travel.passengers.length - 1).keys() ].map((index) => {
                                                 return (
                                                     <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
