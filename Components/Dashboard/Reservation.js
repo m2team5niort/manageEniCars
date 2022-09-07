@@ -4,12 +4,17 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listCars, listLocations, listTravels, listUsers } from '../../graphql/queries'
 import { createTravel as createTravelMutation, updateTravel as updateTravelMutation, deleteTravel as deleteTravelMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 
 let initialFormState = {state: "En attente", travelArrivalId: "", travelDepartureId: "", dateBegin: "", dateEnd: "", places: 0, travelCarId: "", travelDriverId: "", travelModelId: "", passengers: []}
 
 export default function Reservation() {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [travels, setTravels] = useState([]);
     const [users, setUsers] = useState([]);
     const [cars, setCars] = useState([]);
@@ -64,8 +69,10 @@ export default function Reservation() {
             setTravels([...travels, res.data.createTravel])
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -78,8 +85,10 @@ export default function Reservation() {
             travels[index] = res.data.updateTravel
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -87,7 +96,12 @@ export default function Reservation() {
     async function deleteTravel({ id }) {
         const newTravelsArray = travels.filter(travel => travel.id !== id);
         setTravels(newTravelsArray);
-        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
     console.log(travels, formData)
@@ -97,7 +111,9 @@ export default function Reservation() {
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateTravel} createObject={createTravel} setFormData={setFormData} formData={formData} />
             }
-
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
             <main id="Content">
                 <div className='px-8 w-full'>
                     <div className="shadow-md bg-gray-50 rounded-lg">
