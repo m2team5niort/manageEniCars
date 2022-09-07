@@ -6,11 +6,16 @@ import { listModels } from '../../graphql/queries'
 import { createModel as createModelMutation, deleteModel as deleteModelMutation, updateModel as updateModelMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 import { ChartBarIcon, FlagIcon, KeyIcon, DotsVerticalIcon, CogIcon } from '@heroicons/react/solid'
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 const initialFormState = { name: '', description: '' }
 
 export default function Model() {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [models, setModels] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
@@ -37,8 +42,10 @@ export default function Model() {
             setModels([...models, res.data.createModel]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
     }
 
@@ -50,8 +57,10 @@ export default function Model() {
             models[index] = res.data.updateModel
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -59,7 +68,12 @@ export default function Model() {
     async function deleteModel({ id }) {
         const newModelsArray = models.filter(model => model.id !== id);
         setModels(newModelsArray);
-        await API.graphql({ query: deleteModelMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteModelMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
     return (
@@ -67,14 +81,16 @@ export default function Model() {
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateModel} createObject={createModel} setFormData={setFormData} formData={formData} />
             }
-
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
 
             <main id="Content">
                 <div className='px-8'>
                     <div className="shadow-md sm:rounded-lg bg-gray-50">
                         <div className='flex justify-between px-6 py-4'>
-                            <h1 className='text-dark'> Liste des modèles </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un modèle </button>
+                            <h1 className='text-eni'> Liste des modèles </h1>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un modèle </button>
                         </div>
 
                         <table className="w-full text-sm text-left text-dark">
@@ -104,10 +120,10 @@ export default function Model() {
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-eni">
                                                 {model.name}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-light text-eni">
                                                 {model.description}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">

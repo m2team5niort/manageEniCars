@@ -11,7 +11,7 @@ const Cards = () => {
               <p className='text-center text-4xl font-bold'> Le plus répendu </p>
               <div className='text-center font-medium'>
                   <p className='py-2 border-b mx-8 mt-8'> Gérer votre propre trajet </p>
-                  <p className='py-2 border-b mx-8'> Choisissez votre voiture </p>
+                  <p className='py-2 border-b mx-8'> Choisir votre voiture </p>
                   <p className='py-2 border-b mx-8'> Emmenner des collègues avec vous </p>
               </div>
               <Link href='/travel'>
@@ -25,7 +25,7 @@ const Cards = () => {
               <p className='text-center text-4xl font-bold'> Le plus rapide </p>
               <div className='text-center font-medium'>
                   <p className='py-2 border-b mx-8 mt-8'> Rejoindre un trajet existant </p>
-                  <p className='py-2 border-b mx-8'> Choisissez votre voiture </p>
+                  <p className='py-2 border-b mx-8'> Choisir votre voiture </p>
                   <p className='py-2 border-b mx-8'> Faite la route avec vos collègues </p>
               </div>
               <Link href='/travel'>

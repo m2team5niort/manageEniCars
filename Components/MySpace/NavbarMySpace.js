@@ -23,7 +23,7 @@ export default function NavbarMySpace({user}) {
                     <a href="" className="flex items-center">
                         <span className="self-center text-xl font-semibold whitespace-nowrap"> ManageCars </span>
                     </a>
-                    </Link>
+                </Link>
                     <div className="flex items-center md:order-2 space-x-6">
                         <div className='flex flex-row items-center'>
                             <UserCircleIcon className='h-10 w-10 text-indigo-600' />

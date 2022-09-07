@@ -4,11 +4,16 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listLocations } from '../../../graphql/queries'
 import { createLocation as createLocationMutation, deleteLocation as deleteLocationMutation, updateLocation as updateLocationMutation } from '../../../graphql/mutations';
 import MyDropdown from '../Dropdown';
+import ModalValidation from '../../Common/Modal/ModalValidation';
 
 const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '', isReferenced: true }
 
 export default function ListLocation(){
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [locations, setLocations] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
@@ -34,8 +39,10 @@ export default function ListLocation(){
             setLocations([...locations, res.data.createLocation]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
     }
 
@@ -47,8 +54,10 @@ export default function ListLocation(){
             locations[index] = res.data.updateLocation
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -56,7 +65,12 @@ export default function ListLocation(){
     async function deleteLocation({ id }) {
         const newLocationsArray = locations.filter(location => location.id !== id);
         setLocations(newLocationsArray);
-        await API.graphql({ query: deleteLocationMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteLocationMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
     return(
@@ -65,11 +79,13 @@ export default function ListLocation(){
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateLocation} createObject={createLocation} setFormData={setFormData} formData={formData} />
             }
-
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
             <div className="shadow-md sm:rounded-lg bg-gray-50 w-full flex flex-col">
                 <div className='flex justify-between px-6 py-4'>
                     <h1 className='text-dark'> Liste des lieux </h1>
-                    <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
+                    <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
                 </div>
 
                 <table className=" w-full text-sm text-left text-dark dark:text-gray-400">
@@ -102,17 +118,18 @@ export default function ListLocation(){
                                     <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                         {index + 1}
                                     </th>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap text-eni font-bold">
                                         {location.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                         {location.city}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                         {location.departement}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        {location.zip}
+                                    <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
+                                    <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {location.zip} </span>
+                                       
                                     </td>
                                     <td className="px-6 py-4 relative text-center">
                                         <MyDropdown object={location} deleteObject={deleteLocation} modal={modal} setModal={setModal} listObjects={[]} />
