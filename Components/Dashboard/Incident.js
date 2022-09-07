@@ -4,11 +4,16 @@ import { API } from 'aws-amplify';
 import { listIncidents, listUsers, listCars, getCar } from '../../graphql/queries'
 import { createIncident as createIncidentMutation, deleteIncident as deleteIncidentMutation, updateIncident as updateIncidentMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 let initialFormState = { criticality: "", date: "", incidentCarId: "", incidentResponsibleId: "", name: "" };
 
 export default function Incident({ user }) {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [incidents, setIncidents] = useState([]);
     const [cars, setCars] = useState([])
     const [users, setUsers] = useState([])
@@ -53,22 +58,27 @@ export default function Incident({ user }) {
             setIncidents([...incidents, res.data.createIncident]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
 
     async function updateIncident({ id }) {
         formData.id = id
-
+        console.log("bug: ", formData)
         await API.graphql({ query: updateIncidentMutation, variables: { input: formData } }).then((res) => {
             let index = incidents.findIndex((obj => obj.id === id));
             incidents[index] = res.data.updateIncident
+            updateCar(formData.incidentCarId, 'modify')
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -76,6 +86,7 @@ export default function Incident({ user }) {
     async function updateCar(id, state){
 
         let carObj = await API.graphql({ query: getCar, variables: {id: id}})
+       console.log("carObj", carObj)
         let formDataCar = {id: id, available: false, carModelId: carObj.data.getCar.carModelId}
 
         state === 'delete' ? formDataCar.available = true : ''
@@ -91,23 +102,29 @@ export default function Incident({ user }) {
 
         await API.graphql({ query: deleteIncidentMutation, variables: { input: { id } } }).then((res) => {
             console.log(res)
-            updateCar(incident.incidentCarId, 'delete')
             setIncidents(newIncidentsArray);
-        }).catch((err) => console.log(err))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
+    console.log(incidents)
     return (
         <>
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateIncident} createObject={createIncident} setFormData={setFormData} formData={formData} />
+            }
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
             }
             {incidents ? 
             <main  id="Content">
                 <div className='px-8'>
                 <div className="shadow-md sm:rounded-lg bg-gray-50 ">
                     <div className='flex justify-between px-6 py-4'>
-                        <h1 className='text-dark'> Liste des incidents </h1>
-                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, users] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un incident </button>
+                        <h1 className='text-eni'> Liste des incidents </h1>
+                        <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, users] })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un incident </button>
                     </div>
                                 
                         <table className=" w-full text-sm text-left text-dark">
@@ -143,19 +160,19 @@ export default function Incident({ user }) {
                                         <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                             {index + 1}
                                         </th>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap text-eni font-bold">
                                             {incident.name}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {incident.criticality} </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                             {incident.car.name}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                             {new Date(incident.date).toLocaleString()}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                             {incident.responsible.name}
                                         </td>
                                         <td className="px-6 py-4 relative text-center">

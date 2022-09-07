@@ -4,13 +4,17 @@ import { API } from 'aws-amplify';
 import { listUsers, getUser } from '../../graphql/queries'
 import { createUser as createUserMutation, deleteUser as deleteUserMutation, updateUser as updateUserMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
-
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 let initialFormState = { name: '', email: '', isAdmin: false};
 
 
 export default function User({ user }) {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [users, setUsers] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [modal, setModal] = useState({
@@ -41,8 +45,10 @@ export default function User({ user }) {
             setUsers([...users, res.data.createUser]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -55,8 +61,10 @@ export default function User({ user }) {
             users[index] = res.data.updateUser
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -64,22 +72,31 @@ export default function User({ user }) {
     async function deleteUser({ id }) {
         const newUsersArray = users.filter(user => user.id !== id);
         setUsers(newUsersArray);
-        await API.graphql({ query: deleteUserMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteUserMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
     console.log(formData)
+    console.log("MV: ", modalValidation)
 
     return (
         <>
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateUser} createObject={createUser} setFormData={setFormData} formData={formData} />
             }
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
             <main  id="Content">
                 <div className='px-8'>
                     <div className="shadow-md sm:rounded-lg bg-gray-50">
                         <div className='flex justify-between px-6 py-4'>
-                            <h1 className='text-dark'> Liste des utilisateurs </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded "> Ajouter un utilisateur </button>
+                            <h1 className='text-eni'> Liste des utilisateurs </h1>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded bg-eni"> Ajouter un utilisateur </button>
                         </div>    
                                 <table className=" w-full text-sm text-left text-dark">
                                     <thead className="text-xs text-dark uppercase bg-gray-50">
@@ -108,14 +125,14 @@ export default function User({ user }) {
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                             {index + 1}
                                             </th>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-eni">
                                                 {user.name}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-light text-eni">
                                             {user.email}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className={`${user.isAdmin ? 'bg-green-500' : 'bg-yellow-500'} text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded`}>{user.isAdmin ? 'Admin' : 'Utilisateur'}</span>
+                                            <span className={`${user.isAdmin ? 'bg-red-500' : 'bg-blue-500'} text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded`}>{user.isAdmin ? 'Admin' : 'Utilisateur'}</span>
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                             <MyDropdown object={user} deleteObject={deleteUser} modal={modal} setModal={setModal} listObjects={[]}/>

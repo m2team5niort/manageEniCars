@@ -5,11 +5,16 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listKeys, listCars, listLocations, listKeysExtend } from '../../graphql/queries'
 import { createKey as createKeyMutation, deleteKey as deleteKeyMutation, updateKey as updateKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 let initialFormState = { keyCarId: "", keyLocationId: "" }
 
 export default function Key() {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [keys, setKeys] = useState([]);
     const [cars, setCars] = useState([]);
     const [locations, setLocations] = useState([]);
@@ -48,8 +53,10 @@ export default function Key() {
             setKeys([...keys, res.data.createKey]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -63,8 +70,10 @@ export default function Key() {
             keys[index] = res.data.updateKey
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -72,23 +81,28 @@ export default function Key() {
     async function deleteKey({ id }) {
         const newKeysArray = keys.filter(key => key.id !== id);
         setKeys(newKeysArray);
-        await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteKeyMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
-
-    console.log(modal.object)
 
     return (
         <>
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateKey} createObject={createKey} setFormData={setFormData} formData={formData} />
             }
-
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
             <main id="Content">
                 <div className='px-8'>
                     <div className="shadow-md sm:rounded-lg bg-gray-50 ">
                         <div className='flex justify-between px-6 py-4'>
-                            <h1 className='text-white '> Liste des clés </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, locations] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une clé </button>
+                            <h1 className='text-eni '> Liste des clés </h1>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [cars, locations] })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter une clé </button>
                         </div>
 
                         <table className=" w-full text-sm text-left text-dark">
@@ -115,10 +129,10 @@ export default function Key() {
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap text-eni font-bold">
                                                 {key.car !== null ? key.car.name : 'Clé sans voiture'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                             {key.location !== null ? key.location.name : 'Clé sans lieu'}
                                             </td>
                                             <td className="px-6 py-4 relative text-center">

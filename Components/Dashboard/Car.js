@@ -8,11 +8,16 @@ import MyDropdown from './Dropdown';
 import { Storage } from "@aws-amplify/storage"
 import { AmplifyS3Image } from '@aws-amplify/ui-react/legacy';
 import { v4 as uuidv4 } from 'uuid';
+import ModalValidation from '../Common/Modal/ModalValidation';
 
 let initialFormState = { name: '', description: '', places: '', carLocationId: "", carModelId: "", locationCarsId: "", modelCarsId: "", numberPlate: "", image: "" }
 
 export default function Car() {
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [locations, setLocations] = useState([])
     const [keys, setKeys] = useState([])
     const [models, setModels] = useState([])
@@ -72,8 +77,10 @@ export default function Car() {
             createKey(res.data.createCar.id, formData.carLocationId)
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -92,8 +99,10 @@ export default function Car() {
             setCars(updatedCars)
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false })
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
@@ -101,7 +110,12 @@ export default function Car() {
     async function deleteCar({ id }) {
         const newCarsArray = cars.filter(car => car.id !== id);
         setCars(newCarsArray);
-        await API.graphql({ query: deleteCarMutation, variables: { input: { id } } });
+        await API.graphql({ query: deleteCarMutation, variables: { input: { id } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
     }
 
     const handleStorageFile = async(car, image, state) => {
@@ -135,13 +149,15 @@ export default function Car() {
             {modal.isShow &&
                 <Modal modal={modal} setModal={setModal} updateObject={updateCar} createObject={createCar} setFormData={setFormData} formData={formData} />
             }
-
+            {modalValidation.isShow &&
+                <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+            }
             <main id='Content'>
                 <div className='px-8'>
                     <div className="shadow-md sm:rounded-lg bg-gray-50">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-dark'> Liste des voitures </h1>
-                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [locations, models] })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter une voiture </button>
+                            <button onClick={() => setModal({ ...modal, isShow: true, type: 'add', listObjects: [locations, models] })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter une voiture </button>
                         </div>
 
                         <table className=" w-full text-sm text-left text-dark ">
@@ -178,16 +194,16 @@ export default function Car() {
                                     cars.map((car, index) => (
                                         <tr key={index} className="bg-gray-50 hover:text-gray-900 text-dark font-semibold">
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="text-md font-semi-bold mr-2"> {car.name} </span>
+                                                <span className="text-md font-bold mr-2 text-eni"> {car.name} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 px-3 py-0.5 rounded border-x-8 border-blue-500 shadow-sm"> {car.numberPlate} </span>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                                 {car.model.name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="text-dark text-md font-semi-bold mr-2"> {car.places} </span>
+                                                <span className="text-md font-semi-bold mr-2 text-eni font-light"> {car.places} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.location.name} </span>
