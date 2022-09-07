@@ -70,15 +70,15 @@ export default function Model() {
 
 
             <main id="Content">
-                <div className='h-full w-full  p-24'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-700 overflow-y-auto">
+                <div className='px-8'>
+                    <div className="shadow-md sm:rounded-lg bg-gray-50 overflow-y-auto">
                         <div className='flex justify-between px-6 py-4'>
-                            <h1 className='text-white '> Liste des modèles </h1>
+                            <h1 className='text-dark'> Liste des modèles </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un modèle </button>
                         </div>
 
-                        <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                            <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                        <table className="w-full text-sm text-left text-dark">
+                            <thead className="text-xs text-dark uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col-1" className="px-6 py-3">
                                         #
@@ -103,18 +103,18 @@ export default function Model() {
                             <tbody>
                                 {
                                     models.map((model, index) => (
-                                        <tr className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                        <tr className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold">
                                             <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                                 {index + 1}
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {model.name} </span>
+                                                {model.name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {model.description}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="bg-red-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {model.brand} </span>
+                                                <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {model.brand} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {model.image}

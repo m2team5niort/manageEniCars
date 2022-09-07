@@ -8,7 +8,7 @@ import { getUser } from '../../graphql/queries'
 function keys({ user }) {
 
   return (
-    <div className={`container-dashboard mx-auto bg-gray-900`}>
+    <div className={`container-crud mx-auto bg-gray-900`}>
       <Navbar user={user}/>
       <Sidebar />
       <Key />

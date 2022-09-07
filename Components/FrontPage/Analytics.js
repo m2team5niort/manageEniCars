@@ -12,7 +12,7 @@ const Analytics = () => {
           <h1 className='md:text-4xl sm:text-3xl text-2xl font-bold py-2'> Choisir la voiture qui vous convient </h1>
           <p>
             En fonction de vos besoins, vous pouvez choisir la voiture qui vous convient le mieux. Par exemple vous pouvez filtrer le parc automobile en fonction de la taille de 
-            voiture, du nombre de portes, de la taille du coffre, etc ...
+            la voiture, du nombre de portes, de la taille du coffre, etc ...
           </p>
           <Link href='/listCars'>
           <button className='bg-blue-500 text-white w-[200px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3'> En savoir plus </button>

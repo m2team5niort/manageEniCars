@@ -42,6 +42,7 @@ export const getCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -77,6 +78,7 @@ export const getCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -131,6 +133,7 @@ export const listCars = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -159,6 +162,7 @@ export const getModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -216,6 +220,7 @@ export const getLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -333,6 +338,7 @@ export const getKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -378,6 +384,7 @@ export const listKeys = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -476,6 +483,7 @@ export const getTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -573,6 +581,7 @@ export const listTravels = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -677,6 +686,7 @@ export const getIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -719,6 +729,7 @@ export const listIncidents = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId

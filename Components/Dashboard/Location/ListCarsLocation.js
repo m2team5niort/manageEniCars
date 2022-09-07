@@ -41,9 +41,9 @@ export default function ListCarsLocation(){
     return(
         <>
             {locations && selected ?
-            <div className="shadow-md sm:rounded-lg bg-gray-700 ">
+            <div className="shadow-md sm:rounded-lg bg-gray-50 ">
                 <div className='flex flex-row justify-between px-6 py-4 items-center'>
-                    <h1 className='text-white'> Liste des voitures </h1>
+                    <h1 className='text-dark'> Liste des voitures </h1>
                     <div className="w-72">
                         <Listbox value={selected} onChange={(e) => handleSelected(e)}>
                             <div className="relative mt-1">
@@ -68,7 +68,7 @@ export default function ListCarsLocation(){
                                     key={location.id}
                                     className={({ active }) =>
                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                                        active ? 'bg-blue-100 text-dark' : 'text-gray-900'
                                         }`
                                     }
                                     value={location}
@@ -83,7 +83,7 @@ export default function ListCarsLocation(){
                                             {location.name}
                                         </span>
                                         {selected ? (
-                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
                                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                                             </span>
                                         ) : null}
@@ -98,8 +98,8 @@ export default function ListCarsLocation(){
                     </div>
                 </div>
 
-                <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                    <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                <table className=" w-full text-sm text-left text-dark">
+                    <thead className="text-xs text-dark uppercase bg-transparent dark:bg-gray-50">
                         <tr>
                             <th scope="col-1" className="px-6 py-3">
                                 #
@@ -107,19 +107,16 @@ export default function ListCarsLocation(){
                             <th scope="col-3" className="px-6 py-3">
                                 Nom
                             </th>
-                            <th scope="col-4" className="px-6 py-3">
-                                Description
-                            </th>
-                            <th scope="col-2" className="px-6 py-3">
+                            <th scope="col-3" className="px-6 py-3">
                                 Modèle
                             </th>
                             <th scope="col-1" className="px-6 py-3">
                                 Nb Places
                             </th>
-                            <th scope="col-1" className="px-6 py-3">
+                            <th scope="col-2" className="px-6 py-3">
                                 Clé n°1
                             </th>
-                            <th scope="col-1" className="px-6 py-3">
+                            <th scope="col-2" className="px-6 py-3">
                                 Clé n°2
                             </th>
                         </tr>
@@ -127,21 +124,18 @@ export default function ListCarsLocation(){
                     <tbody>
                         { locationCars &&
                             locationCars.map((car, index) => (
-                                <tr key={car.id} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                <tr key={car.id} className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold hover:bg-gray-50">
                                     <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                         {index + 1}
                                     </th>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.name} </span>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        {car.description}
+                                        {car.name}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         {car.model.name}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="text-white text-md font-semi-bold mr-2"> {car.places} </span>
+                                        <span className="text-dark text-md font-semi-bold mr-2"> {car.places} </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Nantes </span>

@@ -18,6 +18,7 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
                     placeholder: 'Email de l\'utilisateur'
                 },
                 adminCheckbox: {
+                    label: 'Est administrateur?',
                     type: 'checkbox',
                     value: false
                 },
@@ -38,6 +39,7 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
                     value: modal.object.email
                 },
                 adminCheckbox: {
+                    label: 'Est administrateur?',
                     type: 'checkbox',
                     value: modal.object.isAdmin
                 },
@@ -62,8 +64,9 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
                     readOnly: 'readOnly',
                 },
                 adminCheckbox: {
+                    label: 'Est administrateur?',
                     type: 'checkbox',
-                    value: false
+                    value: modal.object.isAdmin
                 },
                 className: 'cursor-not-allowed'
             }
@@ -111,12 +114,15 @@ export default function ModalUser({ setFormData, formData, createUser, updateUse
                                 defaultValue={modalObj.emailInput.value}
                                 readOnly={modalObj.emailInput.readOnly}
                             />
-                            <input type="checkbox"
-                                onChange={e => setFormData({...formData, 'isAdmin': e.target.checked })}
-                                placeholder={modalObj.adminCheckbox.placeholder}
-                                defaultChecked={modalObj.adminCheckbox.value ? 'checked' : null}
-                                readOnly={modalObj.adminCheckbox.readOnly}
-                            />
+                            <div className='flex flex-row items-center space-x-4'>
+                                <label>{modalObj.adminCheckbox.label}</label>
+                                <input type="checkbox"
+                                    onChange={e => setFormData({...formData, 'isAdmin': e.target.checked })}
+                                    placeholder={modalObj.adminCheckbox.placeholder}
+                                    defaultChecked={modalObj.adminCheckbox.value ? 'checked' : null}
+                                    readOnly={modalObj.adminCheckbox.readOnly}
+                                />
+                            </div>
                         </div>
 
                         <div className="flex items-center justify-center p-6 space-x-2 rounded-b">

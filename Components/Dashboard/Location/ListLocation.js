@@ -5,7 +5,7 @@ import { listLocations } from '../../../graphql/queries'
 import { createLocation as createLocationMutation, deleteLocation as deleteLocationMutation, updateLocation as updateLocationMutation } from '../../../graphql/mutations';
 import MyDropdown from '../Dropdown';
 
-const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '' }
+const initialFormState = { name: '', city: '', departement: '', zip: '', streetNumber: '', longitude: '', latitude: '', isReferenced: true }
 
 export default function ListLocation(){
 
@@ -66,14 +66,14 @@ export default function ListLocation(){
                 <Modal modal={modal} setModal={setModal} updateObject={updateLocation} createObject={createLocation} setFormData={setFormData} formData={formData} />
             }
 
-            <div className="shadow-md sm:rounded-lg bg-gray-700 w-full flex flex-col">
+            <div className="shadow-md sm:rounded-lg bg-gray-50 w-full flex flex-col">
                 <div className='flex justify-between px-6 py-4'>
-                    <h1 className='text-white '> Liste des lieux </h1>
-                    <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-amber-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
+                    <h1 className='text-dark'> Liste des lieux </h1>
+                    <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-blue-500 text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded"> Ajouter un lieu </button>
                 </div>
 
-                <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-white uppercase bg-transparent dark:bg-gray-700 dark:text-gray-400">
+                <table className=" w-full text-sm text-left text-dark dark:text-gray-400">
+                    <thead className="text-xs text-dark uppercase bg-gray-50">
                         <tr>
                             <th scope="col-1" className="px-6 py-3">
                                 #
@@ -98,12 +98,12 @@ export default function ListLocation(){
                     <tbody>
                         {
                             locations.map((location, index) => (
-                                <tr key={index} className="bg-gray-700 hover:text-gray-900 transition text-gray-400 font-semibold hover:bg-gray-50">
+                                <tr key={index} className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold hover:bg-gray-50">
                                     <th scope="row" className="px-6 py-4 whitespace-nowrap">
                                         {index + 1}
                                     </th>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="bg-emerald-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded "> {location.name} </span>
+                                        {location.name}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         {location.city}
@@ -112,7 +112,7 @@ export default function ListLocation(){
                                         {location.departement}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="bg-amber-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded "> {location.zip} </span>
+                                        {location.zip}
                                     </td>
                                     <td className="px-6 py-4 relative text-center">
                                         <MyDropdown object={location} deleteObject={deleteLocation} modal={modal} setModal={setModal} listObjects={[]} />

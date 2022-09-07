@@ -8,7 +8,7 @@ const Newsletter = () => {
           <h1 className='md:text-4xl sm:text-3xl text-2xl font-bold py-2'>
             Des questions ? Envoyez-nous vos demandes.
           </h1>
-          <p> Envoyer nous vos demandes à l'adresse email çi jointe, afin d'avoir une réponse. </p>
+          <p> Envoyez-nous vos demandes à l'adresse email çi jointe, afin d'avoir une réponse. </p>
         </div>
         <div className='my-4'>
           <div className='flex flex-col sm:flex-row items-center justify-between w-full'>

@@ -4,7 +4,6 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
 
     let modalObj = {}
 
-    console.log("coucou", modal.object.name)
     switch (modal.type) {
         case 'add':
             modalObj = {
@@ -13,20 +12,19 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     type: 'text',
                     placeholder: 'Nom de l\'incident'
                 },
-                criticalityOption: {
-                    value: '--Choisir le model associé--'
-                },
-                carInput: {
+                criticalityInput: {
                     type: 'text',
-                    placeholder: 'Voiture de l\'incident'
+                    placeholder: 'Criticité de l\'incident'
+                },
+                carOption: {
+                    value: '--Choisir la voiture associée--'
                 },
                 dateInput: {
-                    type: 'text',
+                    type: 'datetime-local',
                     placeholder: 'Date de l\'incident'
                 },
-                responsibleInput: {
-                    type: 'text',
-                    placeholder: 'Responsable de l\'incident'
+                responsibleOption: {
+                    value: '--Choisir le responsable associé--'
                 },
                 button: function () { return createIncident() }
             }
@@ -44,19 +42,16 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     placeholder: 'Criticité de l\'incident',
                     value: modal.object.criticality
                 },
-                carInput: {
-                    type: 'checkbox',
-                    value: modal.object.car
+                carOption: {
+                    value: modal.object.car.name,
                 },
                 dateInput: {
                     type: 'text',
                     placeholder: 'Date de l\'incident',
                     value: modal.object.date
                 },
-                responsibleInput: {
-                    type: 'text',
-                    placeholder: 'Responsable de l\'incident',
-                    value: modal.object.responsible
+                responsibleOption: {
+                    value: modal.object.responsible.name,
                 },
                 button: function () {
                     return updateIncident(modal.object)
@@ -78,10 +73,9 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     value: modal.object.criticality,
                     readOnly: 'readOnly',
                 },
-                carInput: {
-                    type: 'checkbox',
-                    value: modal.object.car,
-                    readOnly: 'readOnly',
+                carOption: {
+                    value: modal.object.car.name,
+                    disabled: 'disabled',
                 },
                 dateInput: {
                     type: 'text',
@@ -89,11 +83,9 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                     value: modal.object.date,
                     readOnly: 'readOnly',
                 },
-                responsibleInput: {
-                    type: 'text',
-                    placeholder: 'Responsable de l\'incident',
-                    value: modal.object.responsible,
-                    readOnly: 'readOnly',
+                responsibleOption: {
+                    value: modal.object.responsible.name,
+                    disabled: 'disabled',
                 },
                 className: 'cursor-not-allowed'
             }
@@ -108,9 +100,9 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                 ...formData,
                 name: modalObj.nameInput.value,
                 criticality: modalObj.criticalityInput.value,
-                car: modalObj.carInput.value,
+                incidentCarId: modalObj.carOption.value,
                 date: modalObj.dateInput.value,
-                responsible: modalObj.responsible.value
+                incidentResponsibleId: modalObj.responsibleOption.value
             })
         }
     }, [])
@@ -137,25 +129,33 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                                 defaultValue={modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
                             />
-                            
-                            <input 
-                                onChange={e => setFormData({...formData, 'car': e.target.checked })}
-                                placeholder={modalObj.carInput.placeholder}
-                                defaultChecked={modalObj.carInput.value ? 'checked' : null}
-                                readOnly={modalObj.carInput.readOnly}
+                            <input
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                onChange={e => setFormData({ ...formData, criticality: e.target.value })}
+                                placeholder={modalObj.criticalityInput.placeholder}
+                                defaultValue={modalObj.criticalityInput.value}
+                                readOnly={modalObj.criticalityInput.readOnly}
                             />
+                            <select onChange={(e) => setFormData({ ...formData, incidentCarId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="locations" id="locations-select">
+                                <option selected="true" disabled="disabled">{modalObj.carOption.value}</option>
+                                {modal.listObjects[0].map((car) =>
+                                    <option disabled={modalObj.carOption.disabled} value={JSON.stringify(car.id)}>{car.name}</option>
+                                )}
+                            </select>
                             <input 
-                                onChange={e => setFormData({...formData, 'date': e.target.checked })}
+                                className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
+                                onChange={e => setFormData({...formData, date: new Date(e.target.value).toISOString() })}
                                 placeholder={modalObj.dateInput.placeholder}
-                                defaultChecked={modalObj.dateInput.value ? 'checked' : null}
+                                defaultValue={new Date(modalObj.dateInput.value).toLocaleString()}
                                 readOnly={modalObj.dateInput.readOnly}
+                                type={modalObj.dateInput.type}
                             />
-                            <input 
-                                onChange={e => setFormData({...formData, 'responsible': e.target.checked })}
-                                placeholder={modalObj.responsibleInput.placeholder}
-                                defaultChecked={modalObj.responsibleInput.value ? 'checked' : null}
-                                readOnly={modalObj.responsibleInput.readOnly}
-                            />
+                            <select onChange={(e) => setFormData({ ...formData, incidentResponsibleId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="locations" id="locations-select">
+                                <option selected="true" disabled="disabled">{modalObj.responsibleOption.value}</option>
+                                {modal.listObjects[1].map((user) =>
+                                    <option disabled={modalObj.responsibleOption.disabled} value={JSON.stringify(user.id)}>{user.name}</option>
+                                )}
+                            </select>
                         </div>
 
                         <div className="flex items-center justify-center p-6 space-x-2 rounded-b">

@@ -42,6 +42,7 @@ export const onCreateCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -77,6 +78,7 @@ export const onCreateCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -128,6 +130,7 @@ export const onUpdateCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -163,6 +166,7 @@ export const onUpdateCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -214,6 +218,7 @@ export const onDeleteCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -249,6 +254,7 @@ export const onDeleteCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -275,6 +281,7 @@ export const onCreateModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -306,6 +313,7 @@ export const onUpdateModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -337,6 +345,7 @@ export const onDeleteModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -371,6 +380,7 @@ export const onCreateLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -417,6 +427,7 @@ export const onUpdateLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -463,6 +474,7 @@ export const onDeleteLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -550,6 +562,7 @@ export const onCreateKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -626,6 +639,7 @@ export const onUpdateKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -702,6 +716,7 @@ export const onDeleteKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -803,6 +818,7 @@ export const onCreateTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -925,6 +941,7 @@ export const onUpdateTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1047,6 +1064,7 @@ export const onDeleteTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1164,6 +1182,7 @@ export const onCreateIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1231,6 +1250,7 @@ export const onUpdateIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1298,6 +1318,7 @@ export const onDeleteIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId

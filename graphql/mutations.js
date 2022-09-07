@@ -45,6 +45,7 @@ export const createCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -80,6 +81,7 @@ export const createCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -134,6 +136,7 @@ export const updateCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -169,6 +172,7 @@ export const updateCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -223,6 +227,7 @@ export const deleteCar = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -258,6 +263,7 @@ export const deleteCar = /* GraphQL */ `
       }
       available
       numberPlate
+      image
       createdAt
       updatedAt
       modelCarsId
@@ -287,6 +293,7 @@ export const createModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -321,6 +328,7 @@ export const updateModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -355,6 +363,7 @@ export const deleteModel = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -392,6 +401,7 @@ export const createLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -441,6 +451,7 @@ export const updateLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -490,6 +501,7 @@ export const deleteLocation = /* GraphQL */ `
           places
           available
           numberPlate
+          image
           createdAt
           updatedAt
           modelCarsId
@@ -580,6 +592,7 @@ export const createKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -659,6 +672,7 @@ export const updateKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -738,6 +752,7 @@ export const deleteKey = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -851,6 +866,7 @@ export const createTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -976,6 +992,7 @@ export const updateTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1101,6 +1118,7 @@ export const deleteTravel = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1221,6 +1239,7 @@ export const createIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1291,6 +1310,7 @@ export const updateIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
@@ -1361,6 +1381,7 @@ export const deleteIncident = /* GraphQL */ `
         }
         available
         numberPlate
+        image
         createdAt
         updatedAt
         modelCarsId
