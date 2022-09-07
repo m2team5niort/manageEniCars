@@ -117,10 +117,11 @@ export default function Car() {
     }
 
     async function deleteCar(car) {
-        const newCarsArray = cars.filter(car => car.id !== car.id);
-        setCars(newCarsArray)
+        let carId = car.id
+        const newCarsArray = cars.filter(car => car.id !== carId);
         deleteKey(car)
         await API.graphql({ query: deleteCarMutation, variables: { input: {id: car.id} } }).then(() => {
+            setCars(newCarsArray)
             setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
@@ -153,8 +154,6 @@ export default function Car() {
             });
         })
     }
-
-    console.log(cars)
     
     return (
         <>

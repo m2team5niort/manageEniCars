@@ -9,7 +9,7 @@ import { getUser } from '../graphql/queries'
 function signup() {
 
   const router = useRouter()
-  const [getUserSign, setUserSign] = useState()
+  const [userSign, setUserSign] = useState()
   const [userInfo, setUserInfo] = useState({
     userId: '',
     userEmail: ''
@@ -29,10 +29,14 @@ function signup() {
     await API.graphql({ query: createUserMutation, variables: { input: formData } });
   }
 
-  console.log(getUserSign)
+  useEffect(() => {
+    if (userSign) {
+      router.push('/dashboard')
+    }
+  }, [userSign])
 
   return (
-    getUserSign ? (
+    userSign ? (
       <div className='flex flex-col bg-gray-900 h-screen justify-center items-center space-y-6'>
         <img className='w-20 rounded-2xl mx-auto animate-pulse' src="https://www.eni-service.fr/wordpress/wp-content/uploads/2019/01/logo_ENI_pt.svg" />
         <h1 className='text-white text-2xl'>Redirection en cours...</h1>
@@ -43,9 +47,13 @@ function signup() {
         <div className='signup-container'>
           <div className='flex-signup'>
             <Authenticator>
-              {({ user }) => (
-                  setUserSign(user)
-              )}
+              {({ user }) => {
+                userInfo.userId !== '' ? createUser(userInfo) : '',
+                setUserSign(user)
+                return(
+                  <></>
+                )
+              }}
             </Authenticator>
             <img src='https://images.caradisiac.com/logos-ref/modele/modele--renault-megane-4/S0-modele--renault-megane-4.jpg' />
           </div>
