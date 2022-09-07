@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link'
+
 import {
   FaDribbbleSquare,
   FaFacebookSquare,
@@ -29,9 +31,10 @@ const Footer = () => {
     <div>
         <h6 className='font-medium text-gray-400'>Legal</h6>
         <ul>
-        <li className='py-2 text-sm'>Claim</li>
-            <li className='py-2 text-sm'>Policy</li>
-            <li className='py-2 text-sm'>Terms</li>
+        <Link href='/policy'>
+          <li className='py-2 text-sm'>Policy</li>
+        </Link>
+            
         </ul>
     </div>
     <div>
