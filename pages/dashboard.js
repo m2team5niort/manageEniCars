@@ -5,13 +5,10 @@ import Sidebar from '../Components/Dashboard/Sidebar'
 import Dashboard from '../Components/Dashboard/Dashboard'
 import Navbar from '../Components/Dashboard/Navbar'
 import { listCars, listModels, getUser, listTravels, listUsers } from '../graphql/queries'
-import DashboardCard from '../Components/Dashboard/Cards/DashboardCard'
 
 // Dashboard function
 
 function dashboard({ ssrDataDashboard }) {
-
-  console.log(ssrDataDashboard)
 
   return (
     <div className={`container-dashboard mx-auto bg-gray-900`}>

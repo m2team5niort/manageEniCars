@@ -3,7 +3,7 @@ import Modal from '../Common/Modal/Modal';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listCars, listLocations, listModels, getCar } from '../../graphql/queries'
 import { createCar as createCarMutation, deleteCar as deleteCarMutation, updateCar as updateCarMutation } from '../../graphql/mutations';
-import { createKey as createKeyMutation } from '../../graphql/mutations';
+import { createKey as createKeyMutation, deleteKey as deleteKeyMutation } from '../../graphql/mutations';
 import MyDropdown from './Dropdown';
 import { Storage } from "@aws-amplify/storage"
 import { AmplifyS3Image } from '@aws-amplify/ui-react/legacy';
@@ -19,7 +19,6 @@ export default function Car() {
         type: ''
     })
     const [locations, setLocations] = useState([])
-    const [keys, setKeys] = useState([])
     const [models, setModels] = useState([])
     const [cars, setCars] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
@@ -53,16 +52,16 @@ export default function Car() {
         setModels(apiData.data.listModels.items);
     }
 
-    async function createKey(carId, locationId) {
-        const formDataKey = { keyCarId: carId, keyLocationId: locationId }
+    async function createKey(car, locationId) {
+        const formDataKey = { keyCarId: car.id, keyLocationId: locationId }
         await API.graphql({ query: createKeyMutation, variables: { input: formDataKey } }).then((res) => {
-            setKeys([...keys, res.data.createKey]);
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
+            let formData = {carKeyId: res.data.createKey.id, id: car.id, carModelId: car.carModelId}
+            API.graphql({ query: updateCarMutation, variables: { input: formData } })
         }).catch((err) => {
             console.log(err)
         });
-
     }
 
     async function createCar() {
@@ -74,7 +73,7 @@ export default function Car() {
 
         await API.graphql({ query: createCarMutation, variables: { input: formData } }).then((res) => {
             handleStorageFile(res.data.createCar, formData.image, 'create')
-            createKey(res.data.createCar.id, formData.carLocationId)
+            createKey(res.data.createCar, formData.carLocationId)
             setFormData(initialFormState);
             setModal({ ...modal, isShow: false });
             setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
@@ -107,10 +106,21 @@ export default function Car() {
 
     }
 
-    async function deleteCar({ id }) {
-        const newCarsArray = cars.filter(car => car.id !== id);
-        setCars(newCarsArray);
-        await API.graphql({ query: deleteCarMutation, variables: { input: { id } } }).then(() => {
+    async function deleteKey({ carKeyId }) {
+
+        await API.graphql({ query: deleteKeyMutation, variables: { input: { id: carKeyId } } }).then(() => {
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
+        }).catch((err) => {
+            console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
+        });
+    }
+
+    async function deleteCar(car) {
+        const newCarsArray = cars.filter(car => car.id !== car.id);
+        setCars(newCarsArray)
+        deleteKey(car)
+        await API.graphql({ query: deleteCarMutation, variables: { input: {id: car.id} } }).then(() => {
             setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
@@ -143,6 +153,8 @@ export default function Car() {
             });
         })
     }
+
+    console.log(cars)
     
     return (
         <>

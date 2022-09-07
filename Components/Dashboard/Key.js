@@ -49,6 +49,7 @@ export default function Key() {
     }
 
     async function createKey() {
+        console.log(formData)
         await API.graphql({ query: createKeyMutation, variables: { input: formData } }).then((res) => {
             setKeys([...keys, res.data.createKey]);
             setFormData(initialFormState);

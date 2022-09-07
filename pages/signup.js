@@ -2,8 +2,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { Hub, API } from 'aws-amplify';
+import { Hub, API, withSSRContext } from 'aws-amplify';
 import { createUser as createUserMutation } from '../graphql/mutations';
+import { getUser } from '../graphql/queries'
 
 function signup() {
 
@@ -56,6 +57,38 @@ function signup() {
         </div>
       )
   )
+
+}
+
+export async function getServerSideProps({ req, res }) {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+
+    let id = user.username
+    const apiDataUser = await API.graphql({ query: getUser, variables: { id } });
+
+    if (!apiDataUser.data.getUser.isAdmin) {
+      res.writeHead(302, { Location: '/myspace' })
+      res.end()
+    }else{
+      res.writeHead(302, { Location: '/dashboard' })
+      res.end()
+    }
+
+    return {
+      props: {}
+    }
+
+  }
+  catch(err){
+    console.log(err)
+  }
+
+  return {
+    props: {}
+  }
 
 }
 
