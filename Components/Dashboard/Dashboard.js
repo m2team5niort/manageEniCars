@@ -3,23 +3,11 @@ import { DotsVerticalIcon, CogIcon, UserCircleIcon } from '@heroicons/react/soli
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DashboardCard from "./Cards/DashboardCard";
-import { listTravels } from '../../graphql/queries'
-import { API } from 'aws-amplify'
 import MapTravel from "../MySpace/MapTravel";
 
 export default function Dashboard({ ssrDataDashboard }) {
 
     const [dashboardData, setDashboardDate] = useState(ssrDataDashboard)
-
-    useEffect(() => {
-        fetchTravelsDashboard()
-    }, [])
-
-    const fetchTravelsDashboard = async () => {
-        const data = await API.graphql({ query: listTravels }).then((res) => {
-            console.log(res)
-        })
-    }
 
     const options = {
         responsive: true,
@@ -95,9 +83,9 @@ export default function Dashboard({ ssrDataDashboard }) {
                             <p className="text-dark text-left text-lg font-semi-bold"> Les derniers utilisateurs : </p>
                         </div>
                         <div className=" px-4 items-center justify-between h-72 space-y-6">
-                            {dashboardData.users.map((user, index) => {
+                            {dashboardData.users.map(user => {
                                 return (
-                                    <div id="user" className="flex flex-row items-center space-x-2">
+                                    <div key={user.id} id="user" className="flex flex-row items-center space-x-2">
                                         
                                         <UserCircleIcon className='text-dark w-10 h-10 rounded-full mx-auto'/>
                                         
@@ -140,20 +128,20 @@ export default function Dashboard({ ssrDataDashboard }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {dashboardData.travels.map((travels, index) => {
+                                    {dashboardData.travels.map(travel => {
                                         return (
-                                            <tr className="bg-gray-50 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 text-dark">
+                                            <tr key={travel.id} className="bg-gray-50 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 text-dark">
                                                 <td className="px-6 py-4">
-                                                    {travels.driver.name}
+                                                    {travel.driver.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {new Date(travels.dateBegin).toLocaleString()}
+                                                    {new Date(travel.dateBegin).toLocaleString()}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {new Date(travels.dateEnd).toLocaleString()}
+                                                {new Date(travel.dateEnd).toLocaleString()}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {travels.places}
+                                                    {travel.places}
                                                 </td>
                                         </tr>
                                         )

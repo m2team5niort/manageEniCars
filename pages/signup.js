@@ -29,11 +29,7 @@ function signup() {
     await API.graphql({ query: createUserMutation, variables: { input: formData } });
   }
 
-  useEffect(() => {
-    if (getUserSign) {
-      router.push('/dashboard')
-    }
-  }, [getUserSign])
+  console.log(getUserSign)
 
   return (
     getUserSign ? (
@@ -48,8 +44,7 @@ function signup() {
           <div className='flex-signup'>
             <Authenticator>
               {({ user }) => (
-                userInfo.userId !== '' ? createUser(userInfo) : '',
-                setUserSign(user)
+                  setUserSign(user)
               )}
             </Authenticator>
             <img src='https://images.caradisiac.com/logos-ref/modele/modele--renault-megane-4/S0-modele--renault-megane-4.jpg' />

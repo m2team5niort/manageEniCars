@@ -37,6 +37,9 @@ export default function Model() {
     async function createModel() {
         if (!formData.name || !formData.description) return;
 
+        formData.image = 'image';
+        console.log(formData)
+
         await API.graphql({ query: createModelMutation, variables: { input: formData } }).then((res) => {
             console.log(res)
             setModels([...models, res.data.createModel]);
