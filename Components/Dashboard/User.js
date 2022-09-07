@@ -81,14 +81,10 @@ export default function User({ user }) {
             setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
     }
-<<<<<<< HEAD
 
     console.log(formData)
     console.log("MV: ", modalValidation)
 
-=======
-    
->>>>>>> main
     return (
         <>
             {modal.isShow &&
