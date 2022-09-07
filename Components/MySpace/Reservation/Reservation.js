@@ -78,10 +78,10 @@ export default function Reservation({user}){
                 result = <button className='px-6 py-2 bg-gray-500 rounded-md text-sm text-white mt-4 w-6/12 mx-auto cursor-not-allowed'>Trajet plein</button>
             }
             else{
-                result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-indigo-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
+                result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-blue-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-blue-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
             }   
         }else{
-            result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-indigo-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-indigo-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
+            result = <button onClick={() => handleJoinTravel(travel)} className='px-6 py-2 bg-blue-800 rounded-md text-sm text-white mt-4 w-6/12 mx-auto hover:bg-blue-600 transition duration-150 ease-in'>Rejoindre ce trajet</button>
         }
 
         return result
@@ -91,7 +91,7 @@ export default function Reservation({user}){
 
     return (
         <>
-            <h2 className="text-4xl text-indigo-800 font-semibold text-center mb-12">Liste des trajets</h2>
+            <h2 className="text-4xl text-blue-800 font-semibold text-center mb-12">Liste des trajets</h2>
             <div className='flex flex-col space-y-12'>
                 {travels ?
                 travels.map(travel => {
@@ -100,7 +100,7 @@ export default function Reservation({user}){
                                 <div className='flex flex-row justify-between'>
                                     <div className="flex flex-col justify-between space-y-4 pr-12 border-r-2 border-indigo-300 w-5/12">
                                         <div className='flex flex-row items-center'>
-                                            <OfficeBuildingIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                            <OfficeBuildingIcon className='w-6 h-6 text-blue-600 mr-6'/>
                                             <div className='flex flex-col text-xs'>
                                                 <p className='text-lg font-semibold mb-1'>{travel.departure.name},</p>
                                                 <p>{travel.departure.streetNumber},</p>
@@ -109,7 +109,7 @@ export default function Reservation({user}){
                                         </div>
                                         <SwitchVerticalIcon className='w-8 h-8 text-gray-900 mx-auto'/>
                                         <div className='flex flex-row items-center'>
-                                            <FlagIcon className='w-6 h-6 text-indigo-600 mr-6'/>
+                                            <FlagIcon className='w-6 h-6 text-blue-600 mr-6'/>
                                             <div className='flex flex-col text-xs'>
                                                 <p className='text-lg font-semibold mb-1'>{travel.arrival.name},</p>
                                                 <p>{travel.arrival.streetNumber},</p>
@@ -123,16 +123,16 @@ export default function Reservation({user}){
                                                 <img src={travel.car.image} className="object-cover w-64" />
                                                 <div className='flex flex-row'>
                                                     <Tooltip message={'Conducteur: ' + travel.driver.name}>
-                                                        <UserCircleIcon className='w-8 h-8 text-indigo-600' />
+                                                        <UserCircleIcon className='w-8 h-8 text-blue-600' />
                                                     </Tooltip>
                                                     <span className='border border-indigo-200 mx-2'></span>
                                                     {travel.passengers ? 
                                                         <>
-                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: '} userId={elem}><UserCircleIcon key={elem} className='w-8 h-8 text-indigo-600' /></Tooltip>))}
+                                                        {travel.passengers.map(elem => (<Tooltip message={'Passager: '} userId={elem}><UserCircleIcon key={elem} className='w-8 h-8 text-blue-600' /></Tooltip>))}
                                                         {[ ...Array(travel.places - travel.passengers.length - 1).keys() ].map((index) => {
                                                             return (
                                                                 <Tooltip message='Place libre'>
-                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-blue-200' />
                                                                 </Tooltip>
                                                             )
                                                         })}
@@ -141,7 +141,7 @@ export default function Reservation({user}){
                                                         [ ...Array(travel.places).keys() ].map((index) => {
                                                             return (
                                                                 <Tooltip message='Place libre'>
-                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-indigo-200' />
+                                                                    <UserCircleIcon key={index} className='w-8 h-8 text-blue-200' />
                                                                 </Tooltip>
                                                             )
                                                         })

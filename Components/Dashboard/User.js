@@ -56,6 +56,8 @@ export default function User({ user }) {
     async function updateUser({ id }) {
         formData.id = id
 
+        console.log(formData)
+
         await API.graphql({ query: updateUserMutation, variables: { input: formData } }).then((res) => {
             let index = users.findIndex((obj => obj.id === id));
             users[index] = res.data.updateUser
@@ -79,10 +81,14 @@ export default function User({ user }) {
             setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
     }
+<<<<<<< HEAD
 
     console.log(formData)
     console.log("MV: ", modalValidation)
 
+=======
+    
+>>>>>>> main
     return (
         <>
             {modal.isShow &&

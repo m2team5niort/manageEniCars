@@ -102,6 +102,7 @@ export default function Incident({ user }) {
 
         await API.graphql({ query: deleteIncidentMutation, variables: { input: { id } } }).then((res) => {
             console.log(res)
+            updateCar(incident.incidentCarId, 'delete')
             setIncidents(newIncidentsArray);
         }).catch((err) => {
             console.log(err)

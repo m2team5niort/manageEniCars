@@ -87,7 +87,7 @@ export default function Model() {
 
             <main id="Content">
                 <div className='px-8'>
-                    <div className="shadow-md sm:rounded-lg bg-gray-50 overflow-y-auto">
+                    <div className="shadow-md sm:rounded-lg bg-gray-50">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-eni'> Liste des modèles </h1>
                             <button onClick={() => setModal({ ...modal, isShow: true, type: 'add' })} className="bg-eni text-white text-lg font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Ajouter un modèle </button>
@@ -99,7 +99,7 @@ export default function Model() {
                                     <th scope="col-1" className="px-6 py-3">
                                         #
                                     </th>
-                                    <th scope="col-3" className="px-6 py-3">
+                                    <th scope="col-4" className="px-6 py-3">
                                         Nom
                                     </th>
                                     <th scope="col-4" className="px-6 py-3">
@@ -107,9 +107,6 @@ export default function Model() {
                                     </th>
                                     <th scope="col-2" className="px-6 py-3">
                                         Marque
-                                    </th>
-                                    <th scope="col-1" className="px-6 py-3">
-                                        Image
                                     </th>
                                     <th scope="col-1" className="px-6 py-3 text-center">
                                         Actions
@@ -131,9 +128,6 @@ export default function Model() {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className="bg-green-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {model.brand} </span>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {model.image}
                                             </td>
                                             <td className="px-6 py-4 relative text-center">
                                                 <MyDropdown object={model} deleteObject={deleteModel} modal={modal} setModal={setModal} listObjects={[]} />

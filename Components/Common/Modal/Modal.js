@@ -4,6 +4,7 @@ import ModalLocation from "./ModalLocation";
 import ModalKey from "./ModalKey";
 import ModalUser from "./ModalUser";
 import ModalIncident from "./ModalIncident";
+import ModalReservation from "./ModalReservation";
 
 export default function Modal({ setFormData, formData, createObject, updateObject, setModal, modal }) {
 
@@ -21,6 +22,8 @@ export default function Modal({ setFormData, formData, createObject, updateObjec
                 return <ModalUser setFormData={setFormData} formData={formData} createUser={createObject} updateUser={updateObject} setModal={setModal} modal={modal} /> 
             case 'incident':
                 return <ModalIncident setFormData={setFormData} formData={formData} createIncident={createObject} updateIncident={updateObject} setModal={setModal} modal={modal} /> 
+            case 'reservation':
+                return <ModalReservation setFormData={setFormData} formData={formData} createIncident={createObject} updateIncident={updateObject} setModal={setModal} modal={modal} /> 
             }
     }
 
