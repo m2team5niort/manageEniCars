@@ -4,6 +4,16 @@ import { DotsVerticalIcon } from '@heroicons/react/solid'
 
 export default function MyDropdown({ deleteObject, modal, setModal, object, listObjects }) {
 
+  const handleListObjects = (listObjects) => {
+    let array = [];
+    listObjects.map((elem => {
+      return(
+        array.push(elem)
+      )
+    }))
+    return array
+  }
+
   return (
 
     <Menu>
@@ -23,13 +33,13 @@ export default function MyDropdown({ deleteObject, modal, setModal, object, list
 
       <Menu.Items className="z-50 absolute right-20 w-56  origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
         <Menu.Item className="hover:bg-gray-200 bg-gray-100 text-gray-900 flex w-full px-4 py-2 text-sm leading-5 text-left">
-          <button onClick={() => setModal({ ...modal, isShow: true, type: 'details', object: object, listObjects: [listObjects[0], listObjects[1]] })} className={`cursor-pointer'}`}>
+          <button onClick={() => setModal({ ...modal, isShow: true, type: 'details', object: object, listObjects: handleListObjects(listObjects) })} className={`cursor-pointer'}`}>
             <DocumentSearchIcon className="h-5 w-5 mr-4 text-gray-900" />
             Détails
           </button>
         </Menu.Item>
         <Menu.Item className="hover:bg-gray-200 bg-gray-100 text-gray-900 flex w-full px-4 py-2 text-sm leading-5 text-left">
-          <button onClick={() => setModal({ ...modal, isShow: true, type: 'update', object: object, listObjects: [listObjects[0], listObjects[1]] })} className={`cursor-pointer'}`}>
+          <button onClick={() => setModal({ ...modal, isShow: true, type: 'update', object: object, listObjects: handleListObjects(listObjects) })} className={`cursor-pointer'}`}>
             <PencilAltIcon className="h-5 w-5 mr-4 text-gray-900" />
             Modifier
           </button>

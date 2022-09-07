@@ -25,9 +25,15 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                 placesInput: {
                     type: 'number',
                     placeholder: 'Nombre de places',
-                    max: 5,
-                    min: 0,
-                    step: 0.1
+                    max: "5",
+                    min: "0",
+                    step: "1"
+                },
+                departureOption: {
+                    value: '--Choisir le lieu de départ associé--'
+                },
+                arrivalOption: {
+                    value: '--Choisir le lieu d\'arrivé associé--'
                 },
                 button: function () { return createTravel() }
             }
@@ -44,12 +50,12 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                 dateBeginInput: {
                     type: 'datetime-local',
                     placeholder: 'Date de départ',
-                    value: modal.object.dateBegin
+                    value: new Date(modal.object.dateBegin).toISOString().slice(0,16)
                 },
                 dateEndInput: {
                     type: 'datetime-local',
                     placeholder: 'Date d\'arrivée',
-                    value: modal.object.dateEnd
+                    value: new Date(modal.object.dateEnd).toISOString().slice(0,16)
                 },
                 placesInput: {
                     type: 'number',
@@ -57,7 +63,13 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                     value: modal.object.places,
                     max: 5,
                     min: 0,
-                    step: 0.1
+                    step: 1
+                },
+                departureOption: {
+                    value: modal.object.departure.name,
+                },
+                arrivalOption: {
+                    value: modal.object.arrival.name,
                 },
                 button: function () {
                     return updateTravel(modal.object)
@@ -78,13 +90,13 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                 dateBeginInput: {
                     type: 'datetime-local',
                     placeholder: 'Date de départ',
-                    value: modal.object.datebegin,
+                    value: new Date(modal.object.dateBegin).toISOString().slice(0,16),
                     readOnly: 'readOnly',
                 },
                 dateEndInput: {
                     type: 'datetime-local',
                     placeholder: 'Date d\'arrivée',
-                    value: modal.object.dateEnd,
+                    value: new Date(modal.object.dateEnd).toISOString().slice(0,16),
                     readOnly: 'readOnly',
                 },
                 placesInput: {
@@ -92,6 +104,14 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                     placeholder: 'Nombre de places',
                     value: modal.object.places,
                     readOnly: 'readOnly',
+                },
+                departureOption: {
+                    value: modal.object.departure.name,
+                    disabled: 'disabled',
+                },
+                arrivalOption: {
+                    value: modal.object.arrival.name,
+                    disabled: 'disabled',
                 },
                 className: 'cursor-not-allowed'
 
@@ -105,10 +125,13 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
         if (modal.type === 'update') {
             setFormData({
                 ...formData,
-                travelDriverId: modalObj.driverOption.value,
-                travelCarId: modalObj.carOption.value,
-                dateBegin: modalObj.dateBeginInput.value,
-                dateEnd: modalObj.dateEndInput.value
+                travelDriverId: modal.object.travelDriverId,
+                travelCarId: modal.object.travelCarId,
+                dateBegin: modal.object.dateBegin,
+                dateEnd: modal.object.dateEnd,
+                travelDepartureId: modal.object.travelDepartureId,
+                travelArrivalId: modal.object.travelArrivalId,
+                travelModelId: modal.object.travelModelId,
             })
         }
     }, [])
@@ -130,21 +153,27 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                         <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
                             <select onChange={(e) => setFormData({ ...formData, travelDriverId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="cars" id="cars-select">
                                 <option selected="true" disabled="disabled">{modalObj.driverOption.value}</option>
-                                {modal.listObjects[0].map((user) =>
-                                    <option disabled={modalObj.driverOption.disabled} value={JSON.stringify(user.id)}>{user.name}</option>
+                                {modal.listObjects[0].map((user) => {
+                                        return(
+                                            <option key={user.id} disabled={modalObj.driverOption.disabled} value={JSON.stringify(user.id)}>{user.name}</option>
+                                        )
+                                    }
                                 )}
                             </select>
                             <select onChange={(e) => setFormData({ ...formData, travelCarId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="cars" id="cars-select">
                                 <option selected="true" disabled="disabled">{modalObj.carOption.value}</option>
-                                {modal.listObjects[1].map((car) =>
-                                    <option disabled={modalObj.carOption.disabled} value={JSON.stringify(car.id)}>{car.name}</option>
+                                {modal.listObjects[1].map((car) => {
+                                        return(
+                                            <option key={car.id} disabled={modalObj.carOption.disabled} value={JSON.stringify(car)}>{car.name}</option>
+                                        )
+                                    }
                                 )}
                             </select>
                             <input 
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({...formData, dateBegin: new Date(e.target.value).toISOString() })}
                                 placeholder={modalObj.dateBeginInput.placeholder}
-                                defaultValue={new Date(modalObj.dateBeginInput.value).toLocaleString()}
+                                defaultValue={modalObj.dateBeginInput.value}
                                 readOnly={modalObj.dateBeginInput.readOnly}
                                 type={modalObj.dateBeginInput.type}
                             />
@@ -152,23 +181,40 @@ export default function ModalReservation({ setFormData, formData, createTravel, 
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({...formData, dateEnd: new Date(e.target.value).toISOString() })}
                                 placeholder={modalObj.dateEndInput.placeholder}
-                                defaultValue={new Date(modalObj.dateEndInput.value).toLocaleString()}
+                                defaultValue={modalObj.dateEndInput.value}
                                 readOnly={modalObj.dateEndInput.readOnly}
                                 type={modalObj.dateEndInput.type}
                             />
                             <input 
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                min={modalObj.placesInput.max}
-                                max={modalObj.placesInput.min}
+                                onChange={e => setFormData({...formData, places: e.target.value })}
+                                min={modalObj.placesInput.min}
+                                max={modalObj.placesInput.max}
+                                step={modalObj.placesInput.step}
                                 placeholder={modalObj.placesInput.placeholder}
                                 defaultValue={modalObj.placesInput.value}
                                 readOnly={modalObj.placesInput.readOnly}
                                 type={modalObj.placesInput.type}
-                                step={modalObj.placesInput.step}
                             />
-
+                            <select onChange={(e) => setFormData({ ...formData, travelDepartureId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="cars" id="cars-select">
+                                <option selected="true" disabled="disabled">{modalObj.departureOption.value}</option>
+                                {modal.listObjects[2].map((location) => {
+                                        return(
+                                            <option key={location.id} disabled={modalObj.departureOption.disabled} value={JSON.stringify(location.id)}>{location.name}</option>
+                                        )
+                                    }
+                                )}
+                            </select>
+                            <select onChange={(e) => setFormData({ ...formData, travelArrivalId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="cars" id="cars-select">
+                                <option selected="true" disabled="disabled">{modalObj.arrivalOption.value}</option>
+                                {modal.listObjects[2].map((location) => {
+                                        return(
+                                            <option key={location.id} disabled={modalObj.arrivalOption.disabled} value={JSON.stringify(location.id)}>{location.name}</option>
+                                        )
+                                    }
+                                )}
+                            </select>
                         </div>
-
                         <div className="flex items-center justify-center p-6 space-x-2 rounded-b">
                             <button onClick={() => setModal({ ...modal, isShow: false })} data-modal-toggle="defaultModal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Annuler</button>
                             {modal.type !== "details" &&

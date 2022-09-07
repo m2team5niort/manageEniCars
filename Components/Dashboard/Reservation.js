@@ -6,7 +6,7 @@ import { createTravel as createTravelMutation, updateTravel as updateTravelMutat
 import MyDropdown from './Dropdown';
 
 
-let initialFormState = {state: "", travelArrivalId: "", travelDepartureId: "", dateBegin: "", dateEnd: "", places: 0, travelCarId: "", travelDriverId: "", travelModelId: "", passengers: ""}
+let initialFormState = {state: "En attente", travelArrivalId: "", travelDepartureId: "", dateBegin: "", dateEnd: "", places: 0, travelCarId: "", travelDriverId: "", travelModelId: "", passengers: []}
 
 export default function Reservation() {
 
@@ -54,7 +54,11 @@ export default function Reservation() {
     }
 
     async function createTravel() {
-        if (!formData.state || !formData.travelArrivalId || !formData.travelDepartureId || !formData.dateBegin || !formData.dateEnd || !formData.places || !formData.travelCarId || !formData.travelDriverId || !formData.travelModelId || !formData.passengers) return;
+
+        formData.travelModelId = formData.travelCarId.carModelId;
+        formData.travelCarId = formData.travelCarId.id;
+
+        if ((!formData.state || !formData.travelArrivalId || !formData.travelDepartureId || !formData.dateBegin || !formData.dateEnd || !formData.places || !formData.travelCarId || !formData.travelDriverId) && (formData.travelArrivalId !== formData.travelDepartureId)) return;
 
         await API.graphql({ query: createTravelMutation, variables: { input: formData } }).then((res) => {
             setTravels([...travels, res.data.createTravel])
@@ -86,6 +90,8 @@ export default function Reservation() {
         await API.graphql({ query: deleteTravelMutation, variables: { input: { id } } });
     }
 
+    console.log(travels, formData)
+
     return (
         <>
             {modal.isShow &&
@@ -112,10 +118,7 @@ export default function Reservation() {
                                         Voiture
                                     </th>
                                     <th scope="col-2" className="px-6 py-3">
-                                        Départ
-                                    </th>
-                                    <th scope="col-2" className="px-6 py-3">
-                                        Arrivée
+                                        Horaires
                                     </th>
                                     <th scope="col-1" className="px-6 py-3">
                                         Nb Places
@@ -137,7 +140,7 @@ export default function Reservation() {
                             <tbody>
                             {travels.map((travel,index) => {
                                 return(
-                                    <tr className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold">
+                                    <tr key={travel.id} className="bg-gray-50 hover:text-gray-900 transition text-dark font-semibold">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {index+1}
                                         </td>
@@ -147,11 +150,9 @@ export default function Reservation() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {travel.car.name}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {new Date(travel.dateBegin).toLocaleString()}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {new Date(travel.dateEnd).toLocaleString()}
+                                        <td className="px-6 py-4 whitespace-nowrap flex flex-col">
+                                            <span>{new Date(travel.dateBegin).toLocaleString()}</span>
+                                            <span>{new Date(travel.dateEnd).toLocaleString()}</span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {travel.places}
@@ -166,7 +167,7 @@ export default function Reservation() {
                                             {travel.passengers.length}
                                         </td>
                                         <td className="px-6 py-4 relative text-center">
-                                        <MyDropdown object={travel} deleteObject={deleteTravel} modal={modal} setModal={setModal} listObjects={[users, cars, locations]} />
+                                            <MyDropdown object={travel} deleteObject={deleteTravel} modal={modal} setModal={setModal} listObjects={[users, cars, locations]} />
                                         </td>
                                 </tr>
                                 )

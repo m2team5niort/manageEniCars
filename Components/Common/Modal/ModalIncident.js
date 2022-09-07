@@ -48,7 +48,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                 dateInput: {
                     type: 'datetime-local',
                     placeholder: 'Date de l\'incident',
-                    value: modal.object.date
+                    value: new Date(modal.object.date).toISOString().slice(0,16)
                 },
                 responsibleOption: {
                     value: modal.object.responsible.name,
@@ -80,7 +80,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                 dateInput: {
                     type: 'datetime-local',
                     placeholder: 'Date de l\'incident',
-                    value: modal.object.date,
+                    value: new Date(modal.object.date).toISOString().slice(0,16),
                     readOnly: 'readOnly',
                 },
                 responsibleOption: {
@@ -98,11 +98,11 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
         if (modal.type === 'update') {
             setFormData({
                 ...formData,
-                name: modalObj.nameInput.value,
-                criticality: modalObj.criticalityInput.value,
-                incidentCarId: modalObj.carOption.value,
-                date: modalObj.dateInput.value,
-                incidentResponsibleId: modalObj.responsibleOption.value
+                name: modal.object.name,
+                criticality: modal.object.criticality,
+                incidentCarId: modal.object.car.id,
+                date: modal.object.date,
+                incidentResponsibleId: modal.object.responsible.id
             })
         }
     }, [])
@@ -124,7 +124,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                         <div className='flex flex-col space-y-8 md:w-2/3 mx-auto py-8'>
                             <input
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                onChange={e => setFormData({ ...formData, 'name': e.target.value })}
+                                onChange={e => setFormData({ ...formData, name: e.target.value })}
                                 placeholder={modalObj.nameInput.placeholder}
                                 defaultValue={modalObj.nameInput.value}
                                 readOnly={modalObj.nameInput.readOnly}
@@ -146,7 +146,7 @@ export default function ModalIncident({ setFormData, formData, createIncident, u
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
                                 onChange={e => setFormData({...formData, date: new Date(e.target.value).toISOString() })}
                                 placeholder={modalObj.dateInput.placeholder}
-                                defaultValue={new Date(modalObj.dateInput.value).toLocaleString()}
+                                defaultValue={modalObj.dateInput.value}
                                 readOnly={modalObj.dateInput.readOnly}
                                 type={modalObj.dateInput.type}
                             />

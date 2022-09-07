@@ -23,7 +23,7 @@ export default function Modal({ setFormData, formData, createObject, updateObjec
             case 'incident':
                 return <ModalIncident setFormData={setFormData} formData={formData} createIncident={createObject} updateIncident={updateObject} setModal={setModal} modal={modal} /> 
             case 'reservation':
-                return <ModalReservation setFormData={setFormData} formData={formData} createIncident={createObject} updateIncident={updateObject} setModal={setModal} modal={modal} /> 
+                return <ModalReservation setFormData={setFormData} formData={formData} createTravel={createObject} updateTravel={updateObject} setModal={setModal} modal={modal} /> 
             }
     }
 
