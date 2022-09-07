@@ -145,10 +145,10 @@ export default function Reservation() {
                                             {index+1}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            {travel.driver.name}
+                                            {travel.driver && travel.driver.name ? travel.driver.name  : ''}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            {travel.car.name}
+                                            {travel.car && travel.car.name ? travel.car.name  : ''}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap flex flex-col">
                                             <span>{new Date(travel.dateBegin).toLocaleString()}</span>
