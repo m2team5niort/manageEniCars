@@ -115,7 +115,7 @@ export default function Reservation() {
                 <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
             }
             <main id="Content">
-                <div className='px-8 w-full'>
+                <div className='px-8 w-full overflow-x-auto'>
                     <div className="shadow-md bg-gray-50 rounded-lg">
                         <div className='flex justify-between px-6 py-4'>
                             <h1 className='text-dark'> Liste des réservation </h1>
@@ -173,10 +173,10 @@ export default function Reservation() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {travel.places}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap ">
                                             {travel.departure.city}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-4 whitespace-nowrap ">
                                             {travel.arrival.city}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
