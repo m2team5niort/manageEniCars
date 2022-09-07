@@ -21,8 +21,12 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     placeholder: 'Description de la voiture'
                 },
                 placesInput: {
-                    type: 'text',
-                    placeholder: 'Nombre de place dans la voiture'
+                    type: 'number',
+                    placeholder: 'Nombre de places dans la voiture',
+                    value: modal.object.places,
+                    max: 5,
+                    min: 0,
+                    step: 1
                 },
                 modelOption: {
                     value: '--Choisir le model associé--'
@@ -55,9 +59,12 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     value: modal.object.description
                 },
                 placesInput: {
-                    type: 'text',
-                    placeholder: 'Nombre de place dans la voiture456',
-                    value: modal.object.places
+                    type: 'number',
+                    placeholder: 'Nombre de places',
+                    value: modal.object.places,
+                    max: 5,
+                    min: 0,
+                    step: 1
                 },
                 modelOption: {
                     value: modal.object.model.name,
@@ -95,8 +102,8 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                     readOnly: 'readOnly',
                 },
                 placesInput: {
-                    type: 'text',
-                    placeholder: 'Nombre de place dans la voiture456',
+                    type: 'number',
+                    placeholder: 'Nombre de places',
                     value: modal.object.places,
                     readOnly: 'readOnly',
                 },
@@ -197,12 +204,16 @@ export default function ModalCar({ setFormData, formData, createCar, updateCar, 
                                 defaultValue={modalObj.descriptionInput.value}
                                 readOnly={modalObj.descriptionInput.readOnly}
                             />
-                            <input
+                            <input 
                                 className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 ${modalObj.className}`}
-                                onChange={e => setFormData({ ...formData, 'places': e.target.value })}
+                                onChange={e => setFormData({...formData, places: e.target.value })}
+                                min={modalObj.placesInput.min}
+                                max={modalObj.placesInput.max}
+                                step={modalObj.placesInput.step}
                                 placeholder={modalObj.placesInput.placeholder}
                                 defaultValue={modalObj.placesInput.value}
                                 readOnly={modalObj.placesInput.readOnly}
+                                type={modalObj.placesInput.type}
                             />
                             <select onChange={(e) => setFormData({ ...formData, carModelId: JSON.parse(e.target.value) })} className='bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500' name="locations" id="locations-select">
                                 <option selected="true" disabled="disabled">{modalObj.modelOption.value}</option>
