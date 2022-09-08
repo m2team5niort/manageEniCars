@@ -6,9 +6,14 @@ import ModalSelectCar from './Modals/ModalSelectCar'
 import ListTravels from './ListTravels'
 import { API } from 'aws-amplify';
 import { createTravel as createTravelMutation, createLocation as createLocationMutation } from '../../../graphql/mutations';
+import ModalValidation from '../../Common/Modal/ModalValidation';
 
 export default function Publish({ssrDataMySpace}){
 
+    const [modalValidation, setModalValidation] = useState({
+        isShow: false,
+        type: ''
+    })
     const [data, setData] = useState({
         cars: ssrDataMySpace.cars,
         models: ssrDataMySpace.models,
@@ -68,13 +73,19 @@ export default function Publish({ssrDataMySpace}){
         API.graphql({ query: createTravelMutation, variables: { input: travel } }).then(() => {
             setTravel(travel)
             setNewTravel(newTravel+1)
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
+            setModalValidation({...modalValidation, isShow: true, type: "Error"})
         });
 
     }
 
     return(
+        <>
+        {modalValidation.isShow &&
+            <ModalValidation  modalValidation={modalValidation} setModalValidation={setModalValidation}/>
+        }
         <div className='flex flex-col space-y-12'>
             <div className="flex flex-row w-full">
                 <div className="bg-white shadow-lg p-8 rounded-xl w-full">
@@ -95,7 +106,7 @@ export default function Publish({ssrDataMySpace}){
                             <div className="relative">
                                 {trip[0].departure.id !== '' && trip[0].arrival.id !== '' && 
                                     <div onClick={() => setModalDisplay({...modalDisplay, car: true})} className={`bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-semibold cursor-pointer`}>
-                                        {travel.travelCarId ? 'Voiture ok' : 'Choisir sa voiture'}
+                                        {travel.travelCarId ? 'Voiture sélectionnée' : 'Choisir sa voiture'}
                                     </div>
                                 }
                             </div>
@@ -111,5 +122,6 @@ export default function Publish({ssrDataMySpace}){
             </div>
             <ListTravels newTravel={newTravel}/>
         </div>
+        </>
     )
 }

@@ -104,6 +104,7 @@ export default function Incident({ user }) {
             console.log(res)
             updateCar(incident.incidentCarId, 'delete')
             setIncidents(newIncidentsArray);
+            setModalValidation({...modalValidation, isShow: true, type: "Success"}, setTimeout(() => {setModalValidation({...modalValidation, isShow: false})}, "2000"))
         }).catch((err) => {
             console.log(err)
             setModalValidation({...modalValidation, isShow: true, type: "Error"})

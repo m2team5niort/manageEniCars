@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { CheckCircleIcon } from '@heroicons/react/solid'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid'
 
 export default function ModalValidation({modalValidation, setModalValidation}) {
   let [isOpen, setIsOpen] = useState(true)
@@ -47,7 +47,7 @@ export default function ModalValidation({modalValidation, setModalValidation}) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-green-500 flex flex-col items-center justify-center"
                     >
-                    <CheckCircleIcon className='h-12 text-green-500'/>
+                    {modalValidation.type === "Success" ? <CheckCircleIcon className='h-12 text-green-500'/> : <XCircleIcon className='h-12 text-red-500'/>}
                     {modalValidation.type === "Success" ? 'Succès' : 'Erreur'}
                   </Dialog.Title>
                   <div className="mt-6 text-center">
