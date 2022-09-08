@@ -37,6 +37,8 @@ export default function ListCarsLocation(){
         setSelected(location)
         fetchLocationCars(location)
     }
+
+    console.log(locationCars)
     
     return(
         <>
@@ -138,10 +140,10 @@ export default function ListCarsLocation(){
                                         <span className="text-dark text-md font-semi-bold mr-2"> {car.places} </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> Nantes </span>
+                                        <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.key.location.name} </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> C4 </span>
+                                        <span className="bg-blue-500 text-white text-md font-semi-bold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-green-900"> {car.key.car.name} </span>
                                     </td>
                                 </tr>
                             ))
