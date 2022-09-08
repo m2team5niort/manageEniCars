@@ -32,7 +32,9 @@ export async function getServerSideProps({ req, res }) {
     const apiDataUsers = await API.graphql({ query: listUsers});
     const apiDataUser = await API.graphql({ query: getUser, variables: { id } });
 
-    if (!apiDataUser.data.getUser.isAdmin) {
+    console.log(apiDataUser)
+
+    if (apiDataUser.data.getUser && apiDataUser.data.getUser.isAdmin === false) {
       res.writeHead(302, { Location: '/myspace' })
       res.end()
     }
