@@ -112,8 +112,11 @@ export default function Key() {
                                     <th scope="col-1" className="px-6 py-3">
                                         #
                                     </th>
-                                    <th scope="col-3" className="px-6 py-3">
+                                    <th scope="col-2" className="px-6 py-3">
                                         Nom de la voiture
+                                    </th>
+                                    <th scope="col-4" className="px-6 py-3">
+                                        Immatriculation
                                     </th>
                                     <th scope="col-4" className="px-6 py-3">
                                         Nom du lieu
@@ -132,6 +135,9 @@ export default function Key() {
                                             </th>
                                             <td className="px-6 py-4 whitespace-nowrap text-eni font-bold">
                                                 {key.car !== null ? key.car.name : 'Clé sans voiture'}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="flex justify-center bg-white text-black text-md font-semi-bold mr-2 py-0.5 rounded border-x-8 border-blue-500 shadow-sm w-48"> {key.car.numberPlate} </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-eni font-light">
                                             {key.location !== null ? key.location.name : 'Clé sans lieu'}

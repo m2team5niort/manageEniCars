@@ -26,7 +26,6 @@ export default function ListCarsLocation(){
     }
 
     async function fetchLocationCars({id}){
-        console.log(id)
         await API.graphql({ query: getLocation, variables: { id: id  } }).then((res) => {
             console.log(res.data.getLocation)
             setLocationCars(res.data.getLocation.cars.items)
